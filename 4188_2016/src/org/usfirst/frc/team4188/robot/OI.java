@@ -1,5 +1,13 @@
 package org.usfirst.frc.team4188.robot;
 
+
+
+import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
+import org.usfirst.frc.team4188.robot.commands.RandomRelayForward;
+import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
+import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
+import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -40,6 +48,7 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
 	public CHSJoystick pilotJoystick;
+	public CHSJoystick copilotJoystick;
 	
 	public JoystickButton pilot1;
 	public JoystickButton pilot2;
@@ -54,12 +63,25 @@ public class OI {
 	public JoystickButton pilot11;
 	public JoystickButton pilot12;
 	
+	 	public JoystickButton copilot1;
+	    public JoystickButton copilot2;
+	    public JoystickButton copilot3;
+	    public JoystickButton copilot4;
+	    public JoystickButton copilot5;
+	    public JoystickButton copilot6;
+	    public JoystickButton copilot7;
+	    public JoystickButton copilot8;
+	    public JoystickButton copilot9;
+	    public JoystickButton copilot10;
+	    public JoystickButton copilot11;
 
 	
 
 
 public OI(){
 	pilotJoystick = new CHSJoystick(0,4,12,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+	copilotJoystick = new CHSJoystick(1,3,11,-5,5,1,1,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+	
 	
 	pilot1 = new JoystickButton(pilotJoystick, 1);
     pilot2 = new JoystickButton(pilotJoystick, 2);
@@ -74,6 +96,28 @@ public OI(){
     pilot11 = new JoystickButton(pilotJoystick, 11);
     pilot12 = new JoystickButton(pilotJoystick, 12);
 	
+    
+    
+    copilot1 = new JoystickButton(copilotJoystick, 1);
+    copilot2 = new JoystickButton(copilotJoystick, 2);
+    copilot3 = new JoystickButton(copilotJoystick, 3);
+    copilot4 = new JoystickButton(copilotJoystick, 4);
+    copilot5 = new JoystickButton(copilotJoystick, 5);
+    copilot6 = new JoystickButton(copilotJoystick, 6);
+    copilot7 = new JoystickButton(copilotJoystick, 7);
+    copilot8 = new JoystickButton(copilotJoystick, 8);
+    copilot9 = new JoystickButton(copilotJoystick, 9);
+    copilot10 = new JoystickButton(copilotJoystick, 10);
+    copilot11 = new JoystickButton(copilotJoystick, 11);
+    
+    
+    
+    copilot4.whileHeld(new EjectBallLowGoal());
+    copilot5.whileHeld(new RetrieveBall());
+	copilot3.whenPressed(new RetrieverOut());
+	copilot2.whenPressed(new RetrieverIn());
+	
+	copilot1.whileHeld(new RandomRelayForward());
 	
 	
 	}
@@ -81,10 +125,13 @@ public OI(){
 
 
 
-public Joystick getpilotJoystick(){
-	return pilotJoystick;
+	public Joystick getpilotJoystick(){
+		return pilotJoystick;
 	}
-
+	
+	public Joystick getcopilotJoystick(){
+		return copilotJoystick;
+}
 
 
 

@@ -8,8 +8,8 @@ import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -22,11 +22,14 @@ public class DriveTrain extends Subsystem {
 
 
     
-    CHSRobotDrive robotDrive = RobotMap.driveBase;
+    RobotDrive robotDrive = RobotMap.driveBase;
+    RobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
 	CANTalon frontLeft = RobotMap.frontLeft;
 	CANTalon frontRight = RobotMap.frontRight;
 	CANTalon rearLeft = RobotMap.rearLeft;
 	CANTalon rearRight = RobotMap.rearRight;
+	CANTalon middleLeft = RobotMap.middleLeft;
+	CANTalon middleRight = RobotMap.middleRight;
 	AnalogGyro gyro = RobotMap.driveTrainGyro;
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
@@ -42,24 +45,14 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new ManualDrive());
 	}
 	
-	public void driveWithJoystick(double x, double y, double throttle){
-        robotDrive.arcadeDrive(x*throttle, y*throttle);
+	public void driveWithJoystick(double y, double x, double throttle){
+        robotDrive.arcadeDrive(y*throttle, x*throttle);
+        robotDriveMiddle.arcadeDrive(y*throttle, x*throttle);
+        
     }
 	
-	public void slowAccelerate(){
-		this.setRampRate(2.5);	// 0 - 12 volts in 4.8 seconds (12/2.5=4.8) 
-	}
 	
-	public void fastAccelerate(){
-		this.setRampRate(100);	// 0 - 12 volts in .12 seconds (12/100=.12)
-	}
 	
-	public void setRampRate(double rampRate) {
-		frontLeft.setVoltageRampRate(rampRate);
-		frontRight.setVoltageRampRate(rampRate);
-		rearLeft.setVoltageRampRate(rampRate);
-		rearRight.setVoltageRampRate(rampRate);
-	}
 	
 	public double getEncoderFR(){
 		return frontRight.getEncPosition();
@@ -77,11 +70,20 @@ public class DriveTrain extends Subsystem {
 		return rearLeft.getEncPosition();
 	}
 	
+	public double getEncoderML(){
+		return middleLeft.getEncPosition();
+	}
+	public double getEncoderMR(){
+		return middleRight.getEncPosition();
+	}
+	
 	public void resetEncoders() {
         frontLeft.setPosition(0);
         frontRight.setPosition(0);
         rearLeft.setPosition(0);
         rearRight.setPosition(0);
+        middleLeft.setPosition(0);
+        middleRight.setPosition(0);
 	}
 	
 	public double getDistance(){	// Returns value in inches
@@ -89,7 +91,9 @@ public class DriveTrain extends Subsystem {
 		double frontRight = -Robot.drivetrain.getEncoderFR();
 		double rearLeft = Robot.drivetrain.getEncoderRL();
 		double rearRight = -Robot.drivetrain.getEncoderRR();
-        return ((frontLeft + frontRight + rearLeft + rearRight) / 4.0) / TICK_DISTANCE;
+		double middleLeft = Robot.drivetrain.getEncoderML();
+		double middleRight = Robot.drivetrain.getEncoderMR();
+        return ((frontLeft + frontRight + rearLeft + rearRight + middleLeft + middleRight) / 4.0) / TICK_DISTANCE;
 	}
 	
 	public void getEncoderValues(){        
@@ -101,6 +105,7 @@ public class DriveTrain extends Subsystem {
 
 	public void autoDrive(double moveValue, double rotateValue){
 		robotDrive.arcadeDrive(moveValue, rotateValue);
+		robotDriveMiddle.arcadeDrive(moveValue, rotateValue);
 	}
 	
     

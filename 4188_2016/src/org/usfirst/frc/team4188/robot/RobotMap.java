@@ -2,7 +2,10 @@ package org.usfirst.frc.team4188.robot;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -22,23 +25,42 @@ public class RobotMap {
     // public static int rangefinderModule = 1;
 	
 	
-public static CHSRobotDrive driveBase;
+public static RobotDrive driveBase;
+public static RobotDrive driveBaseMiddle;
 public static CANTalon frontLeft;
 public static CANTalon frontRight;
 public static CANTalon rearLeft;
 public static CANTalon rearRight;
+public static CANTalon middleLeft;
+public static CANTalon middleRight;
+
+
+
+public static DoubleSolenoid retrieverDoubleSolenoid;
+public static Relay retrieverRelay;
+public static Compressor compressor;
+
 
 public static AnalogGyro driveTrainGyro;
 
 public static Relay cameraLightRelay;
+
+public static Relay randomRelay;
+
+
+
+
+
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
 	
 	frontLeft = new CANTalon(0);
-	frontRight = new CANTalon(1);
+	frontRight = new CANTalon(3);
 	rearLeft = new CANTalon(2);
-	rearRight = new CANTalon(3);
+	rearRight = new CANTalon(5);
+	middleLeft = new CANTalon(1);
+	middleRight = new CANTalon(4);
 	
 	frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	frontRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
@@ -46,11 +68,26 @@ public static void init(){
 	rearRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 	
-	driveBase = new CHSRobotDrive (frontLeft, rearLeft, frontRight, rearRight);
+	driveBase = new RobotDrive (frontLeft, rearLeft, frontRight, rearRight);
+	driveBaseMiddle = new RobotDrive(middleLeft, middleRight);
+	
+
+	driveBaseMiddle.setSafetyEnabled(false);
+	driveBaseMiddle.setExpiration(0.1);
+	driveBaseMiddle.setSensitivity(0.5);
+	driveBaseMiddle.setMaxOutput(1.0);
+	
 	driveBase.setSafetyEnabled(false);
 	driveBase.setExpiration(0.1);
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
+	
+	
+	compressor = new Compressor(0);
+	retrieverDoubleSolenoid = new DoubleSolenoid(0,0,0);
+	retrieverRelay = new Relay(0);
+	
+	randomRelay = new Relay(1);
 	
 	
 }

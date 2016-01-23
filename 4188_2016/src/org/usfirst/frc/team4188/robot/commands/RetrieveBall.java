@@ -2,20 +2,17 @@ package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ManualDrive extends Command {
+public class RetrieveBall extends Command {
 
-    Joystick pilotStick = Robot.oi.pilotJoystick;
-	
-	public ManualDrive() {
+    public RetrieveBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);
+    	requires(Robot.robotRetriever);
     }
 
     // Called just before this Command runs the first time
@@ -24,8 +21,7 @@ public class ManualDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	Robot.drivetrain.driveWithJoystick(pilotStick.getY(), pilotStick.getTwist(), pilotStick.getThrottle());
+    	Robot.robotRetriever.retrieveBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
