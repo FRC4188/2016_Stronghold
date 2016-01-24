@@ -169,11 +169,11 @@ public class CHSJoystick extends Joystick {
         else
         {
             // Multiply inputs.
-            for(int i = 0; i<twistScale; i++) {
+            for(int i = 0; i < twistScale; i++) {
                 twist *= Math.abs(twist);
             }
             // Multiply by max output.
-            twist*=twistMaxSpeedPercent;
+            twist *= twistMaxSpeedPercent;
         }
        
         return twist;
@@ -193,8 +193,8 @@ public class CHSJoystick extends Joystick {
         double throttle = super.getRawAxis(throttleAxis);
         
         // Convert throttle from [1,-1] to [1,0].
-        throttle=((throttle-1)/(-2));
-        throttle=((throttle*throttle*0.8)+0.2);
+        throttle = ((throttle - 1) / (-2));
+        throttle = ((throttle*throttle*0.8)+0.2);
         
         return throttle;
     }
@@ -207,9 +207,8 @@ public class CHSJoystick extends Joystick {
      * @param hand Unused.
      * @return The twist/throttle/Z value of the joystick.
      */
-    public double getZ(GenericHID.Hand hand)
-    {
-        if(numberOfAxes>3)
+    public double getZ(GenericHID.Hand hand) {
+        if (numberOfAxes > 3)
             return getTwist();
         return getThrottle();
     }
