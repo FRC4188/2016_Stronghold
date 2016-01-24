@@ -55,8 +55,8 @@ public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
 	
-	frontLeft = new CANTalon(0);
-	frontRight = new CANTalon(3);
+	frontLeft = new CANTalon(11);
+	frontRight = new CANTalon(13);
 	rearLeft = new CANTalon(2);
 	rearRight = new CANTalon(5);
 	middleLeft = new CANTalon(1);
@@ -84,7 +84,7 @@ public static void init(){
 	
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoid = new DoubleSolenoid(0,0,0);
+	retrieverDoubleSolenoid = new DoubleSolenoid(1,2);
 	retrieverRelay = new Relay(0);
 	
 	randomRelay = new Relay(1);

@@ -50,18 +50,20 @@ public class Retriever extends Subsystem {
     
     public void deployRetriever(){
     	retrieverSolenoid.set(DoubleSolenoid.Value.kForward);
-    	Timer.delay(PNEUMATIC_DELAY_SECONDS);
-    	retrieverSolenoid.set(DoubleSolenoid.Value.kOff);
+   
     }
     
     public void retractRetriever(){
     	retrieverSolenoid.set(DoubleSolenoid.Value.kReverse);
-    	Timer.delay(PNEUMATIC_DELAY_SECONDS);
-    	retrieverSolenoid.set(DoubleSolenoid.Value.kOff);
+    	
     }
     
     public void doNothing (){
     	retrieverRelay.set(Relay.Value.kOff);
+    }
+    
+    public void doNothingRetrieverSolenoid(){
+    	retrieverSolenoid.set(DoubleSolenoid.Value.kOff);
     }
     
 }

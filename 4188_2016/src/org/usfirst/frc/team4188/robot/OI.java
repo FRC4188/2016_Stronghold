@@ -3,16 +3,16 @@ package org.usfirst.frc.team4188.robot;
 
 
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
+import org.usfirst.frc.team4188.robot.commands.RandomRelayBackward;
 import org.usfirst.frc.team4188.robot.commands.RandomRelayForward;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.buttons.*;
+
 
 
 /**
@@ -118,7 +118,7 @@ public OI(){
 	copilot2.whenPressed(new RetrieverIn());
 	
 	copilot1.whileHeld(new RandomRelayForward());
-	
+	copilot2.whileHeld(new RandomRelayBackward());
 	
 	}
 

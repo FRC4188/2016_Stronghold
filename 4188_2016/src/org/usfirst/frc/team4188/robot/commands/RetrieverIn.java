@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class RetrieverIn extends Command {
+	
+	public boolean doneYet;
 
     public RetrieverIn() {
         // Use requires() here to declare subsystem dependencies
@@ -23,17 +25,19 @@ public class RetrieverIn extends Command {
     protected void execute() {
     	
     	Robot.robotRetriever.retractRetriever();
-    	
+    	Robot.robotRetriever.doNothingRetrieverSolenoid();
+    	doneYet = true;
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return doneYet;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	doneYet = false;
     }
 
     // Called when another command which requires one or more of the same

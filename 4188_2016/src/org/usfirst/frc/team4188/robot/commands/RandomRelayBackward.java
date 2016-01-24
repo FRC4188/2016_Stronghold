@@ -1,16 +1,17 @@
 package org.usfirst.frc.team4188.robot.commands;
 
+import org.usfirst.frc.team4188.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RelaysOff extends Command {
+public class RandomRelayBackward extends Command {
 
-    public RelaysOff() {
+    public RandomRelayBackward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
     }
 
     // Called just before this Command runs the first time
@@ -19,6 +20,7 @@ public class RelaysOff extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.relays.randomRelayReverse();
     }
 
     // Make this return true when this Command no longer needs to run execute()
