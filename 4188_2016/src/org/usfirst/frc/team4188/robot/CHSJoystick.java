@@ -95,6 +95,104 @@ public class CHSJoystick extends Joystick {
         // Default to 5 axes, 12 buttons, no dead zones, no limit on max outputs, and squaring inputs.
         this(port, 5, 12, 0, 0, 2, 1, 0, 0, 2, 1, 0, 0, 2, 1);
     }
+    
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26
+     * @param XDZMin
+     * @param XDZMax
+     * @return
+     */
+    public CHSJoystick xDeadZone(double min, double max) {
+        XNegDeadZone = min;
+        XPosDeadZone = max;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param YDZMin
+     * @param YDZMax
+     * @return
+     */
+    public CHSJoystick yDeadZone(double min, double max) {
+        YNegDeadZone = min;
+        YPosDeadZone = max;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param xMult
+     * @return
+     */
+    public CHSJoystick xMult(int xMult) {
+        XScale = xMult;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param xMax
+     * @return
+     */
+    public CHSJoystick xMaxSpeed(double xMax) {
+        XMaxSpeedPercent = xMax;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param yMult
+     * @return
+     */
+    public CHSJoystick yMult(int yMult) {
+        YScale = yMult;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param yMax maximum speed, as a percentage.
+     * @return
+     */
+    public CHSJoystick yMaxSpeed(double yMax) {
+        YMaxSpeedPercent = yMax;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param twistDZMin
+     * @param twistDZMax
+     * @return
+     */
+    public CHSJoystick twistDeadZone(double twistDZMin, double twistDZMax) {
+        twistNegDeadZone = twistDZMin;
+        twistPosDeadZone = twistDZMax;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param twistMult
+     * @return
+     */
+    public CHSJoystick twistMult(int twistMult) {
+        twistScale = twistMult;
+        return this;
+    }
+    
+    /**
+     * Builder pattern.  DAR 2016 Jan 26.
+     * @param twistMax
+     * @return
+     */
+    public CHSJoystick twistMaxSpeed(double twistMax) {
+        twistMaxSpeedPercent = twistMax;
+        return this;
+    }
+
 
     /**
      * Get the X value of the current joystick.

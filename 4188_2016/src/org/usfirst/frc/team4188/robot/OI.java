@@ -76,11 +76,29 @@ public class OI {
 	    public JoystickButton copilot11;
 
 	
-
-
+	    private static final int PILOT_PORT = 0;
+	    private static final int PILOT_NUM_AXES = 4;
+	    private static final int PILOT_NUM_BUTTONS = 12;
+	    
+	    private static final int COPILOT_PORT = 1;
+	    private static final int COPILOT_NUM_AXES = 3;
+	    private static final int COPILOT_NUM_BUTTONS = 11;
+	    
 public OI(){
-	pilotJoystick = new CHSJoystick(0,4,12,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
-	copilotJoystick = new CHSJoystick(1,3,11,-5,5,1,1,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+	// the old way, with a zillion parameters.  Who can tell what these are?
+	//	pilotJoystick = new CHSJoystick(0,4,12,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+	//	copilotJoystick = new CHSJoystick(1,3,11,-5,5,1,1,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+
+	// New way, using the builder pattern to address the zillion faceless parameters.
+	pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
+	pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
+	pilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
+	pilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
+	
+	copilotJoystick = new CHSJoystick(COPILOT_PORT, PILOT_NUM_AXES, COPILOT_NUM_BUTTONS);
+	copilotJoystick.xDeadZone(-5,5).xMult(1).xMaxSpeed(1);
+	copilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
+	copilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
 	
 	
 	pilot1 = new JoystickButton(pilotJoystick, 1);
