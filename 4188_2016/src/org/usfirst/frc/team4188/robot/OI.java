@@ -63,80 +63,76 @@ public class OI {
 	public JoystickButton pilot11;
 	public JoystickButton pilot12;
 	
-	 	public JoystickButton copilot1;
-	    public JoystickButton copilot2;
-	    public JoystickButton copilot3;
-	    public JoystickButton copilot4;
-	    public JoystickButton copilot5;
-	    public JoystickButton copilot6;
-	    public JoystickButton copilot7;
-	    public JoystickButton copilot8;
-	    public JoystickButton copilot9;
-	    public JoystickButton copilot10;
-	    public JoystickButton copilot11;
+ 	public JoystickButton copilot1;
+    public JoystickButton copilot2;
+    public JoystickButton copilot3;
+    public JoystickButton copilot4;
+    public JoystickButton copilot5;
+    public JoystickButton copilot6;
+    public JoystickButton copilot7;
+    public JoystickButton copilot8;
+    public JoystickButton copilot9;
+    public JoystickButton copilot10;
+    public JoystickButton copilot11;
 
-	
-	    private static final int PILOT_PORT = 0;
-	    private static final int PILOT_NUM_AXES = 4;
-	    private static final int PILOT_NUM_BUTTONS = 12;
-	    
-	    private static final int COPILOT_PORT = 1;
-	    private static final int COPILOT_NUM_AXES = 3;
-	    private static final int COPILOT_NUM_BUTTONS = 11;
-	    
-public OI(){
-	// the old way, with a zillion parameters.  Who can tell what these are?
-	//	pilotJoystick = new CHSJoystick(0,4,12,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
-	//	copilotJoystick = new CHSJoystick(1,3,11,-5,5,1,1,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
 
-	// New way, using the builder pattern to address the zillion faceless parameters.
-	pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
-	pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
-	pilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
-	pilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
-	
-	copilotJoystick = new CHSJoystick(COPILOT_PORT, PILOT_NUM_AXES, COPILOT_NUM_BUTTONS);
-	copilotJoystick.xDeadZone(-5,5).xMult(1).xMaxSpeed(1);
-	copilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
-	copilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
-	
-	
-	pilot1 = new JoystickButton(pilotJoystick, 1);
-    pilot2 = new JoystickButton(pilotJoystick, 2);
-    pilot3 = new JoystickButton(pilotJoystick, 3);
-    pilot4 = new JoystickButton(pilotJoystick, 4);
-    pilot5 = new JoystickButton(pilotJoystick, 5);
-    pilot6 = new JoystickButton(pilotJoystick, 6);
-    pilot7 = new JoystickButton(pilotJoystick, 7);
-    pilot8 = new JoystickButton(pilotJoystick, 8);
-    pilot9 = new JoystickButton(pilotJoystick, 9);
-    pilot10 = new JoystickButton(pilotJoystick, 10);
-    pilot11 = new JoystickButton(pilotJoystick, 11);
-    pilot12 = new JoystickButton(pilotJoystick, 12);
-	
+    private static final int PILOT_PORT = 0;
+    private static final int PILOT_NUM_AXES = 4;
+    private static final int PILOT_NUM_BUTTONS = 12;
     
-    
-    copilot1 = new JoystickButton(copilotJoystick, 1);
-    copilot2 = new JoystickButton(copilotJoystick, 2);
-    copilot3 = new JoystickButton(copilotJoystick, 3);
-    copilot4 = new JoystickButton(copilotJoystick, 4);
-    copilot5 = new JoystickButton(copilotJoystick, 5);
-    copilot6 = new JoystickButton(copilotJoystick, 6);
-    copilot7 = new JoystickButton(copilotJoystick, 7);
-    copilot8 = new JoystickButton(copilotJoystick, 8);
-    copilot9 = new JoystickButton(copilotJoystick, 9);
-    copilot10 = new JoystickButton(copilotJoystick, 10);
-    copilot11 = new JoystickButton(copilotJoystick, 11);
-    
-    
-    
-    copilot4.whileHeld(new EjectBallLowGoal());
-    copilot5.whileHeld(new RetrieveBall());
-	copilot3.whenPressed(new RetrieverOut());
-	copilot2.whenPressed(new RetrieverIn());
+    private static final int COPILOT_PORT = 1;
+    private static final int COPILOT_NUM_AXES = 3;
+    private static final int COPILOT_NUM_BUTTONS = 11;
+	    
+    public OI(){
+		// the old way, with a zillion parameters.  Who can tell what these are?
+		//	pilotJoystick = new CHSJoystick(0,4,12,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
+		//	copilotJoystick = new CHSJoystick(1,3,11,-5,5,1,1,-12.0,12.0,1,1.0,-12.0,12.0,1,1.0);
 	
-	copilot1.whileHeld(new RandomRelayForward());
-	copilot2.whileHeld(new RandomRelayBackward());
+		// New way, using the builder pattern to address the zillion faceless parameters.
+		pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
+		pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
+		pilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
+		pilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
+		
+		copilotJoystick = new CHSJoystick(COPILOT_PORT, PILOT_NUM_AXES, COPILOT_NUM_BUTTONS);
+		copilotJoystick.xDeadZone(-5,5).xMult(1).xMaxSpeed(1);
+		copilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
+		copilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
+		
+		
+		pilot1 = new JoystickButton(pilotJoystick, 1);
+	    pilot2 = new JoystickButton(pilotJoystick, 2);
+	    pilot3 = new JoystickButton(pilotJoystick, 3);
+	    pilot4 = new JoystickButton(pilotJoystick, 4);
+	    pilot5 = new JoystickButton(pilotJoystick, 5);
+	    pilot6 = new JoystickButton(pilotJoystick, 6);
+	    pilot7 = new JoystickButton(pilotJoystick, 7);
+	    pilot8 = new JoystickButton(pilotJoystick, 8);
+	    pilot9 = new JoystickButton(pilotJoystick, 9);
+	    pilot10 = new JoystickButton(pilotJoystick, 10);
+	    pilot11 = new JoystickButton(pilotJoystick, 11);
+	    pilot12 = new JoystickButton(pilotJoystick, 12);
+	    
+	    copilot1 = new JoystickButton(copilotJoystick, 1);
+	    copilot2 = new JoystickButton(copilotJoystick, 2);
+	    copilot3 = new JoystickButton(copilotJoystick, 3);
+	    copilot4 = new JoystickButton(copilotJoystick, 4);
+	    copilot5 = new JoystickButton(copilotJoystick, 5);
+	    copilot6 = new JoystickButton(copilotJoystick, 6);
+	    copilot7 = new JoystickButton(copilotJoystick, 7);
+	    copilot8 = new JoystickButton(copilotJoystick, 8);
+	    copilot9 = new JoystickButton(copilotJoystick, 9);
+	    copilot10 = new JoystickButton(copilotJoystick, 10);
+	    copilot11 = new JoystickButton(copilotJoystick, 11);
+	    
+	    copilot4.whileHeld(new EjectBallLowGoal());
+	    copilot5.whileHeld(new RetrieveBall());
+		copilot3.whenPressed(new RetrieverOut());
+		copilot2.whenPressed(new RetrieverIn());
+		
+		copilot1.whileHeld(new RandomRelayForward());
+		copilot2.whileHeld(new RandomRelayBackward());
 	
 	}
 
