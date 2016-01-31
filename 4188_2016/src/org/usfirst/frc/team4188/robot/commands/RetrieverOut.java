@@ -25,7 +25,7 @@ public class RetrieverOut extends Command {
     protected void execute() {
     	
     	Robot.robotRetriever.deployRetriever();
-    	Robot.robotRetriever.doNothingRetrieverSolenoid();
+    	
     	doneYet = true;
     }
 

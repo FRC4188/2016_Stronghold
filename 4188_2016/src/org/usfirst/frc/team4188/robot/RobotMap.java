@@ -34,7 +34,7 @@ public static CANTalon rearRight;
 public static CANTalon middleLeft;
 public static CANTalon middleRight;
 
-
+public static CANTalon shooter;
 
 public static DoubleSolenoid retrieverDoubleSolenoid;
 public static Relay retrieverRelay;
@@ -55,12 +55,12 @@ public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
 	
-	frontLeft = new CANTalon(11);
+	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
-	rearLeft = new CANTalon(2);
-	rearRight = new CANTalon(5);
-	middleLeft = new CANTalon(1);
-	middleRight = new CANTalon(4);
+	rearLeft = new CANTalon(12);
+	rearRight = new CANTalon(15);
+	middleLeft = new CANTalon(11);
+	middleRight = new CANTalon(14);
 	
 	frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	frontRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
@@ -82,6 +82,7 @@ public static void init(){
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
 	
+	shooter = new CANTalon(16);
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoid = new DoubleSolenoid(1,2);

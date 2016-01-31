@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.Relays;
 import org.usfirst.frc.team4188.robot.subsystems.Retriever;
+import org.usfirst.frc.team4188.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,7 +27,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Retriever robotRetriever;
 	public static Relays relays;
-
+	public static Shooter robotShooter;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -39,6 +40,7 @@ public class Robot extends IterativeRobot {
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
 		relays = new Relays();
+		robotShooter = new Shooter();
         chooser = new SendableChooser();
         oi = new OI();
         //chooser.addDefault("Default Auto", new ExampleCommand());
