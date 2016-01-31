@@ -12,7 +12,6 @@ import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
 import org.usfirst.frc.team4188.robot.commands.ShooterBackward;
 import org.usfirst.frc.team4188.robot.commands.ShooterForward;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.*;
 
@@ -78,6 +77,8 @@ public class OI {
     public JoystickButton copilot10;
     public JoystickButton copilot11;
 
+    CameraServer camServer;
+
 
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -139,6 +140,11 @@ public class OI {
 		
 		copilot6.whileHeld(new RandomRelayForward());
 		copilot7.whileHeld(new RandomRelayBackward());
+		
+		camServer = CameraServer.getInstance();
+        camServer.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        camServer.startAutomaticCapture("cam0");
 	
 	}
 
