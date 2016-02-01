@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot;
 
 
 
+import org.usfirst.frc.team4188.robot.commands.DoNothingRelay;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
 import org.usfirst.frc.team4188.robot.commands.RandomRelayBackward;
@@ -127,8 +128,11 @@ public class OI {
 	    copilot11 = new JoystickButton(copilotJoystick, 11);
 	    
 	    
-	    copilot4.whileHeld(new EjectBallLowGoal());
-	    copilot5.whileHeld(new RetrieveBall());
+	    //copilot4.whileHeld(new EjectBallLowGoal());
+	    //copilot5.whileHeld(new RetrieveBall());
+	    copilot4.toggleWhenPressed(new RandomRelayForward());
+	    copilot5.toggleWhenPressed(new RandomRelayBackward());
+	    
 	    copilot3.whileHeld(new RetrieverOut());
 	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
 		copilot2.whileHeld(new RetrieverIn());
