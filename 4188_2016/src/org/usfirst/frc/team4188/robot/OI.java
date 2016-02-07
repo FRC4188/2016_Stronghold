@@ -131,19 +131,19 @@ public class OI {
 	    copilot11 = new JoystickButton(copilotJoystick, 11);
 	    
 	    
-	    //copilot4.whileHeld(new EjectBallLowGoal());
-	    //copilot5.whileHeld(new RetrieveBall());
+	    copilot4.whileHeld(new EjectBallLowGoal());
+	    copilot5.whileHeld(new RetrieveBall());
 	    copilot4.toggleWhenPressed(new RandomRelayForward());
 	    copilot5.toggleWhenPressed(new DoNothingRelay());
 	    
-	    //copilot3.whileHeld(new RetrieverOut());
-	    //copilot3.whenReleased(new DoNothingRetrieverSolenoid());
-		//copilot2.whileHeld(new RetrieverIn());
-		//copilot2.whenReleased(new DoNothingRetrieverSolenoid());
+	    copilot3.whileHeld(new RetrieverOut());
+	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
+		copilot2.whileHeld(new RetrieverIn());
+		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
 
 		
 		copilot1.whileHeld(new RunShooterMotors());
-		copilot1.whenReleased(new ShooterDoNothing());
+		//copilot1.whenReleased(new ShooterDoNothing());
 		
 		copilot9.whileHeld(new ShooterBackward());
 		
@@ -154,7 +154,7 @@ public class OI {
         camServer.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camServer.startAutomaticCapture(LIFECAM_USB_CAM);
-	
+
 	}
 
 
