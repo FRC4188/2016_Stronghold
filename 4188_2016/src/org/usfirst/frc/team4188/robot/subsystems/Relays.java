@@ -17,6 +17,7 @@ public class Relays extends Subsystem {
     // here. Call these from Commands.
 	
 	Relay randomRelay = RobotMap.randomRelay;
+	
 
 	public void init(){
 		
@@ -26,8 +27,7 @@ public class Relays extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	
-    	setDefaultCommand(new DoNothingRelay());
-    	
+    
     }
     
     public void randomRelayForward(){

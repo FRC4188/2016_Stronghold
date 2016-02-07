@@ -10,7 +10,9 @@ import org.usfirst.frc.team4188.robot.commands.RandomRelayForward;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
+import org.usfirst.frc.team4188.robot.commands.RunShooterMotors;
 import org.usfirst.frc.team4188.robot.commands.ShooterBackward;
+import org.usfirst.frc.team4188.robot.commands.ShooterDoNothing;
 import org.usfirst.frc.team4188.robot.commands.ShooterForward;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -132,15 +134,17 @@ public class OI {
 	    //copilot4.whileHeld(new EjectBallLowGoal());
 	    //copilot5.whileHeld(new RetrieveBall());
 	    copilot4.toggleWhenPressed(new RandomRelayForward());
-	    copilot5.toggleWhenPressed(new RandomRelayBackward());
+	    copilot5.toggleWhenPressed(new DoNothingRelay());
 	    
-	    copilot3.whileHeld(new RetrieverOut());
-	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
-		copilot2.whileHeld(new RetrieverIn());
-		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
+	    //copilot3.whileHeld(new RetrieverOut());
+	    //copilot3.whenReleased(new DoNothingRetrieverSolenoid());
+		//copilot2.whileHeld(new RetrieverIn());
+		//copilot2.whenReleased(new DoNothingRetrieverSolenoid());
 
 		
-		copilot1.whileHeld(new ShooterForward());
+		copilot1.whileHeld(new RunShooterMotors());
+		copilot1.whenReleased(new ShooterDoNothing());
+		
 		copilot9.whileHeld(new ShooterBackward());
 		
 		copilot6.whileHeld(new RandomRelayForward());

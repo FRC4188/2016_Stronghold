@@ -14,28 +14,35 @@ public class Shooter extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	CANTalon shooterMotor = RobotMap.shooter;
-	
+	CANTalon shooterMotorRight = RobotMap.shooterRight;
+	CANTalon shooterMotorLeft = RobotMap.shooterLeft;
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	
-    	setDefaultCommand(new ShooterDoNothing());
     	
     	
     }
     
-    public void runShooterMotorWithThrottleForward(double throttle){
-    	shooterMotor.set(1*throttle);
+    public void runShooterMotorRightWithThrottleForward(double throttle){
+    	shooterMotorRight.set(1*throttle);
     	
     }
-    public void runShooterMotorWithThrottleBackward(double throttle){
-    	shooterMotor.set(-1*throttle);
+    public void runShooterMotorRightWithThrottleBackward(double throttle){
+    	shooterMotorRight.set(-1*throttle);
+    }
+    
+    public void runShootorMotors(double throttle)
+    {
+    	double newThrottle = (throttle+1)/2;
+    	shooterMotorRight.set(-1*newThrottle);
+    	shooterMotorLeft.set(1*newThrottle);
     }
 
 	public void shooterOff() {
-		shooterMotor.set(0);
+		shooterMotorRight.set(0);
+		shooterMotorLeft.set(0);
 	}
 
 

@@ -34,7 +34,8 @@ public static CANTalon rearRight;
 public static CANTalon middleLeft;
 public static CANTalon middleRight;
 
-public static CANTalon shooter;
+public static CANTalon shooterRight;
+public static CANTalon shooterLeft;
 
 public static DoubleSolenoid retrieverDoubleSolenoid;
 public static Relay retrieverRelay;
@@ -82,7 +83,8 @@ public static void init(){
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
 	
-	shooter = new CANTalon(16);
+	shooterRight = new CANTalon(16);
+	shooterLeft = new CANTalon(17);
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoid = new DoubleSolenoid(1,2);
