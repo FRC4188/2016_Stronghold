@@ -1,15 +1,13 @@
 package org.usfirst.frc.team4188.robot.commands;
 
-import org.usfirst.frc.team4188.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RandomRelayForward extends Command {
+public class CameraLightsOff extends Command {
 
-    public RandomRelayForward() {
+    public CameraLightsOff() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,22 +18,20 @@ public class RandomRelayForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.relays.randomRelayForward();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.relays.randomRelayOff();
- 
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

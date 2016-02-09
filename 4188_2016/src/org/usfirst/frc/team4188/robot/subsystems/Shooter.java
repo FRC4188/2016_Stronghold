@@ -45,6 +45,11 @@ public class Shooter extends Subsystem {
 		shooterMotorLeft.set(0);
 	}
 
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
 

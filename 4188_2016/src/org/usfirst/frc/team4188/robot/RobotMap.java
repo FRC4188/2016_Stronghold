@@ -33,20 +33,23 @@ public static CANTalon rearLeft;
 public static CANTalon rearRight;
 public static CANTalon middleLeft;
 public static CANTalon middleRight;
+public static DoubleSolenoid gearShift;
 
 public static CANTalon shooterRight;
 public static CANTalon shooterLeft;
 
-public static DoubleSolenoid retrieverDoubleSolenoid;
-public static Relay retrieverRelay;
+public static DoubleSolenoid retrieverDoubleSolenoidRight;
+public static DoubleSolenoid retrieverDoubleSolenoidLeft;
+public static Relay retrieverRelayOuter;
+public static Relay retrieverRelayInner;
 public static Compressor compressor;
 
+public static Relay scalerRelayRight;
+public static Relay scalerRelayLeft;
 
 public static AnalogGyro driveTrainGyro;
 
 public static Relay cameraLightRelay;
-
-public static Relay randomRelay;
 
 
 
@@ -55,6 +58,7 @@ public static Relay randomRelay;
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
+	gearShift = new DoubleSolenoid(1,2);
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -87,10 +91,15 @@ public static void init(){
 	shooterLeft = new CANTalon(17);
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoid = new DoubleSolenoid(1,2);
-	retrieverRelay = new Relay(0);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(1,2);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(1,2);
+	retrieverRelayOuter = new Relay(0);
+	retrieverRelayInner = new Relay(2);
 	
-	randomRelay = new Relay(1);
+	cameraLightRelay = new Relay(1);
+	
+	scalerRelayRight = new Relay(3);
+	scalerRelayLeft = new Relay(4);
 	
 	
 }

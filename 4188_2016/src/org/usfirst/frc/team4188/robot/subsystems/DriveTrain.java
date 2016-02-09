@@ -8,6 +8,8 @@ import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +24,7 @@ public class DriveTrain extends Subsystem {
 
 	// DAR Test.
 
-    
+    DoubleSolenoid gearShift = RobotMap.gearShift;
     RobotDrive robotDrive = RobotMap.driveBase;
     RobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
 	CANTalon frontLeft = RobotMap.frontLeft;
@@ -109,7 +111,16 @@ public class DriveTrain extends Subsystem {
 		robotDriveMiddle.arcadeDrive(moveValue, rotateValue);
 	}
 	
-    
+	public void shiftGearForward(){
+		gearShift.set(DoubleSolenoid.Value.kForward);
+	}
+	public void shiftGearBackward(){
+		gearShift.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public void gearShiftDoNothing(){
+		gearShift.set(DoubleSolenoid.Value.kOff);
+	}
 }
     
     

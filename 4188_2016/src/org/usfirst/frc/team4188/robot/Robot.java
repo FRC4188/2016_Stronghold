@@ -1,16 +1,18 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import java.io.IOException;
+
+import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
+import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4188.robot.subsystems.Retriever;
+import org.usfirst.frc.team4188.robot.subsystems.Scaler;
+import org.usfirst.frc.team4188.robot.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4188.robot.subsystems.Relays;
-import org.usfirst.frc.team4188.robot.subsystems.Retriever;
-import org.usfirst.frc.team4188.robot.subsystems.Shooter;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,8 +28,9 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
-	public static Relays relays;
+	public static CameraLights cameraLights;
 	public static Shooter robotShooter;
+	public static Scaler robotScaler;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -39,8 +42,9 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
-		relays = new Relays();
+		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
+		robotScaler = new Scaler();
         chooser = new SendableChooser();
         oi = new OI();
         //chooser.addDefault("Default Auto", new ExampleCommand());
@@ -49,11 +53,22 @@ public class Robot extends IterativeRobot {
         
         drivetrain.init();
         robotRetriever.init();
-        relays.init();
+        robotShooter.init();
+        cameraLights.init();
+        robotScaler.init();
         
         
         
+        try {
+            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+        
+        
+        
+
 	
 	/**
      * This function is called once each time the robot enters Disabled mode.
@@ -81,7 +96,7 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = (Command) chooser.getSelected();
       
         Robot.drivetrain.resetEncoders();
-        
+        Robot.robotShooter.runShootorMotors(Robot.oi.copilotJoystick.getZ());
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {

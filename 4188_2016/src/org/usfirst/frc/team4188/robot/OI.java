@@ -2,15 +2,18 @@ package org.usfirst.frc.team4188.robot;
 
 
 
-import org.usfirst.frc.team4188.robot.commands.DoNothingRelay;
+import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
-import org.usfirst.frc.team4188.robot.commands.RandomRelayBackward;
-import org.usfirst.frc.team4188.robot.commands.RandomRelayForward;
+import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotors;
+import org.usfirst.frc.team4188.robot.commands.ScalerDown;
+import org.usfirst.frc.team4188.robot.commands.ScalerUp;
+import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearBackward;
+import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearForward;
 import org.usfirst.frc.team4188.robot.commands.ShooterBackward;
 import org.usfirst.frc.team4188.robot.commands.ShooterDoNothing;
 import org.usfirst.frc.team4188.robot.commands.ShooterForward;
@@ -131,10 +134,19 @@ public class OI {
 	    copilot11 = new JoystickButton(copilotJoystick, 11);
 	    
 	    
+	    
+	    pilot12.whileHeld(new ShiftDriveGearForward());
+	    pilot12.whenReleased(new GearShiftDoNothing());
+	    pilot11.whileHeld(new ShiftDriveGearBackward());
+	    pilot11.whenReleased(new GearShiftDoNothing());
+	    
+	    
 	    copilot4.whileHeld(new EjectBallLowGoal());
 	    copilot5.whileHeld(new RetrieveBall());
-	    copilot4.toggleWhenPressed(new RandomRelayForward());
-	    copilot5.toggleWhenPressed(new DoNothingRelay());
+	    //copilot4.toggleWhenPressed(new CameraLightsOn());
+	    
+	    copilot11.whileHeld(new ScalerUp());
+	    copilot10.whileHeld(new ScalerDown());
 	    
 	    copilot3.whileHeld(new RetrieverOut());
 	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
@@ -142,13 +154,15 @@ public class OI {
 		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
 
 		
-		copilot1.whileHeld(new RunShooterMotors());
+		copilot1.whenPressed(new ShooterDoNothing());
+		copilot8.cancelWhenPressed(new ShooterDoNothing());
 		//copilot1.whenReleased(new ShooterDoNothing());
 		
+		copilot8.whileHeld(new RunShooterMotors());
 		copilot9.whileHeld(new ShooterBackward());
 		
-		copilot6.whileHeld(new RandomRelayForward());
-		copilot7.whileHeld(new RandomRelayBackward());
+		copilot6.whileHeld(new CameraLightsOn());
+		copilot7.toggleWhenPressed(new CameraLightsOn());
 		
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);

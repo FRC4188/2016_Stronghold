@@ -22,8 +22,10 @@ public class Retriever extends Subsystem {
 	private static final double PNEUMATIC_DELAY_SECONDS = 0.5;
 
 	
-	DoubleSolenoid retrieverSolenoid = RobotMap.retrieverDoubleSolenoid;
-	Relay retrieverRelay = RobotMap.retrieverRelay;
+	DoubleSolenoid retrieverSolenoidRight = RobotMap.retrieverDoubleSolenoidRight;
+	DoubleSolenoid retrieverSolenoidLeft = RobotMap.retrieverDoubleSolenoidLeft;
+	Relay retrieverRelayOuter = RobotMap.retrieverRelayOuter;
+	Relay retrieverRelayInner = RobotMap.retrieverRelayInner;
 	Compressor retrieverCompressor = RobotMap.compressor;
 	
 
@@ -35,35 +37,39 @@ public class Retriever extends Subsystem {
     
 
     public void init(){
-    	retrieverRelay.set(Relay.Value.kOff);
+    	retrieverRelayOuter.set(Relay.Value.kOff);
     	retrieverCompressor.start();
     	doNothing();
     }
     public void retrieveBall(){
-    	retrieverRelay.set(Relay.Value.kForward);
+    	retrieverRelayOuter.set(Relay.Value.kForward);
     	
     }
     
     public void ejectBall(){
-    	retrieverRelay.set(Relay.Value.kReverse);
+    	retrieverRelayOuter.set(Relay.Value.kReverse);
     }
     
     public void deployRetriever(){
-    	retrieverSolenoid.set(DoubleSolenoid.Value.kForward);
+    	retrieverSolenoidRight.set(DoubleSolenoid.Value.kForward);
+    	retrieverSolenoidLeft.set(DoubleSolenoid.Value.kForward);
    
     }
     
     public void retractRetriever(){
-    	retrieverSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	retrieverSolenoidRight.set(DoubleSolenoid.Value.kReverse);
+    	retrieverSolenoidLeft.set(DoubleSolenoid.Value.kReverse);
     	
     }
     
     public void doNothing (){
-    	retrieverRelay.set(Relay.Value.kOff);
+    	retrieverRelayOuter.set(Relay.Value.kOff);
     }
     
     public void doNothingRetrieverSolenoid(){
-    	retrieverSolenoid.set(DoubleSolenoid.Value.kOff);
+    	retrieverSolenoidRight.set(DoubleSolenoid.Value.kOff);
+    	retrieverSolenoidLeft.set(DoubleSolenoid.Value.kOff);
+    	
     }
     
 }
