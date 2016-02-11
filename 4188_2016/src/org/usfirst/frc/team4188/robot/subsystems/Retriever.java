@@ -21,7 +21,7 @@ public class Retriever extends Subsystem {
 	
 	private static final double PNEUMATIC_DELAY_SECONDS = 0.5;
 
-	
+
 	DoubleSolenoid retrieverSolenoidRight = RobotMap.retrieverDoubleSolenoidRight;
 	DoubleSolenoid retrieverSolenoidLeft = RobotMap.retrieverDoubleSolenoidLeft;
 	Relay retrieverRelayOuter = RobotMap.retrieverRelayOuter;
@@ -45,6 +45,7 @@ public class Retriever extends Subsystem {
     	retrieverRelayOuter.set(Relay.Value.kForward);
     	
     }
+    
     
     public void ejectBall(){
     	retrieverRelayOuter.set(Relay.Value.kReverse);

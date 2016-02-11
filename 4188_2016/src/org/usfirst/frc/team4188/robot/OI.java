@@ -153,13 +153,14 @@ public class OI {
 		copilot2.whileHeld(new RetrieverIn());
 		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
 
+	
 		
-		copilot1.whenPressed(new ShooterDoNothing());
-		copilot8.cancelWhenPressed(new ShooterDoNothing());
+		copilot8.whenPressed(new ShooterDoNothing());
+		copilot9.cancelWhenPressed(new ShooterDoNothing());
 		//copilot1.whenReleased(new ShooterDoNothing());
 		
-		copilot8.whileHeld(new RunShooterMotors());
-		copilot9.whileHeld(new ShooterBackward());
+		//copilot8.whileHeld(new RunShooterMotors());
+		//copilot9.whileHeld(new ShooterBackward());
 		
 		copilot6.whileHeld(new CameraLightsOn());
 		copilot7.toggleWhenPressed(new CameraLightsOn());

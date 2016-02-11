@@ -44,6 +44,7 @@ public static Relay retrieverRelayOuter;
 public static Relay retrieverRelayInner;
 public static Compressor compressor;
 
+
 public static Relay scalerRelayRight;
 public static Relay scalerRelayLeft;
 
@@ -58,7 +59,7 @@ public static Relay cameraLightRelay;
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
-	gearShift = new DoubleSolenoid(1,2);
+	gearShift = new DoubleSolenoid(5,6);
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -92,7 +93,7 @@ public static void init(){
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoidRight = new DoubleSolenoid(1,2);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(1,2);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(3,4);
 	retrieverRelayOuter = new Relay(0);
 	retrieverRelayInner = new Relay(2);
 	
