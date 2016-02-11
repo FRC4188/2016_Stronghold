@@ -46,7 +46,7 @@ public class Shooter extends Subsystem {
 	}
 
 	public void init() {
-		// TODO Auto-generated method stub
+		// TO DO Auto-generated method stub
 		
 	}
 

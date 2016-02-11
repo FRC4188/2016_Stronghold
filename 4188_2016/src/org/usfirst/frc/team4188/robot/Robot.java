@@ -10,9 +10,11 @@ import org.usfirst.frc.team4188.robot.subsystems.Scaler;
 import org.usfirst.frc.team4188.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -38,8 +40,27 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
+    
+    	NetworkTable table;
+    
+        public void Robot(){
+           table = NetworkTable.getTable("GRIP/myContoursReport");
+        }
+    
+    	public void robotInit() {
 		RobotMap.init();
+		
+	    double[] defaultValue = new double[0];
+		while(true){
+			double[]areas = table.getNumberArray("area", defaultValue);
+			System.out.print("areas :");
+			for(double area : areas){
+				System.out.print(area + " ");
+			}
+			System.out.println();
+			Timer.delay(1);
+		
+		
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
 		cameraLights = new CameraLights();
@@ -59,11 +80,12 @@ public class Robot extends IterativeRobot {
         
         
         
-        try {
+           try {
             new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+      }
     }
         
         
