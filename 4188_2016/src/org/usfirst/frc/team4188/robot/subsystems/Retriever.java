@@ -43,12 +43,14 @@ public class Retriever extends Subsystem {
     }
     public void retrieveBall(){
     	retrieverRelayOuter.set(Relay.Value.kForward);
+    	retrieverRelayInner.set(Relay.Value.kForward);
     	
     }
     
     
     public void ejectBall(){
     	retrieverRelayOuter.set(Relay.Value.kReverse);
+    	retrieverRelayInner.set(Relay.Value.kReverse);
     }
     
     public void deployRetriever(){
@@ -65,6 +67,7 @@ public class Retriever extends Subsystem {
     
     public void doNothing (){
     	retrieverRelayOuter.set(Relay.Value.kOff);
+    	retrieverRelayInner.set(Relay.Value.kOff);
     }
     
     public void doNothingRetrieverSolenoid(){

@@ -50,15 +50,7 @@ public class Robot extends IterativeRobot {
     	public void robotInit() {
 		RobotMap.init();
 		
-	    double[] defaultValue = new double[0];
-		while(true){
-			double[]areas = table.getNumberArray("area", defaultValue);
-			System.out.print("areas :");
-			for(double area : areas){
-				System.out.print(area + " ");
-			}
-			System.out.println();
-			Timer.delay(1);
+	   
 		
 		
 		drivetrain = new DriveTrain();
@@ -79,14 +71,11 @@ public class Robot extends IterativeRobot {
         robotScaler.init();
         
         
+        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getThrottle());
         
-           try {
-            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-      }
-    }
+    	}
+        
+          
         
         
         
@@ -118,7 +107,7 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = (Command) chooser.getSelected();
       
         Robot.drivetrain.resetEncoders();
-        Robot.robotShooter.runShootorMotors(Robot.oi.copilotJoystick.getZ());
+        Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getZ());
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {

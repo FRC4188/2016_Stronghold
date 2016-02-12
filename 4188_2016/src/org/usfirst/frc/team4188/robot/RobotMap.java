@@ -59,7 +59,7 @@ public static Relay cameraLightRelay;
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
-	gearShift = new DoubleSolenoid(5,6);
+	gearShift = new DoubleSolenoid(6,7);
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -92,15 +92,15 @@ public static void init(){
 	shooterLeft = new CANTalon(17);
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoidRight = new DoubleSolenoid(1,2);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(3,4);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(0,1);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
 	retrieverRelayOuter = new Relay(0);
 	retrieverRelayInner = new Relay(2);
 	
 	cameraLightRelay = new Relay(1);
 	
 	scalerRelayRight = new Relay(3);
-	scalerRelayLeft = new Relay(4);
+	//scalerRelayLeft = new Relay(4);
 	
 	
 }
