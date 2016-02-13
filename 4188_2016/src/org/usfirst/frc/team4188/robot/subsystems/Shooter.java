@@ -35,9 +35,9 @@ public class Shooter extends Subsystem {
     
     public void runShooterMotors(double throttle)
     {
-    	
-    	shooterMotorRight.set(throttle);
-    	shooterMotorLeft.set(throttle);
+    	double newThrottle = (throttle+1.0)/2.0;
+    	shooterMotorRight.set(newThrottle);
+    	shooterMotorLeft.set(newThrottle);
     }
 
 	public void shooterOff() {

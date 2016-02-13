@@ -43,9 +43,7 @@ public class Robot extends IterativeRobot {
     
     	NetworkTable table;
     
-        public void Robot(){
-           table = NetworkTable.getTable("GRIP/myContoursReport");
-        }
+       
     
     	public void robotInit() {
 		RobotMap.init();
@@ -71,7 +69,9 @@ public class Robot extends IterativeRobot {
         robotScaler.init();
         
         
-        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getThrottle());
+        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
+        
+        
         
     	}
         
@@ -107,7 +107,7 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = (Command) chooser.getSelected();
       
         Robot.drivetrain.resetEncoders();
-        Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getZ());
+        
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -148,6 +148,7 @@ public class Robot extends IterativeRobot {
         Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
+        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
     }
     
     /**

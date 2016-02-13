@@ -145,8 +145,8 @@ public class OI {
 	    copilot5.whileHeld(new RetrieveBall());
 	    //copilot4.toggleWhenPressed(new CameraLightsOn());
 	    
-	    copilot11.whileHeld(new ScalerUp());
-	    copilot10.whileHeld(new ScalerDown());
+	    //copilot11.whileHeld(new ScalerUp());
+	    //copilot10.whileHeld(new ScalerDown());
 	    
 	    copilot3.whileHeld(new RetrieverOut());
 	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
