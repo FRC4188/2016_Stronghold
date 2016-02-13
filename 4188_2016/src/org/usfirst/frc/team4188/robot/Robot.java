@@ -62,6 +62,11 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         
+        /*
+        chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));
+        chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,30));
+        */
+        
         drivetrain.init();
         robotRetriever.init();
         robotShooter.init();
