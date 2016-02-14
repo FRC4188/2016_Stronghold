@@ -308,7 +308,9 @@ public class CHSJoystick extends Joystick {
     public double getZ(GenericHID.Hand hand) {
         if (numberOfAxes > 3)
             return getTwist();
+        else{
         return getThrottle();
+        }
     }
 
     /**

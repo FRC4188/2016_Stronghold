@@ -42,7 +42,7 @@ public class Shooter extends Subsystem {
 
 	public void shooterOff() {
 		shooterMotorRight.set(0);
-		shooterMotorLeft.set(0);
+		shooterMotorLeft.set(0); 
 	}
 
 	public void init() {

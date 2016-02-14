@@ -3,7 +3,7 @@ package org.usfirst.frc.team4188.robot.subsystems;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetriever;
 
-
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
@@ -24,8 +24,8 @@ public class Retriever extends Subsystem {
 
 	DoubleSolenoid retrieverSolenoidRight = RobotMap.retrieverDoubleSolenoidRight;
 	DoubleSolenoid retrieverSolenoidLeft = RobotMap.retrieverDoubleSolenoidLeft;
-	Relay retrieverRelayOuter = RobotMap.retrieverRelayOuter;
-	Relay retrieverRelayInner = RobotMap.retrieverRelayInner;
+	CANTalon retrieverTalonOuter = RobotMap.retrieverTalonOuter;
+	CANTalon retrieverTalonInner = RobotMap.retrieverTalonInner;
 	Compressor retrieverCompressor = RobotMap.compressor;
 	
 
@@ -37,20 +37,21 @@ public class Retriever extends Subsystem {
     
 
     public void init(){
-    	retrieverRelayOuter.set(Relay.Value.kOff);
+    	retrieverTalonOuter.set(0);
+    	retrieverTalonInner.set(0);
     	retrieverCompressor.start();
     	doNothing();
     }
     public void retrieveBall(){
-    	retrieverRelayOuter.set(Relay.Value.kForward);
-    	retrieverRelayInner.set(Relay.Value.kForward);
+    	retrieverTalonOuter.set(0.5);
+    	retrieverTalonInner.set(0.5);
     	
     }
     
     
     public void ejectBall(){
-    	retrieverRelayOuter.set(Relay.Value.kReverse);
-    	retrieverRelayInner.set(Relay.Value.kReverse);
+    	retrieverTalonOuter.set(-0.5);
+    	retrieverTalonInner.set(-0.5);
     }
     
     public void deployRetriever(){
@@ -66,8 +67,8 @@ public class Retriever extends Subsystem {
     }
     
     public void doNothing (){
-    	retrieverRelayOuter.set(Relay.Value.kOff);
-    	retrieverRelayInner.set(Relay.Value.kOff);
+    	retrieverTalonOuter.set(0);
+    	retrieverTalonInner.set(0);
     }
     
     public void doNothingRetrieverSolenoid(){

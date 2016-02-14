@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,8 +14,8 @@ public class Scaler extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	Relay scalerRelayRight = RobotMap.scalerRelayRight;
-	Relay scalerRelayLeft = RobotMap.scalerRelayLeft;
+	CANTalon scalerTalonRight = RobotMap.scalerTalonRight;
+	CANTalon scalerTalonLeft = RobotMap.scalerTalonLeft;
 	
 	
     public void initDefaultCommand() {
@@ -27,22 +28,22 @@ public class Scaler extends Subsystem {
 		
 	}
 	
-	public void scalerRelaysUp()
+	public void scalerTalonsUp()
 	{
-		scalerRelayRight.set(Relay.Value.kForward);
-		scalerRelayLeft.set(Relay.Value.kReverse);
+		scalerTalonRight.set(-0.7);
+		scalerTalonLeft.set(0.7);
 	}
 
-	public void scalerRelaysDown()
+	public void scalerTalonsDown()
 	{
-		scalerRelayRight.set(Relay.Value.kReverse);
-		scalerRelayLeft.set(Relay.Value.kReverse);
+		scalerTalonRight.set(0.7);
+		scalerTalonLeft.set(-0.7);
 	}
 	
-	public void scalerRelaysOff()
+	public void scalerTalonsOff()
 	{
-		scalerRelayRight.set(Relay.Value.kOff);
-		scalerRelayLeft.set(Relay.Value.kOff);
+		scalerTalonRight.set(0);
+		scalerTalonLeft.set(0);
 	}
 }
 
