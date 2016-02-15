@@ -85,7 +85,7 @@ public class OI {
 
     CameraServer camServer;
 
-    private static final String LIFECAM_USB_CAM = "cam1";
+   // private static final String LIFECAM_USB_CAM = "cam1";
     
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -102,7 +102,7 @@ public class OI {
 		pilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
 		pilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
 		
-		copilotJoystick = new CHSJoystick(COPILOT_PORT, PILOT_NUM_AXES, COPILOT_NUM_BUTTONS);
+		copilotJoystick = new CHSJoystick(COPILOT_PORT, COPILOT_NUM_AXES, COPILOT_NUM_BUTTONS);
 		copilotJoystick.xDeadZone(-5,5).xMult(1).xMaxSpeed(1);
 		copilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
 		copilotJoystick.twistDeadZone(-12.0,12.0).twistMult(1).twistMaxSpeed(1.0);
@@ -164,12 +164,12 @@ public class OI {
 		
 		copilot6.whileHeld(new CameraLightsOn());
 		copilot7.toggleWhenPressed(new CameraLightsOn());
-		
+	/**	
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camServer.startAutomaticCapture(LIFECAM_USB_CAM);
-
+**/
 	}
 
 

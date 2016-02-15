@@ -38,8 +38,8 @@ public class Scaler extends Subsystem {
 	public void scalerTalonsDown(double throttle)
 	{
 		double newThrottle = (throttle+1)/2;
-		scalerTalonRight.set(newThrottle);
-		scalerTalonLeft.set(newThrottle);
+		scalerTalonRight.set(throttle);
+		scalerTalonLeft.set(throttle);
 	}
 	
 	public void scalerTalonsOff()

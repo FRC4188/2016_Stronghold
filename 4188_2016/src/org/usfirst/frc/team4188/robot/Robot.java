@@ -8,6 +8,7 @@ import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.Retriever;
 import org.usfirst.frc.team4188.robot.subsystems.Scaler;
 import org.usfirst.frc.team4188.robot.subsystems.Shooter;
+import org.usfirst.frc.team4188.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,13 +27,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	private static final String LIFECAM_USB_CAM = "cam1";
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
 	public static CameraLights cameraLights;
 	public static Shooter robotShooter;
 	public static Scaler robotScaler;
+	public static Vision robotVision;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -57,6 +59,7 @@ public class Robot extends IterativeRobot {
 		robotShooter = new Shooter();
 		robotScaler = new Scaler();
         chooser = new SendableChooser();
+        robotVision = new Vision(LIFECAM_USB_CAM);
         oi = new OI();
         //chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
@@ -72,9 +75,10 @@ public class Robot extends IterativeRobot {
         robotShooter.init();
         cameraLights.init();
         robotScaler.init();
+        robotVision.init();
         
         
-        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
+        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getThrottle());
         
         
         

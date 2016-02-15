@@ -70,6 +70,8 @@ public static void init(){
 	
 	frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	frontRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+	middleLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+	middleRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	rearLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	rearRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	

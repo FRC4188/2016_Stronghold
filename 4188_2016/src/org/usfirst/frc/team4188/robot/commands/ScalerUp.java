@@ -20,7 +20,7 @@ public class ScalerUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotScaler.scalerTalonsUp(Robot.oi.copilotJoystick.getZ());
+    	Robot.robotScaler.scalerTalonsUp(Robot.oi.copilotJoystick.getThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
