@@ -85,7 +85,7 @@ public class OI {
 
     CameraServer camServer;
 
-   // private static final String LIFECAM_USB_CAM = "cam1";
+    private static final String LIFECAM_USB_CAM = "cam0";
     
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -164,12 +164,12 @@ public class OI {
 		
 		copilot6.whileHeld(new CameraLightsOn());
 		copilot7.toggleWhenPressed(new CameraLightsOn());
-	/**	
+	
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camServer.startAutomaticCapture(LIFECAM_USB_CAM);
-**/
+
 	}
 
 

@@ -47,7 +47,8 @@ public class Robot extends IterativeRobot {
     
        
     
-    	public void robotInit() {
+    	
+		public void robotInit() {
 		RobotMap.init();
 		
 	   
@@ -78,8 +79,8 @@ public class Robot extends IterativeRobot {
         robotVision.init();
         
         
-        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getThrottle());
-        
+        Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
+        SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         
         
     	}

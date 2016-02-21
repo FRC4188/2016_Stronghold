@@ -50,7 +50,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void driveWithJoystick(double y, double x, double throttle){
         robotDrive.arcadeDrive(y*throttle, x*throttle);
-        robotDriveMiddle.arcadeDrive(y*throttle, x*throttle);
+        robotDriveMiddle.arcadeDrive(-y*throttle, -x*throttle);
         
     }
 	
