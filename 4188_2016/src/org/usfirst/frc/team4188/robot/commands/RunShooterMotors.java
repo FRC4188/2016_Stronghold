@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class RunShooterMotors extends Command {
-	double throttleValue = Robot.oi.copilotJoystick.getThrottle();
+	//double throttleValue = Robot.oi.copilotJoystick.getThrottle();
     public RunShooterMotors() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -24,7 +24,7 @@ public class RunShooterMotors extends Command {
   
 	protected void execute() {
     	Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
-    	SmartDashboard.putNumber("Throttle Value ", throttleValue);
+    	//SmartDashboard.putNumber("Throttle Value ", throttleValue);
     	
     }
 

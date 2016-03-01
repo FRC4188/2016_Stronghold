@@ -85,7 +85,7 @@ public class OI {
 
     CameraServer camServer;
 
-    private static final String LIFECAM_USB_CAM = "cam0";
+    private static final String LIFECAM_USB_CAM = "cam1";
     
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -154,9 +154,9 @@ public class OI {
 		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
 
 	
-		
-		copilot8.whenPressed(new ShooterDoNothing());
-		copilot9.cancelWhenPressed(new ShooterDoNothing());
+		copilot1.whileHeld(new RunShooterMotors());
+		//copilot8.whenPressed(new ShooterDoNothing());
+		//copilot9.cancelWhenPressed(new ShooterDoNothing());
 		//copilot1.whenReleased(new ShooterDoNothing());
 		
 		//copilot8.whileHeld(new RunShooterMotors());

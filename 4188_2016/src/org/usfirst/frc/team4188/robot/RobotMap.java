@@ -68,12 +68,15 @@ public static void init(){
 	middleLeft = new CANTalon(11);
 	middleRight = new CANTalon(14);
 	
+	
 	frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	frontRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	middleLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	middleRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	rearLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	rearRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+	
+	
 	
 	
 	driveBase = new RobotDrive (frontLeft, rearLeft, frontRight, rearRight);
@@ -90,8 +93,8 @@ public static void init(){
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
 	
-	shooterRight = new CANTalon(16);
-	shooterLeft = new CANTalon(17);
+	shooterRight = new CANTalon(18);
+	shooterLeft = new CANTalon(19);
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoidRight = new DoubleSolenoid(0,1);
@@ -101,8 +104,8 @@ public static void init(){
 	
 	cameraLightRelay = new Relay(0);
 	
-	scalerTalonRight = new CANTalon(18);
-	scalerTalonLeft = new CANTalon(19);
+	scalerTalonRight = new CANTalon(16);
+	scalerTalonLeft = new CANTalon(17);
 	
 	
 }

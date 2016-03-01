@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
         robotVision.init();
         
         
-        Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
+      //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         
         
@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         //autonomousCommand = (Command) chooser.getSelected();
       
-        Robot.drivetrain.resetEncoders();
+       // Robot.drivetrain.resetEncoders();
         
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -147,7 +147,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Robot.drivetrain.resetEncoders();
+       // Robot.drivetrain.resetEncoders();
     }
 
     /**
@@ -155,10 +155,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        Robot.drivetrain.getEncoderValues();
+       // Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
-        Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
+       // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
     }
     
     /**
