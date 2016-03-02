@@ -102,7 +102,7 @@ public static void init(){
 	retrieverTalonOuter = new CANTalon(20);
 	retrieverTalonInner = new CANTalon(21);
 	
-	cameraLightRelay = new Relay(0);
+	cameraLightRelay = new Relay(1);
 	
 	scalerTalonRight = new CANTalon(16);
 	scalerTalonLeft = new CANTalon(17);

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot;
 
 
 
+import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
@@ -162,13 +163,15 @@ public class OI {
 		//copilot8.whileHeld(new RunShooterMotors());
 		//copilot9.whileHeld(new ShooterBackward());
 		
-		copilot6.whileHeld(new CameraLightsOn());
-		copilot7.toggleWhenPressed(new CameraLightsOn());
+		//copilot6.whileHeld(new CameraLightsOn());
+		copilot6.whenPressed(new CameraLightsOn());
+		copilot7.whenPressed(new CameraLightsOff());
 	
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camServer.startAutomaticCapture(LIFECAM_USB_CAM);
+        
 
 	}
 

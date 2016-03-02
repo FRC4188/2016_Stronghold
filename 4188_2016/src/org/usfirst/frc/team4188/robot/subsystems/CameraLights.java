@@ -39,6 +39,7 @@ public class CameraLights extends Subsystem {
     
     public void cameraRelayOn(){
     	cameraRelay.set(Relay.Value.kOn);
+    	cameraRelay.set(Relay.Value.kForward);
     	
     }
     
