@@ -7,10 +7,12 @@ import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
+import org.usfirst.frc.team4188.robot.commands.EjectBallFullSpeed;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
 import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
 import org.usfirst.frc.team4188.robot.commands.LowSpeedTwist;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
+import org.usfirst.frc.team4188.robot.commands.RetrieveBallFullSpeed;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotorBackwards;
@@ -150,8 +152,8 @@ public class OI {
 	    copilot4.whileHeld(new RetrieveBall());
 	    //copilot4.toggleWhenPressed(new CameraLightsOn());
 	    
-	    //copilot11.whileHeld(new ScalerUp());
-	    //copilot10.whileHeld(new ScalerDown());
+	    copilot6.whileHeld(new RetrieveBallFullSpeed());
+	    copilot7.whileHeld(new EjectBallFullSpeed());
 	    
 	    copilot2.whileHeld(new RetrieverOut());
 	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());
@@ -176,8 +178,8 @@ public class OI {
 		//copilot9.whileHeld(new ShooterBackward());
 		
 		//copilot6.whileHeld(new CameraLightsOn());
-		copilot6.whenPressed(new CameraLightsOn());
-		copilot7.whenPressed(new CameraLightsOff());
+		copilot10.whenPressed(new CameraLightsOn());
+		copilot11.whenPressed(new CameraLightsOff());
 		
 		//pilot3.whileHeld(new LowSpeedTwist());
 		

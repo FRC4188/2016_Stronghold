@@ -114,7 +114,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void gradualAccelerate(){
-		this.setRampRate(1.2);
+		this.setRampRate(0.25);
 	}
 	public void setRampRate(double rampRate) {
 		frontLeft.setVoltageRampRate(rampRate);

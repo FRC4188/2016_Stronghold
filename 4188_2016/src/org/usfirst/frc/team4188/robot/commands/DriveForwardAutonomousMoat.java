@@ -24,7 +24,7 @@ public class DriveForwardAutonomousMoat extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+    	addSequential(new ShiftDriveGearBackward());
     	addSequential(new RetrieverOut(),2);
     	addSequential(new AutoDrive(0.65,0,6));
     	addSequential(new AutoDrive(0,0,1));
