@@ -42,16 +42,17 @@ public class Retriever extends Subsystem {
     	retrieverCompressor.start();
     	doNothing();
     }
-    public void retrieveBall(){
-    	retrieverTalonOuter.set(0.5);
-    	retrieverTalonInner.set(0.5);
+    public void retrieveBall(double throttle){
+    	
+    	retrieverTalonOuter.set(1*throttle);
+    	retrieverTalonInner.set(1*throttle);
     	
     }
     
     
-    public void ejectBall(){
-    	retrieverTalonOuter.set(-0.5);
-    	retrieverTalonInner.set(-0.5);
+    public void ejectBall(double throttle){
+    	retrieverTalonOuter.set(-1*throttle);
+    	retrieverTalonInner.set(-1*throttle);
     }
     
     public void deployRetriever(){

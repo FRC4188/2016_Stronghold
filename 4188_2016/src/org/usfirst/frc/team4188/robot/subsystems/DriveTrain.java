@@ -39,6 +39,8 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
+		robotDrive.setSafetyEnabled(false);
+		robotDriveMiddle.setSafetyEnabled(false);
 	}
 
 	 
@@ -80,7 +82,7 @@ public class DriveTrain extends Subsystem {
 		return middleRight.getEncPosition();
 	}
 	
-	public void resetEncoders() {
+	public void resetEncoders() { 
         frontLeft.setPosition(0);
         frontRight.setPosition(0);
         rearLeft.setPosition(0);
@@ -108,7 +110,19 @@ public class DriveTrain extends Subsystem {
 
 	public void autoDrive(double moveValue, double rotateValue){
 		robotDrive.arcadeDrive(moveValue, rotateValue);
-		robotDriveMiddle.arcadeDrive(moveValue, rotateValue);
+		robotDriveMiddle.arcadeDrive(-moveValue, -rotateValue);
+	}
+	
+	public void gradualAccelerate(){
+		this.setRampRate(1.2);
+	}
+	public void setRampRate(double rampRate) {
+		frontLeft.setVoltageRampRate(rampRate);
+		frontRight.setVoltageRampRate(rampRate);
+		rearLeft.setVoltageRampRate(rampRate);
+		rearRight.setVoltageRampRate(rampRate);
+		middleLeft.setVoltageRampRate(rampRate);
+		middleRight.setVoltageRampRate(rampRate);
 	}
 	
 	public void shiftGearForward(){

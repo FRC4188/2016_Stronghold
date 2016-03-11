@@ -7,34 +7,30 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CameraLightsOn extends Command {
+public class RunShooterMotorBackwards extends Command {
 
-    public CameraLightsOn() {
+    public RunShooterMotorBackwards() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.cameraLights);    
-    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.cameraLights.cameraRelayOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.cameraLights.cameraRelayOn();
+    	Robot.robotShooter.runShooterMotorsBackwards(Robot.oi.copilotJoystick.getThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
-    	
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.cameraLights.cameraRelayOff();
+    	Robot.robotShooter.shooterOff();
     }
 
     // Called when another command which requires one or more of the same

@@ -2,14 +2,18 @@ package org.usfirst.frc.team4188.robot;
 
 
 
+import org.usfirst.frc.team4188.robot.commands.AutoShoot;
+import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
 import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
+import org.usfirst.frc.team4188.robot.commands.LowSpeedTwist;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
+import org.usfirst.frc.team4188.robot.commands.RunShooterMotorBackwards;
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotors;
 import org.usfirst.frc.team4188.robot.commands.ScalerDown;
 import org.usfirst.frc.team4188.robot.commands.ScalerUp;
@@ -86,7 +90,7 @@ public class OI {
 
     CameraServer camServer;
 
-    private static final String LIFECAM_USB_CAM = "cam1";
+    private static final String LIFECAM_USB_CAM = "cam0";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
     
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -142,20 +146,28 @@ public class OI {
 	    pilot11.whenReleased(new GearShiftDoNothing());
 	    
 	    
-	    copilot4.whileHeld(new EjectBallLowGoal());
-	    copilot5.whileHeld(new RetrieveBall());
+	    copilot5.whileHeld(new EjectBallLowGoal());
+	    copilot4.whileHeld(new RetrieveBall());
 	    //copilot4.toggleWhenPressed(new CameraLightsOn());
 	    
-	    copilot11.whileHeld(new ScalerUp());
-	    copilot10.whileHeld(new ScalerDown());
+	    //copilot11.whileHeld(new ScalerUp());
+	    //copilot10.whileHeld(new ScalerDown());
 	    
-	    copilot3.whileHeld(new RetrieverOut());
-	    copilot3.whenReleased(new DoNothingRetrieverSolenoid());
-		copilot2.whileHeld(new RetrieverIn());
-		copilot2.whenReleased(new DoNothingRetrieverSolenoid());
+	    copilot2.whileHeld(new RetrieverOut());
+	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());
+		copilot3.whileHeld(new RetrieverIn());
+		copilot3.whenReleased(new DoNothingRetrieverSolenoid());
+		
+		pilot8.whileHeld(new RetrieverOut());
+		pilot8.whenReleased(new DoNothingRetrieverSolenoid());
+		pilot7.whileHeld(new RetrieverIn());
+		pilot7.whenReleased(new DoNothingRetrieverSolenoid());
 
-	
-		copilot1.whileHeld(new RunShooterMotors());
+		pilot10.whileHeld(new EjectBallLowGoal());
+		pilot9.whileHeld(new RetrieveBall());
+		
+		copilot9.whileHeld(new RunShooterMotors());
+		copilot8.whileHeld(new RunShooterMotorBackwards());
 		//copilot8.whenPressed(new ShooterDoNothing());
 		//copilot9.cancelWhenPressed(new ShooterDoNothing());
 		//copilot1.whenReleased(new ShooterDoNothing());
@@ -166,6 +178,11 @@ public class OI {
 		//copilot6.whileHeld(new CameraLightsOn());
 		copilot6.whenPressed(new CameraLightsOn());
 		copilot7.whenPressed(new CameraLightsOff());
+		
+		//pilot3.whileHeld(new LowSpeedTwist());
+		
+		copilot1.whenPressed(new AutoShoot2());
+		pilot1.whenPressed(new AutoShoot2());
 	
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);

@@ -21,7 +21,7 @@ public class RetrieveBall extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotRetriever.retrieveBall();
+    	Robot.robotRetriever.retrieveBall(Robot.oi.copilotJoystick.getThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()

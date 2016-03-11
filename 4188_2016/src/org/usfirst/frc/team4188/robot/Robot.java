@@ -3,6 +3,11 @@ package org.usfirst.frc.team4188.robot;
 
 import java.io.IOException;
 
+import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
+import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
+import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
+import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
+import org.usfirst.frc.team4188.robot.commands.SensorsDisplay;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.Retriever;
@@ -27,7 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	private static final String LIFECAM_USB_CAM = "cam1";
+	private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
@@ -35,8 +40,13 @@ public class Robot extends IterativeRobot {
 	public static Shooter robotShooter;
 	public static Scaler robotScaler;
 	public static Vision robotVision;
-    Command autonomousCommand;
-    SendableChooser chooser;
+	public static SensorsDisplay sensors;
+	private final NetworkTable grip = NetworkTable.getTable("grip");
+
+	
+    
+	Command autonomousCommand;
+    SendableChooser autoChooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -53,19 +63,26 @@ public class Robot extends IterativeRobot {
 		
 	   
 		
-		
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
 		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
 		robotScaler = new Scaler();
-        chooser = new SendableChooser();
         robotVision = new Vision(LIFECAM_USB_CAM);
         oi = new OI();
+     
+        
         //chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+
+        autoChooser = new SendableChooser();
+        autoChooser.addDefault("Drive Forward Autonomous Low Goal", new DriveForwardAutonomous());
+        autoChooser.addDefault("Drive Forward and Turn Autonomous", new DriveForwardTurnRightAutonomous());
+        autoChooser.addDefault("Drive Forward Autonomous (Moat)", new DriveForwardAutonomousMoat());
+        autoChooser.addDefault("Drive Forward Autonomous Retriever Up", new DriveForwardRetrieverUpAutonomous());
+        SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         
+        sensors = new SensorsDisplay(); 
         /*
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,30));
@@ -81,6 +98,7 @@ public class Robot extends IterativeRobot {
         
       //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
+        SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         
         
     	}
@@ -114,24 +132,15 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        //autonomousCommand = (Command) chooser.getSelected();
+        autonomousCommand = (Command) autoChooser.getSelected();
       
        // Robot.drivetrain.resetEncoders();
         
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        
     }
 
     /**
@@ -139,6 +148,11 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        
+        for (double area : grip.getNumberArray("targets/area", new double[0])) {
+            System.out.println("Got contour with area=" + area);
+        }
     }
 
     public void teleopInit() {
@@ -147,6 +161,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        Robot.drivetrain.setRampRate(0);
        // Robot.drivetrain.resetEncoders();
     }
 

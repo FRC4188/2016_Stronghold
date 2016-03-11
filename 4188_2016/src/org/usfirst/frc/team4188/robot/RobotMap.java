@@ -19,6 +19,8 @@ public class RobotMap {
     // public static int leftMotor = 1;
     // public static int rightMotor = 2;
     public static final double TICKS_PER_INCH = 45;
+    
+    public static double startTime;
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
@@ -59,7 +61,7 @@ public static Relay cameraLightRelay;
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
-	gearShift = new DoubleSolenoid(6,7);
+	gearShift = new DoubleSolenoid(0,1);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -93,18 +95,18 @@ public static void init(){
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
 	
-	shooterRight = new CANTalon(18);
-	shooterLeft = new CANTalon(19);
+	shooterRight = new CANTalon(17);
+	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoidRight = new DoubleSolenoid(0,1);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(2,3);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(6,7);
 	retrieverTalonOuter = new CANTalon(20);
 	retrieverTalonInner = new CANTalon(21);
 	
 	cameraLightRelay = new Relay(1);
 	
-	scalerTalonRight = new CANTalon(16);
+	scalerTalonRight = new CANTalon(19);
 	scalerTalonLeft = new CANTalon(17);
 	
 	

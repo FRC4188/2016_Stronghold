@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4188.robot.commands;
 
-import org.usfirst.frc.team4188.robot.CHSLog;
 import org.usfirst.frc.team4188.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -9,36 +8,27 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoDrive extends Command {
+public class AutoShoot extends Command {
+	
 	Timer timer;
 	boolean isTimerStartedYet;
 	boolean doneYet;
 	
-	double timerValue;
-	double moveDirection;
-	double rotation;
-	
+	double shooterSpeed;
 
-    public AutoDrive(double moveValue, double rotateValue, double timerValue) {
+    public AutoShoot(double shooterSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);
-    	
-    	moveDirection = moveValue;
-    	rotation = rotateValue;
-    	this.timerValue = timerValue;
     	
     	
-    	
+    	this.shooterSpeed= shooterSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoders();
     	timer = new Timer();
     	isTimerStartedYet = false;
     	doneYet = false;
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -47,21 +37,26 @@ public class AutoDrive extends Command {
 			timer.start();
 			isTimerStartedYet = true;
 		}
-    	
     	else{
-    		if(timer.get() < this.timerValue) {
-    		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes up
-    		
+    		if(timer.get() < 0.4){
+    			Robot.robotRetriever.ejectBall(0.7);
+    			
+    		}
+    		if(timer.get()> 0.4 && timer.get()<2){
+    			Robot.robotRetriever.ejectBall(0);
+    			Robot.robotShooter.runShooterMotors(this.shooterSpeed);
+    		}
+    		if(timer.get()> 2 && timer.get()<0.4){
+    			Robot.robotRetriever.retrieveBall(1);
     		}
     		else{
-    			Robot.drivetrain.autoDrive(0, 0);
+    			Robot.robotRetriever.doNothing();
+    			Robot.robotShooter.shooterOff();
     			doneYet = true;
     		}
     	}
     }
-    	
-    	
-    
+
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return doneYet;
@@ -69,14 +64,15 @@ public class AutoDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        doneYet = false;
-        isTimerStartedYet = false;
-        
+    	doneYet = false;
+    	isTimerStartedYet = false;
+    	timer.stop();
+    	timer.reset();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
-	}
+    }
 }
