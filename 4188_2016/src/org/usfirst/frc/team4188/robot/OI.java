@@ -142,10 +142,10 @@ public class OI {
 	    
 	    
 	    
-	    pilot12.whileHeld(new ShiftDriveGearForward());
-	    pilot12.whenReleased(new GearShiftDoNothing());
-	    pilot11.whileHeld(new ShiftDriveGearBackward());
+	    pilot11.whileHeld(new ShiftDriveGearForward());
 	    pilot11.whenReleased(new GearShiftDoNothing());
+	    pilot12.whileHeld(new ShiftDriveGearBackward());
+	    pilot12.whenReleased(new GearShiftDoNothing());
 	    
 	    
 	    copilot5.whileHeld(new EjectBallLowGoal());
