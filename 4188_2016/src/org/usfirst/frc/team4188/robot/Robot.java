@@ -7,6 +7,7 @@ import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
+import org.usfirst.frc.team4188.robot.commands.LowBarAutonomous;
 import org.usfirst.frc.team4188.robot.commands.SensorsDisplay;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
@@ -76,10 +77,11 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
 
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Drive Forward Autonomous Low Goal", new DriveForwardAutonomous());
+        autoChooser.addDefault("Drive Forward Autonomous Low Bar", new DriveForwardAutonomous());
         autoChooser.addDefault("Drive Forward and Turn Autonomous", new DriveForwardTurnRightAutonomous());
         autoChooser.addDefault("Drive Forward Autonomous (Moat)", new DriveForwardAutonomousMoat());
         autoChooser.addDefault("Drive Forward Autonomous Retriever Up", new DriveForwardRetrieverUpAutonomous());
+        autoChooser.addDefault("Drive Forward Low Bar Repeat", new LowBarAutonomous());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         
         sensors = new SensorsDisplay(); 
@@ -97,8 +99,6 @@ public class Robot extends IterativeRobot {
         
         
       //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
-        SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
-        SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         
         
     	}
@@ -173,6 +173,9 @@ public class Robot extends IterativeRobot {
        // Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
+        SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
+        SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
+        
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
     }
     
