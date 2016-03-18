@@ -168,6 +168,9 @@ public class OI {
 		pilot10.whileHeld(new EjectBallLowGoal());
 		pilot9.whileHeld(new RetrieveBall());
 		
+		pilot3.whileHeld(new ScalerUp());
+		pilot5.whileHeld(new ScalerDown());
+		
 		copilot9.whileHeld(new RunShooterMotors());
 		copilot8.whileHeld(new RunShooterMotorBackwards());
 		//copilot8.whenPressed(new ShooterDoNothing());

@@ -23,7 +23,7 @@ public class RunShooterMotors extends Command {
     // Called repeatedly when this Command is scheduled to run
   
 	protected void execute() {
-    	Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
+    	Robot.robotShooter.runShooterMotors(0.7811);
     	//SmartDashboard.putNumber("Throttle Value ", throttleValue);
     	
     }

@@ -28,9 +28,11 @@ public class LowBarAutonomous extends CommandGroup {
     	addSequential(new RetrieverOut()); //Lowers Retriever for low bar
     	addSequential(new AutoDrive(0.65,0,4.65)); //Drives Forward 4.5 sec
     	addParallel(new AutoDrive(0,0,1));//Stop 1 sec.
-    	addSequential(new EjectBallFullSpeed(),1); //Eject Ball for 1 sec
+    	//addSequential(new EjectBallFullSpeed(),1); //Eject Ball for 1 sec
     	addSequential(new AutoDrive(-0.65,0,4.65)); //Drive Backwards through defense
-    	addSequential(new AutoDrive(0,0,0.5));// Stop
+    	addSequential(new AutoDrive(0,0,0.5));//stop
+    	addSequential(new AutoDrive(0.65, 0 , 4.65));
+    	addSequential(new AutoDrive(0,0,0.5));
     	
     	
     }

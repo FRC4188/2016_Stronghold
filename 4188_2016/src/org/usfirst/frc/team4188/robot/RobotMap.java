@@ -99,15 +99,15 @@ public static void init(){
 	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoidRight = new DoubleSolenoid(2,3);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(6,7);
-	retrieverTalonOuter = new CANTalon(20);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(6,7);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
+	retrieverTalonOuter = new CANTalon(19);
 	retrieverTalonInner = new CANTalon(21);
 	
 	cameraLightRelay = new Relay(1);
 	
-	scalerTalonRight = new CANTalon(19);
-	scalerTalonLeft = new CANTalon(17);
+	scalerTalonRight = new CANTalon(20);
+	scalerTalonLeft = new CANTalon(16);
 	
 	
 }

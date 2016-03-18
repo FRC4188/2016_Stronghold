@@ -161,7 +161,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Robot.drivetrain.setRampRate(0);
+        Robot.drivetrain.setRampRate(0.12);
        // Robot.drivetrain.resetEncoders();
     }
 
