@@ -24,15 +24,16 @@ public class LowBarAutonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ShiftDriveGearForward()); //Shifts to low gear
-    	addSequential(new RetrieverOut()); //Lowers Retriever for low bar
-    	addSequential(new AutoDrive(0.65,0,4.65)); //Drives Forward 4.5 sec
-    	addParallel(new AutoDrive(0,0,1));//Stop 1 sec.
+    	addSequential(new ShiftDriveGearForward());
+    	addSequential(new ScalerDownFullSpeed(),0.35);
+    	addSequential(new RetrieverOut(),1);
+    	addSequential(new AutoDrive(0.75,0,4.65)); //Drives Forward 4.5 sec
+    	addParallel(new AutoDrive(0,0,0.2));//Stop 1 sec.
     	//addSequential(new EjectBallFullSpeed(),1); //Eject Ball for 1 sec
-    	addSequential(new AutoDrive(-0.65,0,4.65)); //Drive Backwards through defense
-    	addSequential(new AutoDrive(0,0,0.5));//stop
-    	addSequential(new AutoDrive(0.65, 0 , 4.65));
-    	addSequential(new AutoDrive(0,0,0.5));
+    	addSequential(new AutoDrive(-0.75,0,4.65)); //Drive Backwards through defense
+    	addSequential(new AutoDrive(0,0,0.2));//stop
+    	addSequential(new AutoDrive(0.75, 0 , 4.65)); //Drive Back Forwards
+    	addSequential(new AutoDrive(0,0,0.2));
     	
     	
     }

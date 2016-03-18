@@ -27,12 +27,10 @@ public class DriveForwardTurnRightAutonomous extends CommandGroup {
         // arm.
     	addSequential(new ShiftDriveGearForward());
     	addSequential(new RetrieverOut(),2);
-    	addSequential(new AutoDrive(0.65,0,5));
+    	addSequential(new AutoDrive(0.75,0,5));
     	addSequential(new AutoDrive(0,0,1));
     
     	addSequential(new AutoDrive(0,0.6, 3));
-    	
-    	
-    	addSequential(new AutoDrive2(0,0));
+    	addSequential(new AutoDrive(0,0,0.25));//stop
     }
 }
