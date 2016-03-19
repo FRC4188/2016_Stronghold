@@ -26,7 +26,8 @@ public class DriveForwardAutonomousMoat extends CommandGroup {
         // arm.
     	addSequential(new ShiftDriveGearForward());
     	//addSequential(new RetrieverOut(),2);
-    	addSequential(new AutoDrive(0.8,0,8));
+    	
+    	addSequential(new AutoDrive(0.8,0,5));
     	addSequential(new AutoDrive(0,0,1));
     }
 }

@@ -27,12 +27,12 @@ public class LowBarAutonomous extends CommandGroup {
     	addSequential(new ShiftDriveGearForward());
     	addSequential(new ScalerDownFullSpeed(),0.35);
     	addSequential(new RetrieverOut(),1);
-    	addSequential(new AutoDrive(0.75,0,4.65)); //Drives Forward 4.5 sec
-    	addParallel(new AutoDrive(0,0,0.2));//Stop 1 sec.
+    	addSequential(new AutoDrive(0.75,0,4)); //Drives Forward 4.5 sec
+    	addSequential(new AutoDrive(0,0,0.2));//Stop 1 sec.
     	//addSequential(new EjectBallFullSpeed(),1); //Eject Ball for 1 sec
-    	addSequential(new AutoDrive(-0.75,0,4.65)); //Drive Backwards through defense
+    	addSequential(new AutoDrive(-0.75,0,4)); //Drive Backwards through defense
     	addSequential(new AutoDrive(0,0,0.2));//stop
-    	addSequential(new AutoDrive(0.75, 0 , 4.65)); //Drive Back Forwards
+    	addSequential(new AutoDrive(0.75, 0 , 4)); //Drive Back Forwards
     	addSequential(new AutoDrive(0,0,0.2));
     	
     	

@@ -13,6 +13,7 @@ public class RunShooterMotors extends Command {
     public RunShooterMotors() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +24,7 @@ public class RunShooterMotors extends Command {
     // Called repeatedly when this Command is scheduled to run
   
 	protected void execute() {
-    	Robot.robotShooter.runShooterMotors(0.7811);
+    	Robot.robotShooter.runShooterMotors(0.78511);
     	//SmartDashboard.putNumber("Throttle Value ", throttleValue);
     	
     }
