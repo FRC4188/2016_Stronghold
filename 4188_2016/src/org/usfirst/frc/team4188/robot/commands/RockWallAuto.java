@@ -1,14 +1,13 @@
 package org.usfirst.frc.team4188.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class DriveForwardTurnRightAutonomous extends CommandGroup {
+public class RockWallAuto extends CommandGroup {
     
-    public  DriveForwardTurnRightAutonomous() {
+    public  RockWallAuto() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,19 +24,11 @@ public class DriveForwardTurnRightAutonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
     	addSequential(new ShiftDriveGearForward());
-    	//addSequential(new ScalerUpFullSpeed(),0.5);
-    	addSequential(new RetrieverOut(),2);
-    	addSequential(new AutoDrive(0.65,0,4.65));
-    	addSequential(new AutoDrive(0,0,0.5));
-    	addSequential(new RetrieverIn(),1);
-    
-    	addSequential(new AutoDrive(0,0.6, 0.5));
-    	addSequential(new AutoDrive(0,0,0.5));
+    	//addSequential(new RetrieverOut(),2);
     	
-    	addSequential(new AutoDrive(0.65,0,4));
-    	addSequential(new AutoDrive(0,0,0.5));
-    	addSequential(new EjectBallFullSpeed(),3);
-    	
+    	addSequential(new AutoDrive(0.9,0,5.65));
+    	addSequential(new AutoDrive(0,0,1));
     }
 }

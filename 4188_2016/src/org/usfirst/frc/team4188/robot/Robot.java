@@ -8,6 +8,7 @@ import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
 import org.usfirst.frc.team4188.robot.commands.LowBarAutonomous;
+import org.usfirst.frc.team4188.robot.commands.RockWallAuto;
 import org.usfirst.frc.team4188.robot.commands.SensorsDisplay;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
@@ -82,6 +83,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Drive Forward Autonomous (Moat)", new DriveForwardAutonomousMoat());
         autoChooser.addDefault("Drive Forward Autonomous Retriever Up", new DriveForwardRetrieverUpAutonomous());
         autoChooser.addDefault("Drive Forward Low Bar Repeat", new LowBarAutonomous());
+        autoChooser.addDefault("Rock Wall Auto", new RockWallAuto());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         
         sensors = new SensorsDisplay(); 
