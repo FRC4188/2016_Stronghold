@@ -22,6 +22,7 @@ public class EjectBallFullSpeed extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.robotRetriever.ejectBall(1);
+    	Robot.robotShooter.runShooterMotorsBackwards(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,6 +33,7 @@ public class EjectBallFullSpeed extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.robotRetriever.doNothing();
+    	Robot.robotShooter.shooterOff();
     }
 
     // Called when another command which requires one or more of the same

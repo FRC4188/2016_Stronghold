@@ -26,11 +26,18 @@ public class DriveForwardTurnRightAutonomous extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new ShiftDriveGearForward());
+    	//addSequential(new ScalerUpFullSpeed(),0.5);
     	addSequential(new RetrieverOut(),2);
-    	addSequential(new AutoDrive(0.75,0,5));
-    	addSequential(new AutoDrive(0,0,1));
+    	addSequential(new AutoDrive(0.65,0,4.65));
+    	addSequential(new AutoDrive(0,0,0.5));
+    	addSequential(new RetrieverIn(),1);
     
-    	addSequential(new AutoDrive(0,0.6, 3));
-    	addSequential(new AutoDrive(0,0,0.25));//stop
+    	addSequential(new AutoDrive(0,0.6, 0.5));
+    	addSequential(new AutoDrive(0,0,0.5));
+    	
+    	addSequential(new AutoDrive(0.65,0,4));
+    	addSequential(new AutoDrive(0,0,0.5));
+    	addSequential(new EjectBallFullSpeed(),2);
+    	
     }
 }

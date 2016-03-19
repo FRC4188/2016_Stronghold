@@ -165,7 +165,7 @@ public class OI {
 		pilot7.whileHeld(new RetrieverIn());
 		pilot7.whenReleased(new DoNothingRetrieverSolenoid());
 
-		pilot10.whileHeld(new EjectBallLowGoal());
+		pilot10.whileHeld(new EjectBallFullSpeed());
 		pilot9.whileHeld(new RetrieveBall());
 		
 		pilot3.whileHeld(new ScalerUp());
