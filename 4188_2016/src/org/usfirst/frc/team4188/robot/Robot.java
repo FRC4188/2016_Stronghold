@@ -78,12 +78,12 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
 
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Drive Forward Autonomous Low Bar", new DriveForwardAutonomous());
-        autoChooser.addDefault("Drive Forward and Turn Autonomous", new DriveForwardTurnRightAutonomous());
-        autoChooser.addDefault("Drive Forward Autonomous (Moat)", new DriveForwardAutonomousMoat());
-        autoChooser.addDefault("Drive Forward Autonomous Retriever Up", new DriveForwardRetrieverUpAutonomous());
-        autoChooser.addDefault("Drive Forward Low Bar Repeat", new LowBarAutonomous());
-        autoChooser.addDefault("Rock Wall Auto", new RockWallAuto());
+        autoChooser.addDefault("Regular Low Bar Autonomous :)", new DriveForwardAutonomous());
+        autoChooser.addDefault("Low Goal Shot Autonomous :(", new DriveForwardTurnRightAutonomous());
+        autoChooser.addDefault("Moat Autonomous :)", new DriveForwardAutonomousMoat());
+        autoChooser.addDefault("Rugged Terrain Autonomous :)", new DriveForwardRetrieverUpAutonomous());
+        autoChooser.addDefault("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
+        autoChooser.addDefault("Rock Wall Autonomous :)", new RockWallAuto());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         
         sensors = new SensorsDisplay(); 
