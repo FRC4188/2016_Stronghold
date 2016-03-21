@@ -7,6 +7,8 @@ import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.image.BinaryImage;
+import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 /**
@@ -21,11 +23,16 @@ public class Vision extends Subsystem {
     protected AxisCamera camera;
     protected String ip;
     protected String cam;
-    
+    /**
     public Vision(String cam)
     {
     	//this.ip = ip;
     	this.cam = cam;
+    
+    }
+    **/
+    public Vision(String ip){
+    	this.ip = ip;
     }
 
     public void initialize()
@@ -52,6 +59,7 @@ public class Vision extends Subsystem {
 	 * @param filename name of GRIP file on RoboRIO.
 	 */
 	
+	/**
 	public static void runGRIP(String filename)
 	{
 		try
@@ -62,7 +70,20 @@ public class Vision extends Subsystem {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	
+**/
+	
+	public ColorImage getRawImage(AxisCamera rawImage){
+		rawImage = 
+	}
+	
+	public BinaryImage processedImage(ColorImage rawImage){
+		
+		
+		
+	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

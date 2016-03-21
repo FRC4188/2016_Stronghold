@@ -34,7 +34,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
+	//private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
+	 private static final String AXIS_CAMERA_IP = "10.41.88.34";
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
@@ -70,7 +71,7 @@ public class Robot extends IterativeRobot {
 		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
 		robotScaler = new Scaler();
-        robotVision = new Vision(LIFECAM_USB_CAM);
+        robotVision = new Vision(AXIS_CAMERA_IP);
         oi = new OI();
      
         
@@ -91,7 +92,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,30));
         */
-        
+        RobotMap.driveTrainGyro.getAngle();
         drivetrain.init();
         robotRetriever.init();
         robotShooter.init();
@@ -177,6 +178,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(robotRetriever);
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
+        SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
         
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
     }

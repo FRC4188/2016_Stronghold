@@ -6,10 +6,11 @@ import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,12 +34,13 @@ public class DriveTrain extends Subsystem {
 	CANTalon rearRight = RobotMap.rearRight;
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
-	AnalogGyro gyro = RobotMap.driveTrainGyro;
+	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
 	
 	public void init(){
 		gyro.reset();
+		PIDController gyroPIDController = new PIDController(0,0,0, Robot.drivetrain.gyro, RobotMap.driveBase);
 		robotDrive.setSafetyEnabled(false);
 		robotDriveMiddle.setSafetyEnabled(false);
 	}
