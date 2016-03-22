@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	//private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
-	 private static final String AXIS_CAMERA_IP = "10.41.88.34";
+	 private static final String AXIS_CAMERA_IP = "axis-camera";
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,30));
         */
-        RobotMap.driveTrainGyro.getAngle();
+        
         drivetrain.init();
         robotRetriever.init();
         robotShooter.init();
@@ -179,32 +179,46 @@ public class Robot extends IterativeRobot {
     	
     	Scheduler.getInstance().run();
     	
-    	
+    	/**
     	ParticleAnalysisReport[] reports = null;
 		try {
+			
+			
 			reports = robotVision.getReports(robotVision.getProcessedImage());
+		
+		
 		} catch (NIVisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
+    	**/
        // Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
-        SmartDashboard.putNumber("Number of Particles", reports.length);
+    //    SmartDashboard.putNumber("Number of Particles", reports.length);
         
+        /**
         for(int i = 0; i < reports.length; i ++){
         	ParticleAnalysisReport r = reports[i];
         	 SmartDashboard.putNumber("Particle "+i +"Height: " , r.boundingRectHeight );
         	 SmartDashboard.putNumber("Particle " + i + "Width", r.boundingRectWidth);
         	 SmartDashboard.putNumber("Particle "+ i + "Center X" , r.center_mass_x);
         	 SmartDashboard.putNumber("Particle " + i + "Center Y", r.center_mass_y);
+        	 
         }
-        
+        **/  
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
+        
+        try {
+			robotVision.getRawImage();
+		} catch (NIVisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
     
     /**

@@ -38,7 +38,7 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
 	PIDController gyroPIDController;
-	PIDSource source = Robot.drivetrain.gyro;
+	PIDSource source = RobotMap.driveTrainGyro;
 	PIDOutput output = RobotMap.driveBase;
 	
 	

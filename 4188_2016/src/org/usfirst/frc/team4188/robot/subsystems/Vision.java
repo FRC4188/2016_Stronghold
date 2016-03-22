@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
+import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,8 +25,8 @@ public class Vision extends Subsystem {
 	protected int session;
     protected Image frame;
     protected AxisCamera camera;
-    protected String ip;
-    protected String cam;
+    //protected String ip;
+    //protected String cam;
     /**
     public Vision(String cam)
     {
@@ -35,27 +36,18 @@ public class Vision extends Subsystem {
     }
     **/
     public Vision(String ip){
-    	this.ip = ip;
+    	//this.ip = ip;
+    	this.camera = new AxisCamera(ip); 
     }
 
     public void init()
     {
-        camera = new AxisCamera(ip); 
+//        this.camera = new AxisCamera(ip); 
         
 	}
     
-    public void initUSBCam()
-    {
-    	CameraServer camera = CameraServer.getInstance();
-        camera.setQuality(50);
-        camera.startAutomaticCapture(cam);
-    }
+
 	
-	public void stream()
-	{	        
-		camera.getImage(frame);
-        CameraServer.getInstance().setImage(frame);
-	}
 	
 	/**
 	 * Runs GRIP image processing on the RoboRIO. Required for GRIP vision usage.
@@ -78,11 +70,14 @@ public class Vision extends Subsystem {
 	
 	
 **/
-	/**
+	
 	public HSLImage getRawImage() throws NIVisionException{
+		//HSLImage derp = new HSLImage();
+		//camera.getImage(derp);
 		return camera.getImage();
+		//return derp;
 	}
-	**/
+	
 	public BinaryImage colorFilterImage(HSLImage rawImage) throws NIVisionException{
 		final int 
 				H_LOW = 45,
@@ -99,20 +94,31 @@ public class Vision extends Subsystem {
 	
 	public BinaryImage shapeFilterImage(BinaryImage beforeImage) throws NIVisionException{
 	
-		BinaryImage targetImage = beforeImage.convexHull(true);
+	BinaryImage targetImage = null;
+	
+	try{
+		 targetImage = beforeImage.convexHull(false).removeSmallObjects(true, 2);
+	}
+	catch (VisionException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 		
-		return targetImage.removeSmallObjects(true, 2);
+		return targetImage;
 		
 	}
 	
 	public BinaryImage getProcessedImage() throws NIVisionException{
 		HSLImage rawImage = camera.getImage();
+		System.out.println(rawImage);
 		BinaryImage filteredImageColor = colorFilterImage(rawImage);
 		BinaryImage filteredImageShape = shapeFilterImage(filteredImageColor);
 		return filteredImageShape;
 	}
 	
 	public ParticleAnalysisReport [] getReports(BinaryImage target) throws NIVisionException{
+			System.out.println(target);
 		return target.getOrderedParticleAnalysisReports();
 	}
 	
