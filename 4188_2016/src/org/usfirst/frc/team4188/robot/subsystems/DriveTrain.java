@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
 
+import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.ManualDrive;
@@ -11,7 +12,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,8 +28,8 @@ public class DriveTrain extends Subsystem {
 	// DAR Test.
 
     DoubleSolenoid gearShift = RobotMap.gearShift;
-    RobotDrive robotDrive = RobotMap.driveBase;
-    RobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
+    CHSRobotDrive robotDrive = RobotMap.driveBase;
+    CHSRobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
 	CANTalon frontLeft = RobotMap.frontLeft;
 	CANTalon frontRight = RobotMap.frontRight;
 	CANTalon rearLeft = RobotMap.rearLeft;
@@ -35,14 +37,28 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
+	PIDController gyroPIDController;
+	PIDSource source = Robot.drivetrain.gyro;
+	PIDOutput output = RobotMap.driveBase;
+	
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
+	private static final double KP = 0.1;
+	private static final double KI = 0.005;
+	private static final double KD = 0.0;
 	
 	public void init(){
 		gyro.reset();
-		PIDController gyroPIDController = new PIDController(0,0,0, Robot.drivetrain.gyro, RobotMap.driveBase);
+		gyroPIDController = new PIDController(KP, KI, KD, source, output );
 		robotDrive.setSafetyEnabled(false);
 		robotDriveMiddle.setSafetyEnabled(false);
+	}
+	
+	public void goToAngle(double angle){
+		
+	gyro.reset();
+	gyroPIDController.setSetpoint(angle);
+	
 	}
 
 	 

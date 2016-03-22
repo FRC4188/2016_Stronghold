@@ -12,7 +12,7 @@ public class AimHighGoal extends Command {
 
     public AimHighGoal() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+         requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +22,7 @@ public class AimHighGoal extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.robotVision.
+ 
     	//Grab Image
     	//Process Image to find target center 
     	//Get size based off target image and target size
@@ -32,6 +32,8 @@ public class AimHighGoal extends Command {
     	
     	
     }
+    
+   
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
