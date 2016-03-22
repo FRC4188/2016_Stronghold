@@ -27,8 +27,12 @@ public class AimHighGoal extends Command {
     	//Process Image to find target center 
     	//Get size based off target image and target size
     	//Calculate Robot Rotation Angle
+    	
     	//Trigger PID Loop to move robot to specified rotation angle
+    	Robot.drivetrain.goToAngle(15);
     	//Shoot
+    
+    	
     	
     	
     }
