@@ -4,6 +4,7 @@ import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 
 /**
  *
@@ -22,13 +23,20 @@ public class AimHighGoal extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.robotVision.
-    	//Grab Image
-    	//Process Image to find target center 
-    	//Get size based off target image and target size
-    	//Calculate Robot Rotation Angle
-    	//Trigger PID Loop to move robot to specified rotation angle
-    	//Shoot
+  
+			
+    		
+    		//Grab Image
+    		//Robot.robotVision.getRawImage();
+        	//Process Image to find target center
+    	
+        	
+    		//Get size based off target image and target size
+        	//Calculate Robot Rotation Angle
+        	//Trigger PID Loop to move robot to specified rotation angle
+        	//Shoot
+    		
+    
     	
     	
     }
