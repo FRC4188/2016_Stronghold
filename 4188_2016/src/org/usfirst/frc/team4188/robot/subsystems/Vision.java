@@ -1,15 +1,15 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
-import java.io.IOException;
+//import java.io.IOException;
 
-import com.ni.vision.NIVision;
+//import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.VisionException;
 
-import edu.wpi.first.wpilibj.CameraServer;
+//import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.BinaryImage;
-import edu.wpi.first.wpilibj.image.ColorImage;
+//import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.HSLImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
@@ -71,10 +71,11 @@ public class Vision extends Subsystem {
 	
 **/
 	
-	public HSLImage getRawImage() throws NIVisionException{
+	public HSLImage getRawImage() throws NIVisionException, VisionException{
 		//HSLImage derp = new HSLImage();
 		//camera.getImage(derp);
-		return camera.getImage();
+		HSLImage cameraImage = camera.getImage();
+		return cameraImage;
 		//return derp;
 	}
 	

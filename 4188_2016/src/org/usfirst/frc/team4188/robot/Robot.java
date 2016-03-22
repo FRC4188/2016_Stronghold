@@ -17,6 +17,8 @@ import org.usfirst.frc.team4188.robot.subsystems.Scaler;
 import org.usfirst.frc.team4188.robot.subsystems.Shooter;
 import org.usfirst.frc.team4188.robot.subsystems.Vision;
 
+import com.ni.vision.VisionException;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -198,6 +200,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
+    
     //    SmartDashboard.putNumber("Number of Particles", reports.length);
         
         /**
@@ -212,14 +215,21 @@ public class Robot extends IterativeRobot {
         **/  
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
         
-        try {
-			robotVision.getRawImage();
+       try {
+		robotVision.getRawImage();
 		} catch (NIVisionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+       catch (VisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       SmartDashboard.putData(robotVision);
     }
+
+        
+    
     
     /**
      * This function is called periodically during test mode
@@ -228,3 +238,5 @@ public class Robot extends IterativeRobot {
         LiveWindow.run();
     }
 }
+
+
