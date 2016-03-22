@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
+import edu.wpi.first.wpilibj.image.HSLImage;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 /**
@@ -35,10 +38,10 @@ public class Vision extends Subsystem {
     	this.ip = ip;
     }
 
-    public void initialize()
-	{
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        camera = new AxisCamera(ip);   
+    public void init()
+    {
+        camera = new AxisCamera(ip); 
+        
 	}
     
     public void initUSBCam()
@@ -70,29 +73,54 @@ public class Vision extends Subsystem {
 			e.printStackTrace();
 		}
 	}
+	 * @throws NIVisionException 
 	
 	
 	
 **/
-	
-	public ColorImage getRawImage(AxisCamera rawImage){
-		rawImage = 
+	/**
+	public HSLImage getRawImage() throws NIVisionException{
+		return camera.getImage();
+	}
+	**/
+	public BinaryImage colorFilterImage(HSLImage rawImage) throws NIVisionException{
+		final int 
+				H_LOW = 45,
+				H_HIGH = 87,
+				S_LOW = 53,
+				S_HIGH = 255,
+				V_LOW = 92,
+				V_HIGH = 255;
+			return rawImage.thresholdHSV(H_LOW, H_HIGH, S_LOW, S_HIGH, V_LOW, V_HIGH);
+			
+		
+		
 	}
 	
-	public BinaryImage processedImage(ColorImage rawImage){
+	public BinaryImage shapeFilterImage(BinaryImage beforeImage) throws NIVisionException{
+	
+		BinaryImage targetImage = beforeImage.convexHull(true);
 		
-		
+		return targetImage.removeSmallObjects(true, 2);
 		
 	}
+	
+	public BinaryImage getProcessedImage() throws NIVisionException{
+		HSLImage rawImage = camera.getImage();
+		BinaryImage filteredImageColor = colorFilterImage(rawImage);
+		BinaryImage filteredImageShape = shapeFilterImage(filteredImageColor);
+		return filteredImageShape;
+	}
+	
+	public ParticleAnalysisReport [] getReports(BinaryImage target) throws NIVisionException{
+		return target.getOrderedParticleAnalysisReports();
+	}
+	
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
     
 }
 

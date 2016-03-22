@@ -31,8 +31,6 @@ public class AimHighGoal extends Command {
     	//Trigger PID Loop to move robot to specified rotation angle
     	Robot.drivetrain.goToAngle(15);
     	//Shoot
-    
-    	
     	
     	
     }

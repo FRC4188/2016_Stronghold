@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -173,13 +175,34 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
+       
+    	
+    	Scheduler.getInstance().run();
+    	
+    	
+    	ParticleAnalysisReport[] reports = null;
+		try {
+			reports = robotVision.getReports(robotVision.getProcessedImage());
+		} catch (NIVisionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
        // Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
+        SmartDashboard.putNumber("Number of Particles", reports.length);
+        
+        for(int i = 0; i < reports.length; i ++){
+        	ParticleAnalysisReport r = reports[i];
+        	 SmartDashboard.putNumber("Particle "+i +"Height: " , r.boundingRectHeight );
+        	 SmartDashboard.putNumber("Particle " + i + "Width", r.boundingRectWidth);
+        	 SmartDashboard.putNumber("Particle "+ i + "Center X" , r.center_mass_x);
+        	 SmartDashboard.putNumber("Particle " + i + "Center Y", r.center_mass_y);
+        }
         
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
     }
