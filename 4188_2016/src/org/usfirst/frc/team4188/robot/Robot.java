@@ -154,11 +154,11 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        
+        /*
         for (double area : grip.getNumberArray("targets/area", new double[0])) {
             System.out.println("Got contour with area=" + area);
-        }
-    }
+        } */
+    } 
 
     public void teleopInit() {
 		// This makes sure that the autonomous stops running when
