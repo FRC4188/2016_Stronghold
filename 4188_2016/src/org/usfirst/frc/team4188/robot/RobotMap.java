@@ -31,7 +31,7 @@ public class RobotMap {
 	
 	
 public static CHSRobotDrive driveBase;
-public static CHSRobotDrive driveBaseMiddle;
+//public static CHSRobotDrive driveBaseMiddle;
 public static CANTalon frontLeft;
 public static CANTalon frontRight;
 public static CANTalon rearLeft;
@@ -85,14 +85,18 @@ public static void init(){
 	
 	
 	
-	driveBase = new CHSRobotDrive (frontLeft, rearLeft, frontRight, rearRight);
-	driveBaseMiddle = new CHSRobotDrive(middleLeft, middleRight);
+	driveBase = new CHSRobotDrive (frontLeft,frontRight,rearLeft,rearRight,middleLeft,middleRight);
+	//driveBaseMiddle = new CHSRobotDrive(middleLeft, middleRight);
 	
 
+	
+	
+	/*
 	driveBaseMiddle.setSafetyEnabled(false);
 	driveBaseMiddle.setExpiration(0.1);
 	driveBaseMiddle.setSensitivity(0.5);
 	driveBaseMiddle.setMaxOutput(1.0);
+	*/
 	
 	driveBase.setSafetyEnabled(false);
 	driveBase.setExpiration(0.1);

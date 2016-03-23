@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
+//import edu.wpi.first.wpilibj.PIDOutput;
+//import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,7 +29,7 @@ public class DriveTrain extends Subsystem {
 
     DoubleSolenoid gearShift = RobotMap.gearShift;
     CHSRobotDrive robotDrive = RobotMap.driveBase;
-    CHSRobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
+    //CHSRobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
 	CANTalon frontLeft = RobotMap.frontLeft;
 	CANTalon frontRight = RobotMap.frontRight;
 	CANTalon rearLeft = RobotMap.rearLeft;
@@ -49,9 +49,10 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
-		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive );
-		robotDrive.setSafetyEnabled(false);
-		robotDriveMiddle.setSafetyEnabled(false);
+		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive);
+		robotDrive.robotDrive1.setSafetyEnabled(false);
+		robotDrive.robotDrive2.setSafetyEnabled(false);
+		robotDrive.robotDrive3.setSafetyEnabled(false);
 	}
 	
 	public void goToAngle(double angle){
@@ -69,8 +70,9 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveWithJoystick(double y, double x, double throttle){
-        robotDrive.arcadeDrive(y*throttle, x*throttle);
-        robotDriveMiddle.arcadeDrive(-y*throttle, -x*throttle);
+        robotDrive.robotDrive1.arcadeDrive(y*throttle, x*throttle);
+        robotDrive.robotDrive2.arcadeDrive(y*throttle, x*throttle);
+        robotDrive.robotDrive3.arcadeDrive(-y*throttle, -x*throttle);
         
     }
 	
@@ -127,8 +129,10 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void autoDrive(double moveValue, double rotateValue){
-		robotDrive.arcadeDrive(moveValue, rotateValue);
-		robotDriveMiddle.arcadeDrive(-moveValue, -rotateValue);
+	
+		 robotDrive.robotDrive1.arcadeDrive(moveValue, rotateValue);
+	     robotDrive.robotDrive2.arcadeDrive(moveValue, rotateValue);
+	     robotDrive.robotDrive3.arcadeDrive(-moveValue, -rotateValue);
 	}
 	
 	public void gradualAccelerate(){
