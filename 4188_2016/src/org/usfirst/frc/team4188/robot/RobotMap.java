@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -51,6 +52,7 @@ public static Compressor compressor;
 
 public static CANTalon scalerTalonRight;
 public static CANTalon scalerTalonLeft;
+public static PIDController gyroPIDController;
 
 public static ADXRS450_Gyro driveTrainGyro;
 
@@ -106,7 +108,7 @@ public static void init(){
 	retrieverTalonOuter = new CANTalon(19);
 	retrieverTalonInner = new CANTalon(21);
 	
-	cameraLightRelay = new Relay(1);
+	cameraLightRelay = new Relay(2);
 	
 	scalerTalonRight = new CANTalon(20);
 	scalerTalonLeft = new CANTalon(16);

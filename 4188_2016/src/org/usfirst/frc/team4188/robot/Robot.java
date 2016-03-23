@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot;
 
 import java.io.IOException;
 
+import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
@@ -20,6 +21,7 @@ import org.usfirst.frc.team4188.robot.subsystems.Vision;
 import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -78,7 +80,6 @@ public class Robot extends IterativeRobot {
         robotVision = new Vision(AXIS_CAMERA_IP);
         oi = new OI();
      
-        
         //chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
 
@@ -111,12 +112,7 @@ public class Robot extends IterativeRobot {
     	}
         
           
-        
-        
-        
-
-	
-	/**
+     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
@@ -200,6 +196,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
+        SmartDashboard.putData("Aim High Goal Test", new AimHighGoal());
     
     //    SmartDashboard.putNumber("Number of Particles", reports.length);
         
@@ -225,7 +222,7 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       SmartDashboard.putData(robotVision);
+       //SmartDashboard.putData(robotVision);
     }
 
         
@@ -235,7 +232,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        LiveWindow.run();
+        //LiveWindow.addActuator("DriveTrain", "gyro", drivetrain.gyroPIDController);
+    	LiveWindow.run();
     }
 }
 

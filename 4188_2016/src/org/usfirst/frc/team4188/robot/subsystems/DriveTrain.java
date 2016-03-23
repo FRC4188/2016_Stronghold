@@ -37,9 +37,9 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
-	PIDController gyroPIDController;
-	PIDSource source = RobotMap.driveTrainGyro;
-	PIDOutput output = RobotMap.driveBase;
+	public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	//PIDSource source = RobotMap.driveTrainGyro;
+	//PIDOutput output = RobotMap.driveBase;
 	
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
@@ -49,13 +49,13 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
-		gyroPIDController = new PIDController(KP, KI, KD, source, output );
+		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive );
 		robotDrive.setSafetyEnabled(false);
 		robotDriveMiddle.setSafetyEnabled(false);
 	}
 	
 	public void goToAngle(double angle){
-		
+	
 	gyro.reset();
 	gyroPIDController.setSetpoint(angle);
 	
