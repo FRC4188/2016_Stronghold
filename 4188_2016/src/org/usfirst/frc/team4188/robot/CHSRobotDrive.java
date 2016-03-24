@@ -58,7 +58,7 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
         
     	super.arcadeDrive(moveValue, rotateValue);
         robotDrive2.arcadeDrive(moveValue, rotateValue);
-        robotDrive3.arcadeDrive(moveValue, rotateValue);
+        robotDrive3.arcadeDrive(-moveValue, -rotateValue);
       }
        
     public void pidWrite(double output){
@@ -66,8 +66,8 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	//SmartDashboard.putNumber("Left Motor", super.m_rearLeftMotor.get());
     	//SmartDashboard.putNumber("Right Motor", super.m_rearRightMotor.get());
     	
-    	super.setLeftRightMotorOutputs(output,-output);
-    	robotDrive2.setLeftRightMotorOutputs(output,-output);
+    	super.setLeftRightMotorOutputs(output,output);
+    	robotDrive2.setLeftRightMotorOutputs(output,output);
     	robotDrive3.setLeftRightMotorOutputs(output,-output);
     
     	robotDrive3.setInvertedMotor(MotorType.kRearLeft, true);

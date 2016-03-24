@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void goToAngle(double angle){
 	
-	gyro.reset();
+	//gyro.reset();
 	gyroPIDController.setSetpoint(angle);
 	
 	}
