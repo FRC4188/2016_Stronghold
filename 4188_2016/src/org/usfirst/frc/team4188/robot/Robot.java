@@ -191,14 +191,14 @@ public class Robot extends IterativeRobot {
 		}
     	**/
        // Robot.drivetrain.getEncoderValues();
-        SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(robotRetriever);
+       SmartDashboard.putData("PID Controller", drivetrain.gyroPIDController);
+       //SmartDashboard.putData(robotRetriever);
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
         SmartDashboard.putNumber("Gyro Center Value", RobotMap.driveTrainGyro.getAngle());
         SmartDashboard.putData("Aim High Goal Test", new AimHighGoal());
-    
-    //    SmartDashboard.putNumber("Number of Particles", reports.length);
+        //SmartDashboard.putData( "DriveBase", drivetrain.robotDrive);
+        //SmartDashboard.putNumber("Number of Particles", reports.length);
         
         /**
         for(int i = 0; i < reports.length; i ++){

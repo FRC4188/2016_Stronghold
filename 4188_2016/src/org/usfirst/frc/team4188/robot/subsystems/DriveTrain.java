@@ -41,7 +41,6 @@ public class DriveTrain extends Subsystem {
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
 	
-	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
 	private static final double KP = 0.1;
 	private static final double KI = 0.005;
@@ -50,9 +49,11 @@ public class DriveTrain extends Subsystem {
 	public void init(){
 		gyro.reset();
 		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive);
-		robotDrive.robotDrive1.setSafetyEnabled(false);
+/*		robotDrive.robotDrive1.setSafetyEnabled(false);
 		robotDrive.robotDrive2.setSafetyEnabled(false);
 		robotDrive.robotDrive3.setSafetyEnabled(false);
+		
+		*/
 	}
 	
 	public void goToAngle(double angle){
@@ -70,9 +71,13 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveWithJoystick(double y, double x, double throttle){
-        robotDrive.robotDrive1.arcadeDrive(y*throttle, x*throttle);
+  /*      robotDrive.robotDrive1.arcadeDrive(y*throttle, x*throttle);
         robotDrive.robotDrive2.arcadeDrive(y*throttle, x*throttle);
         robotDrive.robotDrive3.arcadeDrive(-y*throttle, -x*throttle);
+        
+        */
+		
+		robotDrive.arcadeDrive(y*throttle, x*throttle);
         
     }
 	
@@ -130,9 +135,7 @@ public class DriveTrain extends Subsystem {
 
 	public void autoDrive(double moveValue, double rotateValue){
 	
-		 robotDrive.robotDrive1.arcadeDrive(moveValue, rotateValue);
-	     robotDrive.robotDrive2.arcadeDrive(moveValue, rotateValue);
-	     robotDrive.robotDrive3.arcadeDrive(-moveValue, -rotateValue);
+		 robotDrive.arcadeDrive(moveValue, rotateValue);
 	}
 	
 	public void gradualAccelerate(){

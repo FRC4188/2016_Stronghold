@@ -89,8 +89,6 @@ public static void init(){
 	//driveBaseMiddle = new CHSRobotDrive(middleLeft, middleRight);
 	
 
-	
-	
 	/*
 	driveBaseMiddle.setSafetyEnabled(false);
 	driveBaseMiddle.setExpiration(0.1);
@@ -102,7 +100,6 @@ public static void init(){
 	driveBase.setExpiration(0.1);
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
-	
 	shooterRight = new CANTalon(17);
 	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
 	
