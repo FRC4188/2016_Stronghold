@@ -85,7 +85,8 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addDefault("Rock Wall Autonomous :)", new RockWallAuto());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
-        
+        SmartDashboard.putString("Version Number: ", "Albany");
+        		
         sensors = new SensorsDisplay(); 
         /*
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));

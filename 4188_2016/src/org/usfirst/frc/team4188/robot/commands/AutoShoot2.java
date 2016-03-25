@@ -30,7 +30,7 @@ public class AutoShoot2 extends CommandGroup {
     	//addParallel(new RunShooterMotorBackwards(),0.25);
     	addSequential(new EjectBallLowGoal(),0.25);//CHANGED FROM 0.25
     	addParallel(new RunShooterMotors(),5);
-    	addSequential(new DoNothingRetriever(),1);
+    	addSequential(new DoNothingRetriever(),1.2511);
     	addParallel(new RetrieveBall(), 5);
     	//Feeds Ball into Running Shooter Motors
     	

@@ -1,15 +1,13 @@
 package org.usfirst.frc.team4188.robot.commands;
 
-import org.usfirst.frc.team4188.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RunShooterMotorBackwards extends Command {
+public class NewScalerUp extends Command {
 
-    public RunShooterMotorBackwards() {
+    public NewScalerUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,9 +18,6 @@ public class RunShooterMotorBackwards extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotShooter.runShooterMotorsBackwards(0.78511);
-    
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,12 +27,10 @@ public class RunShooterMotorBackwards extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.robotShooter.shooterOff();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

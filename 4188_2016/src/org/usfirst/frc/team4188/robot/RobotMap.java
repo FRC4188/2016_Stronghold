@@ -61,7 +61,7 @@ public static Relay cameraLightRelay;
 public static void init(){
 	
 	driveTrainGyro = new AnalogGyro(0);
-	gearShift = new DoubleSolenoid(0,1);//CHANGE TO 1,2 TO ACTUAL ROBOT
+	gearShift = new DoubleSolenoid(6,7);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -99,15 +99,15 @@ public static void init(){
 	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoidRight = new DoubleSolenoid(6,7);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
-	retrieverTalonOuter = new CANTalon(19);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(4,5);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(0,1);
+	retrieverTalonOuter = new CANTalon(16);
 	retrieverTalonInner = new CANTalon(21);
 	
-	cameraLightRelay = new Relay(1);
+	cameraLightRelay = new Relay(2);
 	
 	scalerTalonRight = new CANTalon(20);
-	scalerTalonLeft = new CANTalon(16);
+	scalerTalonLeft = new CANTalon(19);
 	
 	
 }
