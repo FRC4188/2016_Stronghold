@@ -28,7 +28,8 @@ public class RockWallAuto extends CommandGroup {
     	addSequential(new ShiftDriveGearForward());
     	//addSequential(new RetrieverOut(),2);
     	
-    	addSequential(new AutoDrive(0.9,0,5.65));
+    	//changed from 5.65 to 4.65
+    	addSequential(new AutoDrive(0.9,0,4.65));
     	addSequential(new AutoDrive(0,0,1));
     }
-}
+} 
