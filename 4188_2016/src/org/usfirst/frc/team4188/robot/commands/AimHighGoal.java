@@ -1,18 +1,19 @@
 package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 
 /**
  *
  */
-public class EjectBallLowGoal extends Command {
+public class AimHighGoal extends Command {
 
-    public EjectBallLowGoal() {
+    public AimHighGoal() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.robotRetriever);
+         requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -20,10 +21,16 @@ public class EjectBallLowGoal extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.robotRetriever.ejectBall(0.78511);
-    	Robot.robotShooter.runShooterMotorsBackwards(0.78511);
-    }
+    protected void execute() {   	
+    	//Grab Image
+    	//Process Image to find target center 
+    	//Get size based off target image and target size
+    	//Calculate Robot Rotation Angle
+    	//Trigger PID Loop to move robot to specified rotation angle
+    	Robot.drivetrain.goToAngle(15);
+    	//Shoot
+    	//new AutoShoot2();
+   }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -32,13 +39,10 @@ public class EjectBallLowGoal extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.robotRetriever.doNothing();
-    	Robot.robotShooter.shooterOff();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

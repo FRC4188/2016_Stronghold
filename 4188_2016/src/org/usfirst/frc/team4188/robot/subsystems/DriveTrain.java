@@ -2,15 +2,18 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
 
+import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.PIDController;
+//import edu.wpi.first.wpilibj.PIDOutput;
+//import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,22 +28,39 @@ public class DriveTrain extends Subsystem {
 	// DAR Test.
 
     DoubleSolenoid gearShift = RobotMap.gearShift;
-    RobotDrive robotDrive = RobotMap.driveBase;
-    RobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
+    CHSRobotDrive robotDrive = RobotMap.driveBase;
+    //CHSRobotDrive robotDriveMiddle = RobotMap.driveBaseMiddle;
 	CANTalon frontLeft = RobotMap.frontLeft;
 	CANTalon frontRight = RobotMap.frontRight;
 	CANTalon rearLeft = RobotMap.rearLeft;
 	CANTalon rearRight = RobotMap.rearRight;
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
-	AnalogGyro gyro = RobotMap.driveTrainGyro;
+	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
+	public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	//PIDSource source = RobotMap.driveTrainGyro;
+	//PIDOutput output = RobotMap.driveBase;
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
+	private static final double KP = 0.1;
+	private static final double KI = 0.005;
+	private static final double KD = 0.0;
 	
 	public void init(){
 		gyro.reset();
-		robotDrive.setSafetyEnabled(false);
-		robotDriveMiddle.setSafetyEnabled(false);
+		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive);
+/*		robotDrive.robotDrive1.setSafetyEnabled(false);
+		robotDrive.robotDrive2.setSafetyEnabled(false);
+		robotDrive.robotDrive3.setSafetyEnabled(false);
+		
+		*/
+	}
+	
+	public void goToAngle(double angle){
+	
+	//gyro.reset();
+	gyroPIDController.setSetpoint(angle);
+	
 	}
 
 	 
@@ -51,8 +71,13 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveWithJoystick(double y, double x, double throttle){
-        robotDrive.arcadeDrive(y*throttle, x*throttle);
-        robotDriveMiddle.arcadeDrive(-y*throttle, -x*throttle);
+  /*      robotDrive.robotDrive1.arcadeDrive(y*throttle, x*throttle);
+        robotDrive.robotDrive2.arcadeDrive(y*throttle, x*throttle);
+        robotDrive.robotDrive3.arcadeDrive(-y*throttle, -x*throttle);
+        
+        */
+		
+		robotDrive.arcadeDrive(y*throttle, x*throttle);
         
     }
 	
@@ -109,8 +134,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void autoDrive(double moveValue, double rotateValue){
-		robotDrive.arcadeDrive(moveValue, rotateValue);
-		robotDriveMiddle.arcadeDrive(-moveValue, -rotateValue);
+	
+		 robotDrive.arcadeDrive(moveValue, rotateValue);
 	}
 	
 	public void gradualAccelerate(){

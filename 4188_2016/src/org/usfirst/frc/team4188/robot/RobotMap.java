@@ -1,11 +1,15 @@
+
 package org.usfirst.frc.team4188.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -27,8 +31,8 @@ public class RobotMap {
     // public static int rangefinderModule = 1;
 	
 	
-public static RobotDrive driveBase;
-public static RobotDrive driveBaseMiddle;
+public static CHSRobotDrive driveBase;
+//public static CHSRobotDrive driveBaseMiddle;
 public static CANTalon frontLeft;
 public static CANTalon frontRight;
 public static CANTalon rearLeft;
@@ -49,8 +53,9 @@ public static Compressor compressor;
 
 public static CANTalon scalerTalonRight;
 public static CANTalon scalerTalonLeft;
+public static PIDController gyroPIDController;
 
-public static AnalogGyro driveTrainGyro;
+public static ADXRS450_Gyro driveTrainGyro;
 
 public static Relay cameraLightRelay;
 
@@ -60,8 +65,8 @@ public static Relay cameraLightRelay;
 
 public static void init(){
 	
-	driveTrainGyro = new AnalogGyro(0);
-	gearShift = new DoubleSolenoid(6,7);//CHANGE TO 1,2 TO ACTUAL ROBOT
+	driveTrainGyro = new ADXRS450_Gyro();
+	gearShift = new DoubleSolenoid(0,1);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -81,36 +86,38 @@ public static void init(){
 	
 	
 	
-	driveBase = new RobotDrive (frontLeft, rearLeft, frontRight, rearRight);
-	driveBaseMiddle = new RobotDrive(middleLeft, middleRight);
+	driveBase = new CHSRobotDrive (frontLeft,frontRight,rearLeft,rearRight,middleLeft,middleRight);
+	//driveBaseMiddle = new CHSRobotDrive(middleLeft, middleRight);
 	
 
+	/*
 	driveBaseMiddle.setSafetyEnabled(false);
 	driveBaseMiddle.setExpiration(0.1);
 	driveBaseMiddle.setSensitivity(0.5);
 	driveBaseMiddle.setMaxOutput(1.0);
+	*/
 	
 	driveBase.setSafetyEnabled(false);
 	driveBase.setExpiration(0.1);
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
-	
 	shooterRight = new CANTalon(17);
 	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
 	
 	compressor = new Compressor(0);
-	retrieverDoubleSolenoidRight = new DoubleSolenoid(4,5);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(0,1);
-	retrieverTalonOuter = new CANTalon(16);
+	retrieverDoubleSolenoidRight = new DoubleSolenoid(6,7);
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
+	retrieverTalonOuter = new CANTalon(19);
 	retrieverTalonInner = new CANTalon(21);
 	
 	cameraLightRelay = new Relay(2);
 	
 	scalerTalonRight = new CANTalon(20);
-	scalerTalonLeft = new CANTalon(19);
+	scalerTalonLeft = new CANTalon(16);
 	
 	
 }
 
 
 }
+
