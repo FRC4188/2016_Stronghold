@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -70,7 +72,7 @@ public class Robot extends IterativeRobot {
 		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
 		robotScaler = new Scaler();
-        robotVision = new Vision(LIFECAM_USB_CAM);
+        robotVision = new Vision("10.41.88.11");
         oi = new OI();
      
         
@@ -177,9 +179,14 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
-        SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp());
+        SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp()); 
+        SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
+        
         
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
+    
+        
+		
     }
     
     /**

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot;
 
 
 
+import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
@@ -189,6 +190,8 @@ public class OI {
 		
 		copilot1.whenPressed(new AutoShoot2());
 		pilot1.whenPressed(new AutoShoot2());
+		
+		pilot4.whenPressed(new AimHighGoal());
 	
 		camServer = CameraServer.getInstance();
         camServer.setQuality(50);
