@@ -56,18 +56,25 @@ public class Vision extends Subsystem {
     public Vision(String ip)
     {
     	//this.ip = ip;
+    	frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
     	this.camera = new AxisCamera(ip); 
-    	camera.writeResolution(AxisCamera.Resolution.k320x240);
-    	camera.writeMaxFPS(10);
-    	camera.writeCompression(30);
+    	this.camera.writeResolution(AxisCamera.Resolution.k320x240);
+    	this.camera.writeMaxFPS(10);
+    	this.camera.writeCompression(30);
+    	System.out.println("Vision Initialized, IP CAMERA = " + this.camera);
     }
 
     public void init()
     {
 //        this.camera = new AxisCamera(ip); 
+    	
     	  criteria = new NIVision.ParticleFilterCriteria2[2];
     	 criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_BOUNDING_RECT_WIDTH, 25, 400, 0, 0);
     	 criteria[1] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_BOUNDING_RECT_HEIGHT, 20, 400, 0,0);
+    	 System.out.println("criteria :" );
+    	 for(int j = 0; j < criteria.length; j++ ){
+    		 System.out.println("criteria ["+ j +"] = " + criteria[j]);
+    	 }
 	}
     
 
@@ -152,7 +159,7 @@ public class Vision extends Subsystem {
     
     
 
-	public ParticleAnalysisReport[] getProcessedImage()  {
+	public ParticleAnalysisReport[] getProcessedImage() throws NIVisionException, VisionException {
 		final int 
 		H_LOW = 45,
 		H_HIGH = 87,
@@ -161,36 +168,50 @@ public class Vision extends Subsystem {
 		V_LOW = 92,
 		V_HIGH = 255;
 		
-		try {
-			thresholdImage = getHSLImage().thresholdHSV(H_LOW, H_HIGH, S_LOW, S_HIGH, V_LOW, V_HIGH);
-			
-			targetImage = thresholdImage;	
-			filledInImage = thresholdImage.particleFilter(criteria);
-			filteredImage =	filledInImage.convexHull(false);
-				
+		System.out.println("getProcessedImage() start");
+		original = camera.getImage();
+		System.out.println("Original Camera Image: " + original);
+		System.out.println("original Height, Width =  " + original.getHeight()+ " , " + original.getWidth());
+		filteredImage = original.thresholdRGB(H_LOW, H_HIGH, S_LOW, S_HIGH, V_LOW, V_HIGH);
+		
+		System.out.println("filteredImage x = " + filteredImage);
+		
+		System.out.println("filteredImage Height, Width =  " + filteredImage.getHeight()+ " , " + filteredImage.getWidth());
+		/**
+		targetImage = thresholdImage;	
+		filledInImage = thresholdImage.particleFilter(criteria);
+		filteredImage =	filledInImage.convexHull(false);
+			**/
 			//filteredImage = filledInImage.particleFilter(criteria); // DO THIS IF REMOVE SMALL OBJECTS DOES NOT WORK
 				//filteredImage =	filledInImage.removeSmallObjects(false, 2);
+		ParticleAnalysisReport[] output = null; 
+		System.out.println("getNumberParticles() =" + filteredImage.getNumberParticles());	
+		if (filteredImage.getNumberParticles() != 0)
+		{
+	        output = filteredImage.getOrderedParticleAnalysisReports();
+			freeImages();
 			
-			if (filteredImage.getNumberParticles() != 0)
-	             return filteredImage.getOrderedParticleAnalysisReports();
-	         else return null;
-		} catch (NIVisionException e) {
-			e.printStackTrace();
-			return null;
-		} catch (VisionException ex){
+		
+		}
+		/**
+		catch (VisionException ex){
 			ex.printStackTrace();
 			return null;
 		}
-		finally{
-			freeImages();
-		}
+		**/
+		return output;
+		
+			
+	
 		 
 	}
 	
 	public HSLImage getHSLImage() throws NIVisionException {
 		
 		original = camera.getImage();
+		System.out.println("Original Camera Image: " + camera);
 		return original;
+		
 	}
 	
 

@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4188.robot;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
@@ -16,12 +17,20 @@ import org.usfirst.frc.team4188.robot.subsystems.Retriever;
 import org.usfirst.frc.team4188.robot.subsystems.Scaler;
 import org.usfirst.frc.team4188.robot.subsystems.Shooter;
 import org.usfirst.frc.team4188.robot.subsystems.Vision;
+import org.usfirst.frc.team4188.robot.subsystems.Vision2;
+
+import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.image.NIVisionException;
+
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.ImageType;
+
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -36,6 +45,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	
 	private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
 	public static DriveTrain drivetrain;
 	public static OI oi;
@@ -43,9 +54,11 @@ public class Robot extends IterativeRobot {
 	public static CameraLights cameraLights;
 	public static Shooter robotShooter;
 	public static Scaler robotScaler;
-	public static Vision robotVision;
+//	public static Vision robotVision;
+	public static Vision2 robotVision;
 	public static SensorsDisplay sensors;
 	private final NetworkTable grip = NetworkTable.getTable("grip");
+	public static final String CODE_VERSION = "MMS Test 0403";
 
 	
     
@@ -72,7 +85,9 @@ public class Robot extends IterativeRobot {
 		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
 		robotScaler = new Scaler();
-        robotVision = new Vision("10.41.88.11");
+        //robotVision = new Vision("10.41.88.11");
+		robotVision = new Vision2("10.41.88.11");
+        
         oi = new OI();
      
         
@@ -87,7 +102,8 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addDefault("Rock Wall Autonomous :)", new RockWallAuto());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
-        SmartDashboard.putString("Version Number: ", "Albany");
+        SmartDashboard.putString("Code Version: ", CODE_VERSION);
+        
         		
         sensors = new SensorsDisplay(); 
         /*
@@ -100,7 +116,7 @@ public class Robot extends IterativeRobot {
         robotShooter.init();
         cameraLights.init();
         robotScaler.init();
-        robotVision.init();
+        
         
         
         //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
@@ -184,11 +200,35 @@ public class Robot extends IterativeRobot {
         
         
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
-    
+        robotVision.process();
+        /**
+        ParticleAnalysisReport[] reports = null;
+		try {
+			reports = robotVision.getProcessedImage();
+			if (reports != null){
+				SmartDashboard.putString("Vision Status", "Found: "+ reports.length + " reports :) ");
+			
+				for(int i = 0; i < reports.length; i ++){
+					ParticleAnalysisReport r = reports[i];
+		         	 SmartDashboard.putNumber("Particle "+i +"Height: " , r.boundingRectHeight );
+		         	 SmartDashboard.putNumber("Particle " + i + "Width", r.boundingRectWidth);
+		         	 SmartDashboard.putNumber("Particle "+ i + "Center X" , r.center_mass_x);
+		         	 SmartDashboard.putNumber("Particle " + i + "Center Y", r.center_mass_y);
+
+				}
+			}
+			else{
+				SmartDashboard.putString("Vision Status", "Reports are Null :(");
+			}
+			// TODO Auto-generated catch block
+		} catch (VisionException | NIVisionException e) {
+			
+//			e.printStackTrace();
+			System.out.println("Exception: " + e.getMessage());
+		}
+		**/
         
-		
-    }
-    
+}
     /**
      * This function is called periodically during test mode
      */

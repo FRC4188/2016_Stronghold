@@ -93,7 +93,7 @@ public class OI {
 
     CameraServer camServer;
 
-    private static final String LIFECAM_USB_CAM = "cam0";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
+    private static final String LIFECAM_USB_CAM = "cam1";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
    
     
     private static final int PILOT_PORT = 0;
