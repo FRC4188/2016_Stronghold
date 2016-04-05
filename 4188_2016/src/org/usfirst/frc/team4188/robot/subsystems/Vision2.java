@@ -64,8 +64,8 @@ public class Vision2 extends Subsystem {
 	};
 	
 	public class Scores{
-		double Area;
-		double Aspect;
+		double area;
+		double aspect;
 	}
 	
 	Image frame;
@@ -80,12 +80,17 @@ public class Vision2 extends Subsystem {
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 	double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
-	double VIEW_ANGLE = 49.4; //View angle fo camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
+	double VIEW_ANGLE = 64; //View angle fo camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
 	NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
 	NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0,0,1,1);
 	Scores scores = new Scores();
+	private static final double TARGET_WIDTH = 20.0;
+	private static final double TARGET_HEIGHT = 12-0.25;
+	private static final double TARGET_ASPECT_RATIO = TARGET_WIDTH/TARGET_HEIGHT; //2016 Target is 20 inches Wide and 12 inches tall.
+	private static final double TARGET_TAPE_AREA = (10.0*2.0)+(10.0*2.0)+(TARGET_WIDTH*1.75); //2016 Area of the reflective tape in square inches.
+	private static final double TARGET_BOUNDING_RECTANGLE_AREA = TARGET_WIDTH*TARGET_HEIGHT; // 2016 Bounding rectangle area in square inches.
 	
-
+	
 	public Vision2(String ip){
 		this.camera = new AxisCamera(ip); 
     	this.camera.writeResolution(AxisCamera.Resolution.k320x240);
@@ -96,27 +101,27 @@ public class Vision2 extends Subsystem {
 		criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA, AREA_MINIMUM, 100.0, 0, 0);
 
 		//Put default values to SmartDashboard so fields will appear
-		SmartDashboard.putNumber("Tote hue min", GOAL_HUE_RANGE.minValue);
-		SmartDashboard.putNumber("Tote hue max", GOAL_HUE_RANGE.maxValue);
-		SmartDashboard.putNumber("Tote sat min", GOAL_SAT_RANGE.minValue);
-		SmartDashboard.putNumber("Tote sat max", GOAL_SAT_RANGE.maxValue);
-		SmartDashboard.putNumber("Tote val min", GOAL_VAL_RANGE.minValue);
-		SmartDashboard.putNumber("Tote val max", GOAL_VAL_RANGE.maxValue);
+		SmartDashboard.putNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
+		SmartDashboard.putNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
+		SmartDashboard.putNumber("Goal sat min", GOAL_SAT_RANGE.minValue);
+		SmartDashboard.putNumber("Goal sat max", GOAL_SAT_RANGE.maxValue);
+		SmartDashboard.putNumber("Goal val min", GOAL_VAL_RANGE.minValue);
+		SmartDashboard.putNumber("Goal val max", GOAL_VAL_RANGE.maxValue);
 		SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 	}
 	
-	public void process(){
+	public void periodic(){
 		camera.getImage(frame);
 		CameraServer.getInstance().setImage(frame);
 		
 		
 		
-		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Tote hue min", GOAL_HUE_RANGE.minValue);
-		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote hue max", GOAL_HUE_RANGE.maxValue);
-		GOAL_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Tote sat min", GOAL_SAT_RANGE.minValue);
-		GOAL_SAT_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote sat max", GOAL_SAT_RANGE.maxValue);
-		GOAL_VAL_RANGE.minValue = (int)SmartDashboard.getNumber("Tote val min", GOAL_VAL_RANGE.minValue);
-		GOAL_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote val max", GOAL_VAL_RANGE.maxValue);
+		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
+		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
+		GOAL_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Goal sat min", GOAL_SAT_RANGE.minValue);
+		GOAL_SAT_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal sat max", GOAL_SAT_RANGE.maxValue);
+		GOAL_VAL_RANGE.minValue = (int)SmartDashboard.getNumber("Goal val min", GOAL_VAL_RANGE.minValue);
+		GOAL_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal val max", GOAL_VAL_RANGE.maxValue);
 	
 		NIVision.imaqColorThreshold(binaryFrame, frame, 255, NIVision.ColorMode.HSV, GOAL_HUE_RANGE, GOAL_SAT_RANGE, GOAL_VAL_RANGE);
 	 int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
@@ -148,11 +153,11 @@ public class Vision2 extends Subsystem {
 		 }
 		 
 		 
-		 scores.Aspect = AspectScore(particles.elementAt(0));
-			SmartDashboard.putNumber("Aspect", scores.Aspect);
-			scores.Area = AreaScore(particles.elementAt(0));
-			SmartDashboard.putNumber("Area", scores.Area);
-			boolean isGoalHot = scores.Aspect > SCORE_MIN && scores.Area > SCORE_MIN;
+		 scores.aspect = aspectScore(particles.elementAt(0));
+			SmartDashboard.putNumber("Aspect", scores.aspect);
+			scores.area = areaScore(particles.elementAt(0));
+			SmartDashboard.putNumber("Area", scores.area);
+			boolean isGoalHot = scores.aspect > SCORE_MIN && scores.area > SCORE_MIN;
 
 			//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
@@ -172,20 +177,30 @@ public class Vision2 extends Subsystem {
 	 
 	double ratioToScore(double ratio)
 	{
-		return (Math.max(0, Math.min(100*(1-Math.abs(1-ratio)), 100)));
+		return (Math.max(0, Math.min(100*(1-Math.abs(TARGET_ASPECT_RATIO-ratio)), 100)));
 	}
 
-	double AreaScore(ParticleReport report)
+	/**
+	 * Calculate how closely the ratio of the ideal reflective area (tape) to its bounding box is 
+	 * to the ratio of our particle's reflective area to its bounding box.
+	 * 
+	 * @param report
+	 * @return a score between 0(bad) and 100(good).
+	 */
+	
+	
+	double areaScore(ParticleReport report)
 	{
+		//Calculate the area of the bounding rectangle
 		double boundingArea = (report.BoundingRectBottom - report.BoundingRectTop) * (report.BoundingRectRight - report.BoundingRectLeft);
 		//Tape is 7" edge so 49" bounding rect. With 2" wide tape it covers 24" of the rect.
-		return ratioToScore((49/24)*report.Area/boundingArea);
+		return ratioToScore((TARGET_BOUNDING_RECTANGLE_AREA/TARGET_TAPE_AREA)*report.Area/boundingArea);
 	}
 
 	/**
 	 * Method to score if the aspect ratio of the particle appears to match the retro-reflective target. Target is 7"x7" so aspect should be 1
 	 */
-	double AspectScore(ParticleReport report)
+	double aspectScore(ParticleReport report)
 	{
 		return ratioToScore(((report.BoundingRectRight-report.BoundingRectLeft)/(report.BoundingRectBottom-report.BoundingRectTop)));
 	}
@@ -201,13 +216,12 @@ public class Vision2 extends Subsystem {
 	 */
 	double computeDistance (Image image, ParticleReport report) {
 		double normalizedWidth, targetWidth;
-		NIVision.GetImageSizeResult size;
+		double particleWidth = report.BoundingRectRight - report.BoundingRectLeft;
+		NIVision.GetImageSizeResult size = NIVision.imaqGetImageSize(image);
+		normalizedWidth = 2*(particleWidth)/size.width;
+		
 
-		size = NIVision.imaqGetImageSize(image);
-		normalizedWidth = 2*(report.BoundingRectRight - report.BoundingRectLeft)/size.width;
-		targetWidth = 7;
-
-		return  targetWidth/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		return  TARGET_WIDTH/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
 	}
 
 	

@@ -200,7 +200,7 @@ public class Robot extends IterativeRobot {
         
         
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
-        robotVision.process();
+        robotVision.periodic();
         /**
         ParticleAnalysisReport[] reports = null;
 		try {
