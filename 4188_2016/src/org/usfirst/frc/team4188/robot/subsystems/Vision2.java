@@ -73,7 +73,7 @@ public class Vision2 extends Subsystem {
 	int imaqError;
 	AxisCamera camera;
 	
-	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range(45, 87);	//Default hue range for yellow tote
+	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range(45, 87);	//Default hue range for goal tote
 	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote
 	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(92, 255);	//Default value range for yellow tote
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
@@ -113,9 +113,6 @@ public class Vision2 extends Subsystem {
 	public void periodic(){
 		camera.getImage(frame);
 		CameraServer.getInstance().setImage(frame);
-		
-		
-		
 		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
 		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
 		GOAL_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Goal sat min", GOAL_SAT_RANGE.minValue);
@@ -124,56 +121,43 @@ public class Vision2 extends Subsystem {
 		GOAL_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal val max", GOAL_VAL_RANGE.maxValue);
 	
 		NIVision.imaqColorThreshold(binaryFrame, frame, 255, NIVision.ColorMode.HSV, GOAL_HUE_RANGE, GOAL_SAT_RANGE, GOAL_VAL_RANGE);
-	 int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
-	 SmartDashboard.putNumber("Masked particles", numParticles);
+		int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+		SmartDashboard.putNumber("Masked particles", numParticles);
 	
-	 float areaMin = (float)SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
-	 criteria[0].lower = areaMin;
+		float areaMin = (float)SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
+	 	criteria[0].lower = areaMin;
 	 
-	 imaqError = NIVision.imaqParticleFilter4(binaryFrame, binaryFrame, criteria, filterOptions, null);
+	 	imaqError = NIVision.imaqParticleFilter4(binaryFrame, binaryFrame, criteria, filterOptions, null);
 	 
-	 numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+	 	numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
 	
-	 if(numParticles > 0)
-	 {
-		 Vector<ParticleReport> particles = new Vector<ParticleReport>();
-		 for(int particleIndex = 0; particleIndex < numParticles; particleIndex++)
-		 {
-			ParticleReport par = new ParticleReport();
-			par.PercentAreaToImageArea = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
-			par.Area = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA);
-			par.BoundingRectTop = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP);
-			par.BoundingRectLeft = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_LEFT);
-			par.BoundingRectBottom = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_BOTTOM);
-			par.BoundingRectRight = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_RIGHT);
-			particles.add(par);
-
-
-			 
-		 }
-		 
-		 
-		 scores.aspect = aspectScore(particles.elementAt(0));
+	 	if(numParticles > 0) {
+			 Vector<ParticleReport> particles = new Vector<ParticleReport>();
+			 for(int particleIndex = 0; particleIndex < numParticles; particleIndex++) {
+				ParticleReport par = new ParticleReport();
+				par.PercentAreaToImageArea = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
+				par.Area = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA);
+				par.BoundingRectTop = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP);
+				par.BoundingRectLeft = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_LEFT);
+				par.BoundingRectBottom = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_BOTTOM);
+				par.BoundingRectRight = NIVision.imaqMeasureParticle(binaryFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_RIGHT);
+				particles.add(par);
+			 }
+			scores.aspect = aspectScore(particles.elementAt(0));
 			SmartDashboard.putNumber("Aspect", scores.aspect);
 			scores.area = areaScore(particles.elementAt(0));
 			SmartDashboard.putNumber("Area", scores.area);
 			boolean isGoalHot = scores.aspect > SCORE_MIN && scores.area > SCORE_MIN;
-
+	
 			//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
-		} else {
+	 	} else {
 			SmartDashboard.putBoolean("IsGoalHot", false);
 		}
 
-		Timer.delay(0.005);	
-		 
-		 
-		 
-		 
+//		Timer.delay(0.005);	
 	 }
-	 
-	 
 	 
 	double ratioToScore(double ratio)
 	{
