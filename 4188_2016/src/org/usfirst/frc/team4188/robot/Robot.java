@@ -189,6 +189,7 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
        // Robot.drivetrain.getEncoderValues();
@@ -203,38 +204,42 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Aim High Goal", new AimHighGoal());
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
         robotVision.periodic();
-        /**
-        ParticleAnalysisReport[] reports = null;
-		try {
-			reports = robotVision.getProcessedImage();
-			if (reports != null){
-				SmartDashboard.putString("Vision Status", "Found: "+ reports.length + " reports :) ");
-			
-				for(int i = 0; i < reports.length; i ++){
-					ParticleAnalysisReport r = reports[i];
-		         	 SmartDashboard.putNumber("Particle "+i +"Height: " , r.boundingRectHeight );
-		         	 SmartDashboard.putNumber("Particle " + i + "Width", r.boundingRectWidth);
-		         	 SmartDashboard.putNumber("Particle "+ i + "Center X" , r.center_mass_x);
-		         	 SmartDashboard.putNumber("Particle " + i + "Center Y", r.center_mass_y);
-
-				}
-			}
-			else{
-				SmartDashboard.putString("Vision Status", "Reports are Null :(");
-			}
-			// TODO Auto-generated catch block
-		} catch (VisionException | NIVisionException e) {
-			
-//			e.printStackTrace();
-			System.out.println("Exception: " + e.getMessage());
-		}
-		**/
-        
-}
+        measureShooterSpeed();
+    }
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    int measureShooterSpeedState = START_MEASURING;
+    private static final int MEASURING = 7;
+    private static final int NOT_MEASURING = 0;
+    private static final int START_MEASURING = 3;
+    private long measureShooterSpeedTimerStart = 0L;
+    private static final long MEASURE_SHOOTER_SPEED_INTERVAL_MS = 500; // milliseconds
+    
+    private void measureShooterSpeed(){
+    	if (measureShooterSpeedState == START_MEASURING) {
+    		measureShooterSpeedState = MEASURING; //Starts Measuring
+    		Robot.robotShooter.resetShooterEncoders();
+    		measureShooterSpeedTimerStart = System.currentTimeMillis();
+    	} else if (measureShooterSpeedState == MEASURING) {
+    	 	long elapsed = System.currentTimeMillis() - measureShooterSpeedTimerStart;
+    	 	if (elapsed >= MEASURE_SHOOTER_SPEED_INTERVAL_MS) {
+    	 		//Calculate and Report Left and Right Speeds and then start over.
+    	 		double leftSpeed = Robot.robotShooter.getShooterLeftEncoderReading() / elapsed; //Calculates left motor speed in unknown units
+    	 		double rightSpeed = Robot.robotShooter.getShooterRightEncoderReading() / elapsed; // Calculates right motor speed in unknown units
+    	 		reportShooterSpeeds(leftSpeed, rightSpeed); 
+    	 		measureShooterSpeedState = START_MEASURING; //Start over
+    	 	}
+    	}
+    	
+    }
+    
+    private void reportShooterSpeeds(double left, double right){
+    	SmartDashboard.putNumber("Right Shooter Speed", left);
+    	SmartDashboard.putNumber("Left Shooter Speed", right);
     }
 }
