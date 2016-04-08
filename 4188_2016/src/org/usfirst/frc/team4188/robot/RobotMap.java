@@ -101,20 +101,26 @@ public static void init(){
 	driveBase.setExpiration(0.1);
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
-	shooterRight = new CANTalon(17);
-	shooterLeft = new CANTalon(18);//CHANGE TO 18 ON ACTUAL ROBOT
+	shooterRight = new CANTalon(18);//Shooter was 17 Change back l8er for state
+	shooterRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+	shooterLeft = new CANTalon(19);//Shooter was 18 Change back L8er for state
+	shooterLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoidRight = new DoubleSolenoid(6,7);
 	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
-	retrieverTalonOuter = new CANTalon(19);
-	retrieverTalonInner = new CANTalon(21);
+	retrieverTalonOuter = new CANTalon(20); //Retriever was 19 Change back l8er for State
+	retrieverTalonOuter.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+	
+	retrieverTalonInner = new CANTalon(20); //Retriever was 21 Change back l8er for State
+	retrieverTalonInner.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 	cameraLightRelay = new Relay(2);
 	
-	scalerTalonRight = new CANTalon(20);
+	scalerTalonRight = new CANTalon(16);// Was 20 change back later for State
+	scalerTalonRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	scalerTalonLeft = new CANTalon(16);
-	
+	scalerTalonLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 }
 

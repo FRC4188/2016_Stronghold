@@ -12,12 +12,15 @@ import org.usfirst.frc.team4188.robot.commands.EjectBallFullSpeed;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
 import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
 import org.usfirst.frc.team4188.robot.commands.LowSpeedTwist;
+import org.usfirst.frc.team4188.robot.commands.ResetSensors;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
 import org.usfirst.frc.team4188.robot.commands.RetrieveBallFullSpeed;
 import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
 import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotorBackwards;
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotors;
+import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsBackwardWithThrottle;
+import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsWithThrottle;
 import org.usfirst.frc.team4188.robot.commands.ScalerDown;
 import org.usfirst.frc.team4188.robot.commands.ScalerUp;
 import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearBackward;
@@ -94,7 +97,7 @@ public class OI {
     CameraServer camServer;
 
     private static final String LIFECAM_USB_CAM = "cam1";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
-   
+    private static final boolean SHOW_LIFECAM = false;
     
     private static final int PILOT_PORT = 0;
     private static final int PILOT_NUM_AXES = 4;
@@ -173,8 +176,10 @@ public class OI {
 		pilot3.whileHeld(new ScalerUp());
 		pilot5.whileHeld(new ScalerDown());
 		
-		copilot9.whileHeld(new RunShooterMotors());
-		copilot8.whileHeld(new RunShooterMotorBackwards());
+		pilot6.whenPressed(new ResetSensors());
+		
+		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
+		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());
 		//copilot8.whenPressed(new ShooterDoNothing());
 		//copilot9.cancelWhenPressed(new ShooterDoNothing());
 		//copilot1.whenReleased(new ShooterDoNothing());
@@ -192,13 +197,12 @@ public class OI {
 		pilot1.whenPressed(new AutoShoot2());
 		
 		pilot4.whenPressed(new AimHighGoal());
-	
-		camServer = CameraServer.getInstance();
-        camServer.setQuality(50);
-        //the camera name (ex "cam0") can be found through the roborio web interface
-        camServer.startAutomaticCapture(LIFECAM_USB_CAM);
-        
-
+		if	(SHOW_LIFECAM) {
+			camServer = CameraServer.getInstance();
+	        camServer.setQuality(50);
+	        //the camera name (ex "cam0") can be found through the roborio web interface
+	        camServer.startAutomaticCapture(LIFECAM_USB_CAM);
+		}
 	}
 
 

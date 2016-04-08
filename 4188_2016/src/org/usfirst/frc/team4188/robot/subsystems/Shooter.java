@@ -50,6 +50,19 @@ public class Shooter extends Subsystem {
 		shooterMotorRight.set(0);
 		shooterMotorLeft.set(0); 
 	}
+	
+	public double getShooterRightEncoderReading(){
+		return shooterMotorRight.getEncPosition();
+	}
+	
+	public double getShooterLeftEncoderReading(){
+		return shooterMotorLeft.getEncPosition();
+	}
+	
+	public void resetShooterEncoders(){
+		shooterMotorRight.setPosition(0);
+		shooterMotorLeft.setPosition(0);
+	}
 
 	public void init() {
 		// TO DO Auto-generated method stub

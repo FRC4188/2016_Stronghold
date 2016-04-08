@@ -8,12 +8,16 @@ import java.util.Vector;
 
 import org.usfirst.frc.team4188.robot.CHSLog;
 import org.usfirst.frc.team4188.robot.RobotMap;
+
 import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.NIVision.MeasurementType;
 import com.ni.vision.NIVision.ParticleFilterCriteria2;
+import com.ni.vision.NIVision.ShapeMode;
 import com.ni.vision.VisionException;
+
 
 
 
@@ -45,6 +49,7 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
  */
 public class Vision2 extends Subsystem {
 	public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
+		
 		double PercentAreaToImageArea;
 		double Area;
 		double BoundingRectLeft;
@@ -72,8 +77,9 @@ public class Vision2 extends Subsystem {
 	Image binaryFrame;
 	int imaqError;
 	AxisCamera camera;
-	
-	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range(45, 87);	//Default hue range for goal tote
+	private static final int HUE_GREEN = 115;
+	private static final int HUE_TOLERANCE = 10;
+	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range((HUE_GREEN-HUE_TOLERANCE), (HUE_GREEN+HUE_TOLERANCE));	//Default hue range for goal tote
 	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote
 	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(92, 255);	//Default value range for yellow tote
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
@@ -112,7 +118,7 @@ public class Vision2 extends Subsystem {
 	
 	public void periodic(){
 		camera.getImage(frame);
-		CameraServer.getInstance().setImage(frame);
+//		CameraServer.getInstance().setImage(frame);
 		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
 		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
 		GOAL_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Goal sat min", GOAL_SAT_RANGE.minValue);
@@ -152,12 +158,23 @@ public class Vision2 extends Subsystem {
 			//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
+			outlineParticle(binaryFrame, particles.elementAt(0));
 	 	} else {
-			SmartDashboard.putBoolean("IsGoalHot", false);
+			SmartDashboard.putBoolean("IsGoalHot", false);	
 		}
-
+	 	CameraServer.getInstance().setImage(binaryFrame);
 //		Timer.delay(0.005);	
 	 }
+	private void outlineParticle(Image image,ParticleReport particle){
+		int top = (int)particle.BoundingRectTop;
+		int height = (int)(particle.BoundingRectBottom - particle.BoundingRectTop);
+		int left = (int)particle.BoundingRectLeft;
+		int width = (int)(particle.BoundingRectRight -  particle.BoundingRectLeft);
+		NIVision.Rect rect = new NIVision.Rect(top,left,height, width);
+		NIVision.imaqDrawShapeOnImage(image, image, rect,
+                DrawMode.DRAW_VALUE, ShapeMode.SHAPE_RECT, 2000.0f);
+//		NIVision.imaqDrawLineOnImage(image, image, DrawMode.DRAW_VALUE, NIVision.Point(left+(width/2), end, newPixelValue);
+	}
 	 
 	double ratioToScore(double ratio)
 	{
@@ -182,7 +199,7 @@ public class Vision2 extends Subsystem {
 	}
 
 	/**
-	 * Method to score if the aspect ratio of the particle appears to match the retro-reflective target. Target is 7"x7" so aspect should be 1
+	 * Method to score if the aspect ratio of the particle appears to match the retro-reflective target. Target is 20" x 12" so aspect should be 1
 	 */
 	double aspectScore(ParticleReport report)
 	{
@@ -199,17 +216,24 @@ public class Vision2 extends Subsystem {
 	 * @return The estimated distance to the target in feet.
 	 */
 	double computeDistance (Image image, ParticleReport report) {
-		double normalizedWidth, targetWidth;
+		double normalizedWidth;
 		double particleWidth = report.BoundingRectRight - report.BoundingRectLeft;
 		NIVision.GetImageSizeResult size = NIVision.imaqGetImageSize(image);
 		normalizedWidth = 2*(particleWidth)/size.width;
 		
-
-		return  TARGET_WIDTH/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		double computerDistance = TARGET_WIDTH/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		
+		double actualDistance = 1.2706*computerDistance - 1.1203;
+		return actualDistance;
 	}
+	
+	double computePanAngle(double distance){
+		return 10.0;
+	}
+	
+	
+	
 
-	
-	
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.PIDOutput;
 //import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *  
  */
 public class DriveTrain extends Subsystem {
     
@@ -38,17 +39,33 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	public Vision2 robotVision;
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
 	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
+/**
+	 double KP = SmartDashboard.getNumber("Kp value");
+	 double KI = SmartDashboard.getNumber("Ki value");
+	 double KD = SmartDashboard.getNumber("Kd value");
+	**/
+	//change to final tuned values for PID loop later
+	
 	private static final double KP = 0.1;
 	private static final double KI = 0.005;
 	private static final double KD = 0.0;
-	
+	private static final double SETTLED_TIME = 0.0;
+	private Timer timer;
+	private static boolean timerRunning;
+
+	//p quickens the approach to the setpoint; larger oscillation;
+	//d slows, causes oscillations
+	//i can correct for steady-state error
 	public void init(){
 		gyro.reset();
 		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive);
+		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
+		System.out.println("DriveTrain is initialized");
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
 		robotDrive.robotDrive2.setSafetyEnabled(false);
 		robotDrive.robotDrive3.setSafetyEnabled(false);
@@ -56,14 +73,46 @@ public class DriveTrain extends Subsystem {
 		*/
 	}
 	
+	public void gyroReset(){
+		gyro.reset();
+	}
+	
 	public void goToAngle(double angle){
 	
 	//gyro.reset();
+	//if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
 	gyroPIDController.setSetpoint(angle);
+    
+	//if(thereYet(angle)) //|| Robot.robotVision.isGoalHot()){
+	gyroPIDController.disable();
+    System.out.println("PID is Disabled");
+    //return true; 
+    }
+    
+	//return false;
 	
-	}
+/*
+	 public boolean thereYet(double angle) 
+	   {
+	        if(Robot.robotVision.process().isGoalHot()) 
+	        {
+	            timer.start();
+	            timerRunning = true;
+	        }
+	 /*       else if (!onTarget(angle) && timerRunning)
+	        {
+	            timer.stop();
+	            timer.reset();
+	            timerRunning = false;
+	        } 
+	        return timer.get() >= SETTLED_TIME;
+	    } */
+	
+	//private boolean onTarget(double angle) {
+		
+		//return false;
+		//}
 
-	 
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

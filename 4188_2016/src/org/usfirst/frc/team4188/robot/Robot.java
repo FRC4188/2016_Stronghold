@@ -4,13 +4,13 @@ package org.usfirst.frc.team4188.robot;
 import java.io.IOException;
 import java.util.Comparator;
 
+import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
 import org.usfirst.frc.team4188.robot.commands.LowBarAutonomous;
 import org.usfirst.frc.team4188.robot.commands.RockWallAuto;
-import org.usfirst.frc.team4188.robot.commands.SensorsDisplay;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.Retriever;
@@ -56,7 +56,6 @@ public class Robot extends IterativeRobot {
 	public static Scaler robotScaler;
 //	public static Vision robotVision;
 	public static Vision2 robotVision;
-	public static SensorsDisplay sensors;
 	private final NetworkTable grip = NetworkTable.getTable("grip");
 	public static final String CODE_VERSION = "MMS Test 0403";
 
@@ -105,7 +104,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
         		
-        sensors = new SensorsDisplay(); 
+      
         /*
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,0));
         chooser.addDefault("Move Forward Autonomous", new AutoDrive(36,30));
@@ -184,6 +183,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.drivetrain.setRampRate(0.12);
        // Robot.drivetrain.resetEncoders();
+        Robot.robotShooter.resetShooterEncoders();
     }
 
     /**
@@ -198,7 +198,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp()); 
         SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
         
-        
+        SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
+        SmartDashboard.putNumber("Shooter Left Encoder Position: ", Robot.robotShooter.getShooterLeftEncoderReading());
+        SmartDashboard.putData("Aim High Goal", new AimHighGoal());
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
         robotVision.periodic();
         /**
