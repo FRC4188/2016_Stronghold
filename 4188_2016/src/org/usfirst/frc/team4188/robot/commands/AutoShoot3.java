@@ -1,16 +1,13 @@
 package org.usfirst.frc.team4188.robot.commands;
 
-import org.usfirst.frc.team4188.robot.Robot;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutoShoot2 extends CommandGroup {
+public class AutoShoot3 extends CommandGroup {
     
-    public  AutoShoot2() {
+    public  AutoShoot3() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,13 +24,11 @@ public class AutoShoot2 extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new AimHighGoal(),2);
-    	addParallel(new RunShooterMotorBackwards(),0.10);
-    	addSequential(new EjectBallLowGoal(),0.25);//CHANGED FROM 0.25
-    	addParallel(new RunShooterMotors(),5);
+    	
+    	addParallel(new RunShooterMotorsBackwardWithThrottle(),0.10);
+    	addSequential(new EjectBallFullSpeed(),0.1);//CHANGED FROM 0.25
+    	addParallel(new RunShooterMotorsWithThrottle(),5);
     	addSequential(new DoNothingRetriever(),1.2511);
     	addParallel(new RetrieveBall(), 5);
-    	//Feeds Ball into Running Shooter Motors
-    	
     }
 }

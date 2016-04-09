@@ -5,6 +5,7 @@ package org.usfirst.frc.team4188.robot;
 import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
+import org.usfirst.frc.team4188.robot.commands.AutoShoot3;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
 import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
@@ -191,9 +192,9 @@ public class OI {
 		
 		
 		copilot1.whenPressed(new AutoShoot2());
+		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
-		pilot1.cancelWhenPressed(aimHighGoal);
-		pilot4.whenPressed(aimHighGoal = new AimHighGoal());
+		pilot4.whenPressed(new AimHighGoal());
 		
 		if	(SHOW_LIFECAM) {
 			camServer = CameraServer.getInstance();

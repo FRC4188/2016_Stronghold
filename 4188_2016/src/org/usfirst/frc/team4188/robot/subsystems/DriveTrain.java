@@ -38,7 +38,8 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
-	public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	//moved to AimHighGoal class
+	//public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	public Vision2 robotVision;
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
@@ -62,24 +63,12 @@ public class DriveTrain extends Subsystem {
 	//p quickens the approach to the setpoint; larger oscillation;
 	//d slows, causes oscillations
 	//i can correct for steady-state error
-
-	public DriveTrain(double rampRate){
-		
-			frontLeft.setVoltageRampRate(rampRate);
-			frontRight.setVoltageRampRate(rampRate);
-			rearLeft.setVoltageRampRate(rampRate);
-			rearRight.setVoltageRampRate(rampRate);
-			middleLeft.setVoltageRampRate(rampRate);
-			middleRight.setVoltageRampRate(rampRate);
-		
-	}
-	
 	public void init(){
 		gyro.reset();
-		gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
+		//gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
 		
 		
-		SmartDashboard.putData("New PID Controller", Robot.drivetrain.gyroPIDController);
+		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
 		System.out.println("DriveTrain is initialized");
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
@@ -93,13 +82,17 @@ public class DriveTrain extends Subsystem {
 		gyro.reset();
 	}
 	
+/*
 	public void goToAngle(double angle){
 	
-	   //gyro.reset();
+	    gyro.reset();
 		gyroPIDController.setAbsoluteTolerance(1.0);
 		gyroPIDController.setSetpoint(angle);
         //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
 		gyroPIDController.enable();
+	}	
+	*/	
+		
 		
 		
 	
@@ -108,11 +101,11 @@ public class DriveTrain extends Subsystem {
 	//gyroPIDController.disable();
     //System.out.println("PID is Disabled");
     //return true; 
-    }
+    
     
 	//return false;
 	
-/*
+/*   //test
 	 public boolean thereYet(double angle) 
 	   {
 	        if(Robot.robotVision.process().isGoalHot()) 
@@ -208,8 +201,17 @@ public class DriveTrain extends Subsystem {
 		 robotDrive.arcadeDrive(moveValue, rotateValue);
 	}
 	
-
-	
+	public void gradualAccelerate(){
+		this.setRampRate(0.25);
+	}
+	public void setRampRate(double rampRate) {
+		frontLeft.setVoltageRampRate(rampRate);
+		frontRight.setVoltageRampRate(rampRate);
+		rearLeft.setVoltageRampRate(rampRate);
+		rearRight.setVoltageRampRate(rampRate);
+		middleLeft.setVoltageRampRate(rampRate);
+		middleRight.setVoltageRampRate(rampRate);
+	}
 	
 	public void shiftGearForward(){
 		gearShift.set(DoubleSolenoid.Value.kForward);
