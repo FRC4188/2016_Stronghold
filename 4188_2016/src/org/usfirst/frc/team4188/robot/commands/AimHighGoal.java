@@ -18,6 +18,8 @@ public class AimHighGoal extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drivetrain.gyroReset();
+    	Robot.drivetrain.goToAngle(90);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,18 +29,19 @@ public class AimHighGoal extends Command {
     	//Get size based off target image and target size
     	//Calculate Robot Rotation Angle
     	//Trigger PID Loop to move robot to specified rotation angle
-    	Robot.drivetrain.goToAngle(15);
     	//Shoot
     	//new AutoShoot2();
    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	//tell the command when the PID controller is on target
+    	return Robot.drivetrain.gyroPIDController.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+      RobotMap.gyroPIDController.free();
     }
 
     // Called when another command which requires one or more of the same

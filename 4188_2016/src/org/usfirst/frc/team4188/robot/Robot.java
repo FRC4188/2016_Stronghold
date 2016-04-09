@@ -184,6 +184,7 @@ public class Robot extends IterativeRobot {
         Robot.drivetrain.setRampRate(0.12);
        // Robot.drivetrain.resetEncoders();
         Robot.robotShooter.resetShooterEncoders();
+        SmartDashboard.putData("Aim High Goal", new AimHighGoal());
     }
 
     /**
@@ -201,7 +202,7 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
         SmartDashboard.putNumber("Shooter Left Encoder Position: ", Robot.robotShooter.getShooterLeftEncoderReading());
-        SmartDashboard.putData("Aim High Goal", new AimHighGoal());
+      
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
         robotVision.periodic();
         measureShooterSpeed();

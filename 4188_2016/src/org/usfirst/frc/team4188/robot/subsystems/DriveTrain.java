@@ -54,6 +54,7 @@ public class DriveTrain extends Subsystem {
 	private static final double KP = 0.1;
 	private static final double KI = 0.005;
 	private static final double KD = 0.0;
+	private static final double KF = 6.0;
 	private static final double SETTLED_TIME = 0.0;
 	private Timer timer;
 	private static boolean timerRunning;
@@ -63,7 +64,10 @@ public class DriveTrain extends Subsystem {
 	//i can correct for steady-state error
 	public void init(){
 		gyro.reset();
-		gyroPIDController = new PIDController(KP, KI, KD, gyro, robotDrive);
+		gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
+		
+		
+		SmartDashboard.putData("New PID Controller", Robot.drivetrain.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
 		System.out.println("DriveTrain is initialized");
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
@@ -79,13 +83,18 @@ public class DriveTrain extends Subsystem {
 	
 	public void goToAngle(double angle){
 	
-	//gyro.reset();
-	//if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
-	gyroPIDController.setSetpoint(angle);
+	   //gyro.reset();
+		gyroPIDController.setAbsoluteTolerance(1.0);
+		gyroPIDController.setSetpoint(angle);
+        //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
+		gyroPIDController.enable();
+		
+		
+	
     
 	//if(thereYet(angle)) //|| Robot.robotVision.isGoalHot()){
-	gyroPIDController.disable();
-    System.out.println("PID is Disabled");
+	//gyroPIDController.disable();
+    //System.out.println("PID is Disabled");
     //return true; 
     }
     
