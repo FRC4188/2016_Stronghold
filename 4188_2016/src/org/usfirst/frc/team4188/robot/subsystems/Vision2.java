@@ -228,7 +228,7 @@ public class Vision2 extends Subsystem {
 	}
 	
 	double computePanAngle(double distance){
-		return 10.0;
+	periodic();
 	}
 	
 	

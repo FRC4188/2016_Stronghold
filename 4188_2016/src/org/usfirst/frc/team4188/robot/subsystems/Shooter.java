@@ -16,7 +16,13 @@ public class Shooter extends Subsystem {
 	
 	CANTalon shooterMotorRight = RobotMap.shooterRight;
 	CANTalon shooterMotorLeft = RobotMap.shooterLeft;
-
+/**
+    public Shooter(double rampRate){
+    	shooterMotorRight.setVoltageRampRate(rampRate);
+		shooterMotorLeft.setVoltageRampRate(rampRate);
+    }
+	
+	**/
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

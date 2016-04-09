@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
 		
 	   
 		
-		drivetrain = new DriveTrain();
+		drivetrain = new DriveTrain(0.18);
 		robotRetriever = new Retriever();
 		cameraLights = new CameraLights();
 		robotShooter = new Shooter();
@@ -181,7 +181,6 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Robot.drivetrain.setRampRate(0.12);
        // Robot.drivetrain.resetEncoders();
         Robot.robotShooter.resetShooterEncoders();
         SmartDashboard.putData("Aim High Goal", new AimHighGoal());

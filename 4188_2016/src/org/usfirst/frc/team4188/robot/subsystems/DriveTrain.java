@@ -62,6 +62,18 @@ public class DriveTrain extends Subsystem {
 	//p quickens the approach to the setpoint; larger oscillation;
 	//d slows, causes oscillations
 	//i can correct for steady-state error
+
+	public DriveTrain(double rampRate){
+		
+			frontLeft.setVoltageRampRate(rampRate);
+			frontRight.setVoltageRampRate(rampRate);
+			rearLeft.setVoltageRampRate(rampRate);
+			rearRight.setVoltageRampRate(rampRate);
+			middleLeft.setVoltageRampRate(rampRate);
+			middleRight.setVoltageRampRate(rampRate);
+		
+	}
+	
 	public void init(){
 		gyro.reset();
 		gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
@@ -196,17 +208,8 @@ public class DriveTrain extends Subsystem {
 		 robotDrive.arcadeDrive(moveValue, rotateValue);
 	}
 	
-	public void gradualAccelerate(){
-		this.setRampRate(0.25);
-	}
-	public void setRampRate(double rampRate) {
-		frontLeft.setVoltageRampRate(rampRate);
-		frontRight.setVoltageRampRate(rampRate);
-		rearLeft.setVoltageRampRate(rampRate);
-		rearRight.setVoltageRampRate(rampRate);
-		middleLeft.setVoltageRampRate(rampRate);
-		middleRight.setVoltageRampRate(rampRate);
-	}
+
+	
 	
 	public void shiftGearForward(){
 		gearShift.set(DoubleSolenoid.Value.kForward);

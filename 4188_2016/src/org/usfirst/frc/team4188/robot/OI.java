@@ -23,6 +23,7 @@ import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsBackwardWithThrot
 import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsWithThrottle;
 import org.usfirst.frc.team4188.robot.commands.ScalerDown;
 import org.usfirst.frc.team4188.robot.commands.ScalerUp;
+import org.usfirst.frc.team4188.robot.commands.SeizeDriveTrain;
 import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearBackward;
 import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearForward;
 import org.usfirst.frc.team4188.robot.commands.ShooterBackward;
@@ -106,6 +107,9 @@ public class OI {
     private static final int COPILOT_PORT = 1;
     private static final int COPILOT_NUM_AXES = 3;
     private static final int COPILOT_NUM_BUTTONS = 11;
+    
+    //Keep track of an instantiated AimHighGoal object, so we can cancel it if needed.
+    private static AimHighGoal aimHighGoal = null; 
 	    
     public OI(){
 	
@@ -155,7 +159,7 @@ public class OI {
 	    
 	    copilot5.whileHeld(new EjectBallLowGoal());
 	    copilot4.whileHeld(new RetrieveBall());
-	    //copilot4.toggleWhenPressed(new CameraLightsOn());
+
 	    
 	    copilot6.whileHeld(new RetrieveBallFullSpeed());
 	    copilot7.whileHeld(new EjectBallFullSpeed());
@@ -180,23 +184,17 @@ public class OI {
 		
 		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
 		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());
-		//copilot8.whenPressed(new ShooterDoNothing());
-		//copilot9.cancelWhenPressed(new ShooterDoNothing());
-		//copilot1.whenReleased(new ShooterDoNothing());
-		
-		//copilot8.whileHeld(new RunShooterMotors());
-		//copilot9.whileHeld(new ShooterBackward());
-		
-		//copilot6.whileHeld(new CameraLightsOn());
+
 		copilot10.whenPressed(new CameraLightsOn());
 		copilot11.whenPressed(new CameraLightsOff());
 		
-		//pilot3.whileHeld(new LowSpeedTwist());
+		
 		
 		copilot1.whenPressed(new AutoShoot2());
-		pilot1.whenPressed(new AutoShoot2());
+		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
+		pilot1.cancelWhenPressed(aimHighGoal);
+		pilot4.whenPressed(aimHighGoal = new AimHighGoal());
 		
-		pilot4.whenPressed(new AimHighGoal());
 		if	(SHOW_LIFECAM) {
 			camServer = CameraServer.getInstance();
 	        camServer.setQuality(50);
@@ -204,9 +202,6 @@ public class OI {
 	        camServer.startAutomaticCapture(LIFECAM_USB_CAM);
 		}
 	}
-
-
-
 
 	public Joystick getpilotJoystick(){
 		return pilotJoystick;
