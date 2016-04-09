@@ -18,7 +18,7 @@ public class AimHighGoal extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    protected void initialize() {  
     	SmartDashboard.putString("Aim Status", "Initializing");
     	Robot.drivetrain.gyroReset();
     	Robot.drivetrain.goToAngle(90);
@@ -28,7 +28,7 @@ public class AimHighGoal extends Command {
     protected void execute() {   	
     	//Grab Image
     	//Process Image to find target center 
-    	//Get size based off target image and target size
+   	    //Get size based off target image and target size
     	//Calculate Robot Rotation Angle
     	//Trigger PID Loop to move robot to specified rotation angle
     	//Shoot
@@ -43,18 +43,24 @@ public class AimHighGoal extends Command {
     		SmartDashboard.putString("Aim Status", "On Target");
     	else
     		SmartDashboard.putString("Aim Status", "Not On Target");
-    	return Robot.drivetrain.gyroPIDController.onTarget();
+    	return false; 
+    			//Robot.drivetrain.gyroPIDController.onTarget();
     }
+    
+    
 
     // Called once after isFinished returns true
     protected void end() {
-    	SmartDashboard.putString("Aim Status", "End");
+    	
     	Robot.drivetrain.gyroPIDController.disable();
-    	Robot.drivetrain.gyroPIDController.free();
+        Robot.drivetrain.gyroPIDController.free();
+        SmartDashboard.putString("Aim Status", "End");
+      
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
