@@ -83,11 +83,14 @@ public class DriveTrain extends Subsystem {
 	
 	public void goToAngle(double angle){
 	
-	   //gyro.reset();
+	    gyro.reset();
 		gyroPIDController.setAbsoluteTolerance(1.0);
 		gyroPIDController.setSetpoint(angle);
         //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
 		gyroPIDController.enable();
+	}	
+		
+		
 		
 		
 	
@@ -96,7 +99,7 @@ public class DriveTrain extends Subsystem {
 	//gyroPIDController.disable();
     //System.out.println("PID is Disabled");
     //return true; 
-    }
+    
     
 	//return false;
 	
