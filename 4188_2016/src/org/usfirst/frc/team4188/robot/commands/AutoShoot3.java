@@ -2,7 +2,7 @@ package org.usfirst.frc.team4188.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
+/**AutoShoot sequence with throttle values.
  *
  */
 public class AutoShoot3 extends CommandGroup {
