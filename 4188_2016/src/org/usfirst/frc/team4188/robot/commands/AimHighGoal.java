@@ -38,6 +38,7 @@ public class AimHighGoal extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {  
     	SmartDashboard.putString("Aim Status", "Initializing");
+
     	new CameraLightsOff();
     	angle = Robot.getAimError();
     	if(!Double.isNaN(angle)){
@@ -50,6 +51,7 @@ public class AimHighGoal extends Command {
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
     	}	
+
     }
     
     
@@ -69,6 +71,7 @@ public class AimHighGoal extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//tell the command when the PID controller is on target
+
     	if(Double.isNaN(angle)){
     		SmartDashboard.putString("Aim Status", "Bad Angle");
     		return true;
@@ -88,8 +91,10 @@ public class AimHighGoal extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	
+
     	gyroPIDController.disable();
         gyroPIDController.free();
+
         SmartDashboard.putString("Aim Status", "End");
       
     }
