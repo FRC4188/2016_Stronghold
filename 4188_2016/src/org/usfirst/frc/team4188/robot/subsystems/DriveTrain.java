@@ -38,7 +38,8 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleLeft = RobotMap.middleLeft;
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
-	public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	//moved to AimHighGoal class
+	//public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	public Vision2 robotVision;
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
@@ -64,10 +65,10 @@ public class DriveTrain extends Subsystem {
 	//i can correct for steady-state error
 	public void init(){
 		gyro.reset();
-		gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
+		//gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
 		
 		
-		SmartDashboard.putData("New PID Controller", Robot.drivetrain.gyroPIDController);
+		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
 		System.out.println("DriveTrain is initialized");
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
@@ -81,6 +82,7 @@ public class DriveTrain extends Subsystem {
 		gyro.reset();
 	}
 	
+/*
 	public void goToAngle(double angle){
 	
 	    gyro.reset();
@@ -89,7 +91,7 @@ public class DriveTrain extends Subsystem {
         //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
 		gyroPIDController.enable();
 	}	
-		
+	*/	
 		
 		
 		
