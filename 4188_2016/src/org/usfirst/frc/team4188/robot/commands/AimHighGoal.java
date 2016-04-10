@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
@@ -15,15 +16,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AimHighGoal extends Command {
 
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
-	//private static final double KP = 0.1;
-	//private static final double KI = 0.005;
-	//private static final double KD = 0.0;
-	//private static final double KF = 6.0;
+	private static final double KP = 0.1;
+	private static final double KI = 0.005;
+	private static final double KD = 0.0;
+	private static final double KF = 6.0;
 	
-	 double KP = SmartDashboard.getNumber("Kp value");
-	 double KI = SmartDashboard.getNumber("Ki value");
-	 double KD = SmartDashboard.getNumber("Kd value");
-	 double KF = SmartDashboard.getNumber("Kf value");
+	 //double KP = SmartDashboard.getNumber("Kp value");
+	 //double KI = SmartDashboard.getNumber("Ki value");
+	 //double KD = SmartDashboard.getNumber("Kd value");
+	 //double KF = SmartDashboard.getNumber("Kf value");
 	
 	 
 	private double angle;
@@ -96,3 +97,4 @@ public class AimHighGoal extends Command {
     	end();
     }
 }
+

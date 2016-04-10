@@ -58,7 +58,8 @@ public class Robot extends IterativeRobot {
 	public static Vision2 robotVision;
 	private final NetworkTable grip = NetworkTable.getTable("grip");
 	public static final String CODE_VERSION = "MMS Test 0403";
-
+	private static double aimError = Double.NaN;
+	
 	
     
 	Command autonomousCommand;
@@ -181,7 +182,6 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        Robot.drivetrain.setRampRate(0.12);
        // Robot.drivetrain.resetEncoders();
         Robot.robotShooter.resetShooterEncoders();
         SmartDashboard.putData("Aim High Goal", new AimHighGoal());
@@ -242,5 +242,12 @@ public class Robot extends IterativeRobot {
     private void reportShooterSpeeds(double left, double right){
     	SmartDashboard.putNumber("Right Shooter Speed", left);
     	SmartDashboard.putNumber("Left Shooter Speed", right);
+    }
+    
+    public static void setAimError(double v){
+    	aimError = v + 5.0;
+    }
+    public static double getAimError(){
+    	return aimError;
     }
 }
