@@ -5,7 +5,6 @@ package org.usfirst.frc.team4188.robot.subsystems;
 import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
-import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -53,25 +52,27 @@ public class DriveTrain extends Subsystem {
 	**/
 	//change to final tuned values for PID loop later
 	
-	private static final double KP = 0.1;
-	private static final double KI = 0.005;
-	private static final double KD = 0.0;
-	private static final double KF = 6.0;
-	private static final double SETTLED_TIME = 0.0;
+	//private static final double KP = 0.1;
+	//private static final double KI = 0.005;
+	//private static final double KD = 0.0;
+	//private static final double KF = 6.0;
+	//private static final double SETTLED_TIME = 0.0;
 	private Timer timer;
 	private static boolean timerRunning;
 
+	//pid controller tuning guide
 	//p quickens the approach to the setpoint; larger oscillation;
-	//d slows, causes oscillations
-	//i can correct for steady-state error
+	//d slows approach to setpoint, stops oscillations
+	//increase in i can correct for steady-state error
+	
 	public void init(){
 		gyro.reset();
 		//gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
 		
 		
-		// SmartDashboard.putData("Newer PID Controller", RobotMap.gyroPIDController);
+		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
-		System.out.println("DriveTrain is initialized");
+	
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
 		robotDrive.robotDrive2.setSafetyEnabled(false);
 		robotDrive.robotDrive3.setSafetyEnabled(false);
@@ -92,10 +93,7 @@ public class DriveTrain extends Subsystem {
         //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
 		gyroPIDController.enable();
 	}	
-<<<<<<< HEAD
 	*/	
-		
-		
 
 		
 	
@@ -229,5 +227,4 @@ public class DriveTrain extends Subsystem {
 }
     
     
-
 

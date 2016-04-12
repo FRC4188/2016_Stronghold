@@ -241,7 +241,11 @@ public class Vision2 extends Subsystem {
 	double computePanAngle(double distance, ParticleReport particle){
 		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
 		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
-		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
+		//calculate x as middle of target
+		//double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
+		
+		//changed to centering on left of goal
+		double x = particle.BoundingRectLeft;
 		double pixelError = x - (this.imageWidthPix/2);
 		double errorInFt = pixelError * ftPerPixel;
 		double changeAngle = Math.atan(errorInFt/distance);

@@ -122,7 +122,8 @@ public class Robot extends IterativeRobot {
         //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
         
         
-    	}
+        SmartDashboard.putData("PID Controller (new)", RobotMap.gyroPIDController);
+		}
         
           
         
