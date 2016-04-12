@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import org.usfirst.frc.team4188.robot.CHSLog;
+import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 
 import com.ni.vision.NIVision;
@@ -17,6 +18,7 @@ import com.ni.vision.NIVision.MeasurementType;
 import com.ni.vision.NIVision.ParticleFilterCriteria2;
 import com.ni.vision.NIVision.ShapeMode;
 import com.ni.vision.VisionException;
+
 
 
 
@@ -77,12 +79,12 @@ public class Vision2 extends Subsystem {
 	Image binaryFrame;
 	int imaqError;
 	AxisCamera camera;
-	private static final int HUE_GREEN = 115;
+	private static final int HUE_GREEN = 128;//Changed to 128 from 115
 	private static final int HUE_TOLERANCE = 10;
 	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range((HUE_GREEN-HUE_TOLERANCE), (HUE_GREEN+HUE_TOLERANCE));	//Default hue range for goal tote
 	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote
 	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(92, 255);	//Default value range for yellow tote
-	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
+	double AREA_MINIMUM = 0.3311; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 	double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
@@ -95,11 +97,12 @@ public class Vision2 extends Subsystem {
 	private static final double TARGET_ASPECT_RATIO = TARGET_WIDTH/TARGET_HEIGHT; //2016 Target is 20 inches Wide and 12 inches tall.
 	private static final double TARGET_TAPE_AREA = (10.0*2.0)+(10.0*2.0)+(TARGET_WIDTH*1.75); //2016 Area of the reflective tape in square inches.
 	private static final double TARGET_BOUNDING_RECTANGLE_AREA = TARGET_WIDTH*TARGET_HEIGHT; // 2016 Bounding rectangle area in square inches.
-	
+	private int imageWidthPix = 0;
 	
 	public Vision2(String ip){
 		this.camera = new AxisCamera(ip); 
     	this.camera.writeResolution(AxisCamera.Resolution.k320x240);
+    	this.imageWidthPix = 320;
     	this.camera.writeMaxFPS(10);
     	this.camera.writeCompression(30);
 		frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
@@ -158,13 +161,21 @@ public class Vision2 extends Subsystem {
 			//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
+			double distance = computeDistance(binaryFrame, particles.elementAt(0));
+			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
+			SmartDashboard.putNumber("Change Angle", aimError);
+			
+			Robot.setAimError(aimError);
 			outlineParticle(binaryFrame, particles.elementAt(0));
 	 	} else {
-			SmartDashboard.putBoolean("IsGoalHot", false);	
+			SmartDashboard.putBoolean("IsGoalHot", false);
+			Robot.setAimError(Double.NaN);
 		}
 	 	CameraServer.getInstance().setImage(binaryFrame);
 //		Timer.delay(0.005);	
 	 }
+	
+	
 	private void outlineParticle(Image image,ParticleReport particle){
 		int top = (int)particle.BoundingRectTop;
 		int height = (int)(particle.BoundingRectBottom - particle.BoundingRectTop);
@@ -227,8 +238,15 @@ public class Vision2 extends Subsystem {
 		return actualDistance;
 	}
 	
-	double computePanAngle(double distance){
-		return 10.0;
+	double computePanAngle(double distance, ParticleReport particle){
+		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
+		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
+		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
+		double pixelError = x - (this.imageWidthPix/2);
+		double errorInFt = pixelError * ftPerPixel;
+		double changeAngle = Math.atan(errorInFt/distance);
+		
+		return changeAngle; //Returns angle in radians
 	}
 	
 	

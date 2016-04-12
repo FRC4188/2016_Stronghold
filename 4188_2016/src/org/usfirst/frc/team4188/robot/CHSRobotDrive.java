@@ -14,9 +14,9 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     //static final int kRearLeft_val = 2;
     //static final int kRearRight_val = 3;
     //static final double minValue = 0.17;
-    
+
     protected RobotDrive robotDrive2, robotDrive3;
-    
+
     /*public CHSRobotDrive(final int leftMotorChannel, final int rightMotorChannel) {
         super(leftMotorChannel, rightMotorChannel);
     }
@@ -31,36 +31,36 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     } */
 
     public CHSRobotDrive(SpeedController leftMotor1, SpeedController rightMotor1,
-            SpeedController leftMotor2, SpeedController rightMotor2, 
+            SpeedController leftMotor2, SpeedController rightMotor2,
             SpeedController leftMotor3, SpeedController rightMotor3) {
-        
+
     	super(leftMotor1, rightMotor1);
-        robotDrive2 = new RobotDrive(leftMotor2, rightMotor2); 
-        
+        robotDrive2 = new RobotDrive(leftMotor2, rightMotor2);
+
         //this is for the middle motors
-        robotDrive3 = new RobotDrive(leftMotor3, rightMotor3); 
-    
-        
-        
-        
-        
-        
+        robotDrive3 = new RobotDrive(leftMotor3, rightMotor3);
+
+
+
+
+
+
       /*  super.setSafetyEnabled(false);
         robotDrive2.setSafetyEnabled(false);
         robotDrive3.setSafetyEnabled(false);
         */
-    
+
     }
-    
+
      public void setSafetyEnabled(boolean enabled){
     	 super.setSafetyEnabled(enabled);
     	 robotDrive2.setSafetyEnabled(enabled);
     	 robotDrive3.setSafetyEnabled(enabled);
      }
-    
-    
+
+
     public void arcadeDrive(double moveValue, double rotateValue) {
-        
+
     	super.arcadeDrive(moveValue, rotateValue);
         robotDrive2.arcadeDrive(moveValue, rotateValue);
         robotDrive3.arcadeDrive(-moveValue, -rotateValue);
@@ -70,11 +70,10 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     private static final double OUTPUT_MIN = 0.2;
     // at 0.05, even the motors with no gears could barely run.
     // same at 0.1
-    
+
+
     public void pidWrite(double output){
-    	
-    	//SmartDashboard.putNumber("Left Motor", super.m_rearLeftMotor.get());
-    	//SmartDashboard.putNumber("Right Motor", super.m_rearRightMotor.get());
+
     
     	if (Math.abs(output) < OUTPUT_MIN) {
     		output = OUTPUT_MIN * Math.signum(output);
@@ -83,17 +82,17 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	super.setLeftRightMotorOutputs(output,-output);
     	robotDrive2.setLeftRightMotorOutputs(output,-output);
     	robotDrive3.setLeftRightMotorOutputs(-output,output);
-    
+
     	//robotDrive3.setInvertedMotor(MotorType.kRearLeft, true);
     	//robotDrive3.setInvertedMotor(MotorType.kRearRight, true);
     }
-    
+
 /*  private int getInverted(SpeedController motor){
     	if(motor.getInverted())
     		return -1;
     	else
     		return 1;
-    	
+
     } */
     //comment to test GIT
 }

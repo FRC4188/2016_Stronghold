@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
@@ -20,8 +21,10 @@ public class AimHighGoal extends Command {
 	private double KD = 0.0;  // default was 0.0
 	private double KF = 0.0;  // was 6.0 by default
 	
-	// so with KP = 0.2, KI = 0.0, KD = 0.0, OUTPUT_MIN = ?, robot oscillates
-	
+	 //double KP = SmartDashboard.getNumber("Kp value");
+	 //double KI = SmartDashboard.getNumber("Ki value");
+	 //double KD = SmartDashboard.getNumber("Kd value");
+	 //double KF = SmartDashboard.getNumber("Kf value");	
 	    
 	private double angle;
 	
@@ -105,3 +108,4 @@ public class AimHighGoal extends Command {
     	end();
     }
 }
+
