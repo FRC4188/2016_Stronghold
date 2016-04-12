@@ -119,8 +119,13 @@ public class Vision2 extends Subsystem {
 		SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 	}
 	
-	public void periodic(){
+	public void periodic() throws VisionException {
+		try {
 		camera.getImage(frame);
+		}
+		catch(VisionException ex) {
+			ex.printStackTrace();
+		}
 //		CameraServer.getInstance().setImage(frame);
 		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
 		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
@@ -242,15 +247,25 @@ public class Vision2 extends Subsystem {
 		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
 		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
 		//calculate x as middle of target
-		//double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
+		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
 		
 		//changed to centering on left of goal
-		double x = particle.BoundingRectLeft;
+		//double x = particle.BoundingRectLeft;
 		double pixelError = x - (this.imageWidthPix/2);
 		double errorInFt = pixelError * ftPerPixel;
 		double changeAngle = Math.atan(errorInFt/distance);
-		
-		return changeAngle; //Returns angle in radians
+		/**
+		if(changeAngle < 0){
+			changeAngle = changeAngle + (8.0/12.0)/distance;
+
+		}
+		if(changeAngle > 0){
+			changeAngle = changeAngle - (8.0/12.0)/distance;
+			
+		}
+		**/
+		return changeAngle;
+		//Returns angle in radians
 	}
 	
 	

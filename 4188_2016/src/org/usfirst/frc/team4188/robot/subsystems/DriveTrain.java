@@ -199,7 +199,11 @@ public class DriveTrain extends Subsystem {
 
 	public void autoDrive(double moveValue, double rotateValue){
 	
-		 robotDrive.arcadeDrive(moveValue, rotateValue);
+		 robotDrive.arcadeDrive(moveValue, rotateValue);	 
+	}
+	
+	public void autoDriveBearingAngle(double outputMagnitude, double curve){
+		robotDrive.drive(outputMagnitude, curve);
 	}
 	
 	public void gradualAccelerate(){
@@ -224,6 +228,7 @@ public class DriveTrain extends Subsystem {
 	public void gearShiftDoNothing(){
 		gearShift.set(DoubleSolenoid.Value.kOff);
 	}
+	
 }
     
     

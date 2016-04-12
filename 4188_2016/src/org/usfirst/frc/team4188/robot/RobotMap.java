@@ -65,7 +65,7 @@ public static Relay cameraLightRelay;
 
 public static void init(){
 	
-	driveTrainGyro = new ADXRS450_Gyro();
+//	driveTrainGyro = new ADXRS450_Gyro();
 	gearShift = new DoubleSolenoid(0,1);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
 	frontLeft = new CANTalon(10);
@@ -117,7 +117,7 @@ public static void init(){
 	
 	cameraLightRelay = new Relay(2);
 	
-	scalerTalonRight = new CANTalon(16);// Was 20 change back later for State
+	scalerTalonRight = new CANTalon(21);// Was 20 change back later for State
 	scalerTalonRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	scalerTalonLeft = new CANTalon(16);
 	scalerTalonLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);

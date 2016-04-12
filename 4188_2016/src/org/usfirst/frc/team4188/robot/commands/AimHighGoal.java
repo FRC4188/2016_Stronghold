@@ -17,8 +17,8 @@ public class AimHighGoal extends Command {
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
 	 
-	private static final double KP = 0.19;
-	private static final double KI = 0.0;
+	private static final double KP = 0.1;
+	private static final double KI = 0.005;
 	private static final double KD = 0.0;
 	//private static final double KF = 6.0;
 	/**

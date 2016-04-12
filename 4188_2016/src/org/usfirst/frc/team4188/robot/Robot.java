@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Comparator;
 
 import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
+import org.usfirst.frc.team4188.robot.commands.AutoDrive3;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
@@ -21,6 +22,7 @@ import org.usfirst.frc.team4188.robot.subsystems.Vision2;
 
 import com.ni.vision.VisionException;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -78,7 +80,8 @@ public class Robot extends IterativeRobot {
 		public void robotInit() {
 		RobotMap.init();
 		
-	   
+		RobotMap.driveTrainGyro = new ADXRS450_Gyro();
+		RobotMap.driveTrainGyro.calibrate();
 		
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
@@ -101,6 +104,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Rugged Terrain Autonomous :)", new DriveForwardRetrieverUpAutonomous());
         autoChooser.addDefault("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addDefault("Rock Wall Autonomous :)", new RockWallAuto());
+        autoChooser.addDefault("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
@@ -122,7 +126,7 @@ public class Robot extends IterativeRobot {
         //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
         
         
-        SmartDashboard.putData("PID Controller (new)", RobotMap.gyroPIDController);
+
 		}
         
           
@@ -246,7 +250,7 @@ public class Robot extends IterativeRobot {
     }
     
     public static void setAimError(double v){
-    	aimError = v + 5.0;
+    	aimError = v;
     }
     public static double getAimError(){
     	return aimError;
