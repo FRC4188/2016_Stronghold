@@ -65,11 +65,20 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
         robotDrive2.arcadeDrive(moveValue, rotateValue);
         robotDrive3.arcadeDrive(-moveValue, -rotateValue);
       }
-       
+
+    
+    private static final double OUTPUT_MIN = 0.2;
+    // at 0.05, even the motors with no gears could barely run.
+    // same at 0.1
+    
     public void pidWrite(double output){
     	
     	//SmartDashboard.putNumber("Left Motor", super.m_rearLeftMotor.get());
     	//SmartDashboard.putNumber("Right Motor", super.m_rearRightMotor.get());
+    
+    	if (Math.abs(output) < OUTPUT_MIN) {
+    		output = OUTPUT_MIN * Math.signum(output);
+    	}
     	
     	super.setLeftRightMotorOutputs(output,-output);
     	robotDrive2.setLeftRightMotorOutputs(output,-output);

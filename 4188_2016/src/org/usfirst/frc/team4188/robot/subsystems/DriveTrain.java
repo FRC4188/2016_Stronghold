@@ -5,6 +5,7 @@ package org.usfirst.frc.team4188.robot.subsystems;
 import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
+import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -68,7 +69,7 @@ public class DriveTrain extends Subsystem {
 		//gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
 		
 		
-		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
+		// SmartDashboard.putData("Newer PID Controller", RobotMap.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
 		System.out.println("DriveTrain is initialized");
 /*		robotDrive.robotDrive1.setSafetyEnabled(false);
