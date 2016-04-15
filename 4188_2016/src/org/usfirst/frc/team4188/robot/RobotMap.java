@@ -66,7 +66,7 @@ public static Relay cameraLightRelay;
 public static void init(){
 	
 //	driveTrainGyro = new ADXRS450_Gyro();
-	gearShift = new DoubleSolenoid(0,1);//CHANGE TO 1,2 TO ACTUAL ROBOT
+	gearShift = new DoubleSolenoid(4,5);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
 	frontLeft = new CANTalon(10);
 	frontRight = new CANTalon(13);
@@ -101,25 +101,25 @@ public static void init(){
 	driveBase.setExpiration(0.1);
 	driveBase.setSensitivity(0.5);
 	driveBase.setMaxOutput(1.0);
-	shooterRight = new CANTalon(18);//Shooter was 17 Change back l8er for state
+	shooterRight = new CANTalon(21);//Shooter was 17 Change back l8er for state
 	shooterRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-	shooterLeft = new CANTalon(19);//Shooter was 18 Change back L8er for state
+	shooterLeft = new CANTalon(18);//Shooter was 18 Change back L8er for state
 	shooterLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 	compressor = new Compressor(0);
 	retrieverDoubleSolenoidRight = new DoubleSolenoid(6,7);
-	retrieverDoubleSolenoidLeft = new DoubleSolenoid(4,5);
-	retrieverTalonOuter = new CANTalon(20); //Retriever was 19 Change back l8er for State
+	retrieverDoubleSolenoidLeft = new DoubleSolenoid(0,1);
+	retrieverTalonOuter = new CANTalon(30); //Retriever was 19 Change back l8er for State
 	retrieverTalonOuter.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
-	retrieverTalonInner = new CANTalon(20); //Retriever was 21 Change back l8er for State
+	retrieverTalonInner = new CANTalon(19); //Retriever was 21 Change back l8er for State
 	retrieverTalonInner.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 	cameraLightRelay = new Relay(2);
 	
-	scalerTalonRight = new CANTalon(21);// Was 20 change back later for State
+	scalerTalonRight = new CANTalon(20);// Was 20 change back later for State
 	scalerTalonRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-	scalerTalonLeft = new CANTalon(16);
+	scalerTalonLeft = new CANTalon(35);
 	scalerTalonLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 	
 }

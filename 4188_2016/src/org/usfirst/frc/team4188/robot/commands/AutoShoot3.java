@@ -25,10 +25,9 @@ public class AutoShoot3 extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new AimHighGoal());
-    	addParallel(new RunShooterMotorBackwards(),0.10);
     	addSequential(new EjectBallFullSpeed(),0.1);//CHANGED FROM 0.25
     	addParallel(new RunShooterMotors(),4);
     	addSequential(new DoNothingRetriever(),1.2511);
-    	addParallel(new RetrieveBall(), 3);
+    	addParallel(new RetrieveBall(), 2);
     }
 }

@@ -18,7 +18,7 @@ public class AimHighGoal extends Command {
 	
 	 
 	private static final double KP = 0.1;
-	private static final double KI = 0.005;
+	private static final double KI = 0.0;
 	private static final double KD = 0.0;
 	//private static final double KF = 6.0;
 	/**
@@ -39,21 +39,25 @@ public class AimHighGoal extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {  
+    	SmartDashboard.getNumber("KP", KP);
+    	SmartDashboard.getNumber("KI", KI);
+    	SmartDashboard.getNumber("KD", KD);
     	SmartDashboard.putString("Aim Status", "Initializing");
 
 /*
 gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
 */
-    	
+Robot.drivetrain.gyroReset();    	
 gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
     	angle = Robot.getAimError();
+//    	angle = 90;
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
 	    	//Robot.drivetrain.goToAngle(90);
     		//RobotMap.driveTrainGyro.reset();
-    		gyroPIDController.setAbsoluteTolerance(.5);
+    		gyroPIDController.setAbsoluteTolerance(2);
     		gyroPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();

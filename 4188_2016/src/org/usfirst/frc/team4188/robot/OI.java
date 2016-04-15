@@ -98,7 +98,7 @@ public class OI {
 
     CameraServer camServer;
 
-    private static final String LIFECAM_USB_CAM = "cam1";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
+    private static final String LIFECAM_USB_CAM = "cam0";//CHANGE ON TO CAM 1 ON PRACTICE BOT AND CAM 0 ON OFFICIAL BOT
     private static final boolean SHOW_LIFECAM = false;
     
     private static final int PILOT_PORT = 0;
@@ -191,8 +191,8 @@ public class OI {
 		
 		
 		
-		copilot1.whenPressed(new AutoShoot2());
-		pilot1.whenPressed(new AutoShoot3());
+		copilot1.whenPressed(new AutoShoot3());
+		pilot1.whenPressed(new AutoShoot2());
 		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
 		pilot4.whenPressed(new AimHighGoal());

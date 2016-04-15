@@ -169,7 +169,6 @@ public class Vision2 extends Subsystem {
 			double distance = computeDistance(binaryFrame, particles.elementAt(0));
 			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
 			SmartDashboard.putNumber("Change Angle", aimError);
-			
 			Robot.setAimError(aimError);
 			outlineParticle(binaryFrame, particles.elementAt(0));
 	 	} else {
@@ -247,10 +246,10 @@ public class Vision2 extends Subsystem {
 		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
 		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
 		//calculate x as middle of target
-		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
+//		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
 		
 		//changed to centering on left of goal
-		//double x = particle.BoundingRectLeft;
+		double x = particle.BoundingRectLeft;
 		double pixelError = x - (this.imageWidthPix/2);
 		double errorInFt = pixelError * ftPerPixel;
 		double changeAngle = Math.atan(errorInFt/distance);

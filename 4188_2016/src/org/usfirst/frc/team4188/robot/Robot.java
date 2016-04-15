@@ -99,12 +99,12 @@ public class Robot extends IterativeRobot {
 
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Regular Low Bar Autonomous :)", new DriveForwardAutonomous());
-        autoChooser.addDefault("Low Goal Shot Autonomous :(", new DriveForwardTurnRightAutonomous());
-        autoChooser.addDefault("Moat Autonomous :)", new DriveForwardAutonomousMoat());
-        autoChooser.addDefault("Rugged Terrain Autonomous :)", new DriveForwardRetrieverUpAutonomous());
-        autoChooser.addDefault("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
-        autoChooser.addDefault("Rock Wall Autonomous :)", new RockWallAuto());
-        autoChooser.addDefault("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
+        autoChooser.addObject("Low Goal Shot Autonomous :(", new DriveForwardTurnRightAutonomous());
+        autoChooser.addObject("Moat Autonomous :)", new DriveForwardAutonomousMoat());
+        autoChooser.addObject("Rugged Terrain Autonomous :)", new DriveForwardRetrieverUpAutonomous());
+        autoChooser.addObject("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
+        autoChooser.addObject("Rock Wall Autonomous :)", new RockWallAuto());
+        autoChooser.addObject("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
@@ -204,12 +204,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp()); 
         SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
-        
         SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
         SmartDashboard.putNumber("Shooter Left Encoder Position: ", Robot.robotShooter.getShooterLeftEncoderReading());
       
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
-        robotVision.periodic();
+       robotVision.periodic();
         measureShooterSpeed();
     }
     /**
