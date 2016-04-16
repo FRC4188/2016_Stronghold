@@ -17,10 +17,19 @@ public class AimHighGoal extends Command {
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
 	 
-	private static final double KP = 0.1;
-	private static final double KI = 0.0;
-	private static final double KD = 0.0;
+	//private static final double KP = 0.1;
+	//private static final double KI = 0.005;
+	//private static final double KD = 0.0;
 	//private static final double KF = 6.0;
+	private static final double KP = 0.03;
+	private static final double KI = 0.00001;
+	private static final double KD = 0.0;
+	
+/**
+	private static final double KP = 0.025;
+	private static final double KI = 0.0002;
+	private static final double KD = 0.0;
+	*/
 	/**
 	 double KP = SmartDashboard.getNumber("Kp value");
 	 double KI = SmartDashboard.getNumber("Ki value");
@@ -39,25 +48,22 @@ public class AimHighGoal extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {  
-    	SmartDashboard.getNumber("KP", KP);
-    	SmartDashboard.getNumber("KI", KI);
-    	SmartDashboard.getNumber("KD", KD);
     	SmartDashboard.putString("Aim Status", "Initializing");
 
 /*
 gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
 */
-Robot.drivetrain.gyroReset();    	
+    	
 gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	angle = Robot.getAimError();
-//    	angle = 90;
+    	//angle = Robot.getAimError();
+    	angle = 45;
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
 	    	//Robot.drivetrain.goToAngle(90);
     		//RobotMap.driveTrainGyro.reset();
-    		gyroPIDController.setAbsoluteTolerance(2);
+    		gyroPIDController.setAbsoluteTolerance(1);
     		gyroPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
@@ -80,21 +86,24 @@ gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, Robot
    }
 
     // Make this return true when this Command no longer needs to run execute()
+    private boolean prevOnTarget = false;
     protected boolean isFinished() {
+    	boolean result = false;
     	//tell the command when the PID controller is on target
-
     	if(Double.isNaN(angle)){
     		SmartDashboard.putString("Aim Status", "Bad Angle");
-    		return true;
+    		result = true;
     	}
-    	if(gyroPIDController.onTarget()){
+    	if(gyroPIDController.onTarget() && prevOnTarget){
     		SmartDashboard.putString("Aim Status", "On Target");
-    		return true; 
+    		result = true; 
     	} else {
     		SmartDashboard.putString("Aim Status", "Not On Target");
-    		return false;  
+    		result = false;  
     	}
     			//Robot.drivetrain.gyroPIDController.onTarget();
+    	prevOnTarget = gyroPIDController.onTarget();
+    	return result;
     }
     
     
@@ -116,3 +125,4 @@ gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, Robot
     	end();
     }
 }
+

@@ -72,7 +72,7 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	robotDrive3.drive(-outputMagnitude, -curve);
     }
     **/
-    private static final double OUTPUT_MIN = 0.2;
+    private static final double OUTPUT_MIN = 0.3;
     // at 0.05, even the motors with no gears could barely run.
     // same at 0.1
 
@@ -101,3 +101,4 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     } */
     //comment to test GIT
 }
+

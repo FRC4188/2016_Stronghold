@@ -201,7 +201,8 @@ public class Robot extends IterativeRobot {
        // Robot.drivetrain.getEncoderValues();
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(robotRetriever);
-        SmartDashboard.putNumber("Throttle Value", Robot.oi.copilotJoystick.getThrottle());
+        SmartDashboard.putNumber("Throttle Value Copilot Joystick", Robot.oi.copilotJoystick.getThrottle());
+        SmartDashboard.putNumber("Throttle Value Pilot Joystick", Robot.oi.pilotJoystick.getThrottle());
         SmartDashboard.putNumber("FPGA Timer Value", Timer.getFPGATimestamp()); 
         SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
         SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
