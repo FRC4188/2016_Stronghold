@@ -10,6 +10,7 @@ import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
+import org.usfirst.frc.team4188.robot.commands.HighGoalAutonomous;
 import org.usfirst.frc.team4188.robot.commands.LowBarAutonomous;
 import org.usfirst.frc.team4188.robot.commands.RockWallAuto;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
@@ -61,6 +62,7 @@ public class Robot extends IterativeRobot {
 	private final NetworkTable grip = NetworkTable.getTable("grip");
 	public static final String CODE_VERSION = "MMS Test 0403";
 	private static double aimError = Double.NaN;
+	private static double optimalDistance = Double.NaN;
 	
 	
     
@@ -105,6 +107,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addObject("Rock Wall Autonomous :)", new RockWallAuto());
         autoChooser.addObject("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
+        autoChooser.addObject("High Goal Auto :|", new HighGoalAutonomous());
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
@@ -254,5 +257,11 @@ public class Robot extends IterativeRobot {
     }
     public static double getAimError(){
     	return aimError;
+    }
+    public static void setDistance(double d){
+    	optimalDistance = d;
+    }
+    public static double getDistance(){
+		return optimalDistance;
     }
 }

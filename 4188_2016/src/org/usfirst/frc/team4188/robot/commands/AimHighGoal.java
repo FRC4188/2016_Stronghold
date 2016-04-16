@@ -56,8 +56,8 @@ gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, R
     	
 gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	//angle = Robot.getAimError();
-    	angle = 45;
+    	angle = Robot.getAimError();
+    	//angle = 45;
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();

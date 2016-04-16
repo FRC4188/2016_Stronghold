@@ -11,6 +11,7 @@ import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
 import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
 import org.usfirst.frc.team4188.robot.commands.EjectBallFullSpeed;
 import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
+import org.usfirst.frc.team4188.robot.commands.EndAimHighGoal;
 import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
 import org.usfirst.frc.team4188.robot.commands.LowSpeedTwist;
 import org.usfirst.frc.team4188.robot.commands.ResetSensors;
@@ -181,7 +182,7 @@ public class OI {
 		pilot3.whileHeld(new ScalerUp());
 		pilot5.whileHeld(new ScalerDown());
 		
-		pilot6.whenPressed(new ResetSensors());
+		pilot6.cancelWhenPressed(new AimHighGoal());
 		
 		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
 		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());

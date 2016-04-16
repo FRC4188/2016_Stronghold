@@ -54,6 +54,8 @@ public static Compressor compressor;
 public static CANTalon scalerTalonRight;
 public static CANTalon scalerTalonLeft;
 public static PIDController gyroPIDController;
+public static PIDController driveTrainPIDController;
+public static PIDController driveAimPIDController;
 
 public static ADXRS450_Gyro driveTrainGyro;
 

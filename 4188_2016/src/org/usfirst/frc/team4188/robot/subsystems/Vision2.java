@@ -167,6 +167,7 @@ public class Vision2 extends Subsystem {
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
 			double distance = computeDistance(binaryFrame, particles.elementAt(0));
+			Robot.setDistance(distance);
 			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
 			SmartDashboard.putNumber("Change Angle", aimError);
 			Robot.setAimError(aimError);
