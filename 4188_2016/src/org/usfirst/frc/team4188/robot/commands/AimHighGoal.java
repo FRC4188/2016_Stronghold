@@ -16,54 +16,43 @@ public class AimHighGoal extends Command {
 
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
-	 
-	//private static final double KP = 0.1;
-	//private static final double KI = 0.005;
-	//private static final double KD = 0.0;
-	//private static final double KF = 6.0;
-	private static final double KP = 0.03;
-	private static final double KI = 0.00001;
-	private static final double KD = 0.0;
+//	PID tuned for competition bot
+//	private static final double KP = 0.03;
+//	private static final double KI = 0.00001;
+//	private static final double KD = 0.0;
 	
-/**
-	private static final double KP = 0.025;
-	private static final double KI = 0.0002;
+	
+	//PID tuned for practice bot
+	private static final double KP = 0.03;
+	private static final double KI = 0.00002;
 	private static final double KD = 0.0;
-	*/
-	/**
-	 double KP = SmartDashboard.getNumber("Kp value");
-	 double KI = SmartDashboard.getNumber("Ki value");
-	 double KD = SmartDashboard.getNumber("Kd value");
-	 double KF = SmartDashboard.getNumber("Kf value");
-	**/
 	 
-	private double angle ;
+	private double angle;
+	
 	
 	
     public AimHighGoal() {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
-    	//this.angle = angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {  
     	SmartDashboard.putString("Aim Status", "Initializing");
 
-/*
-gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
-*/
+        /*
+        gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
+        */
     	
-gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
+        gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	angle = Robot.getAimError();
-    	//angle = 45;
+    	//angle = Robot.getAimError();
+    	
+    	angle = 45;
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
-	    	//Robot.drivetrain.goToAngle(90);
-    		//RobotMap.driveTrainGyro.reset();
-    		gyroPIDController.setAbsoluteTolerance(1);
+    		gyroPIDController.setAbsoluteTolerance(1.0);
     		gyroPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
@@ -75,21 +64,15 @@ gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, Robot
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Grab Image
-    	//Process Image to find target center 
-   	    //Get size based off target image and target size
-    	//Calculate Robot Rotation Angle
-    	//Trigger PID Loop to move robot to specified rotation angle
-    	//Shoot
-    	//new AutoShoot2();
     	SmartDashboard.putString("Aim Status", "Running");
    }
 
     // Make this return true when this Command no longer needs to run execute()
     private boolean prevOnTarget = false;
+    
     protected boolean isFinished() {
     	boolean result = false;
-    	//tell the command when the PID controller is on target
+    	//tells the command when the PID controller is on target
     	if(Double.isNaN(angle)){
     		SmartDashboard.putString("Aim Status", "Bad Angle");
     		result = true;
@@ -101,7 +84,6 @@ gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, Robot
     		SmartDashboard.putString("Aim Status", "Not On Target");
     		result = false;  
     	}
-    			//Robot.drivetrain.gyroPIDController.onTarget();
     	prevOnTarget = gyroPIDController.onTarget();
     	return result;
     }
@@ -111,11 +93,8 @@ gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, Robot
     // Called once after isFinished returns true
     protected void end() {
     	
-
     	gyroPIDController.disable();
         gyroPIDController.free();
-
-        SmartDashboard.putString("Aim Status", "End");
       
     }
 

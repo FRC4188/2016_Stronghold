@@ -169,7 +169,7 @@ public class Vision2 extends Subsystem {
 			double distance = computeDistance(binaryFrame, particles.elementAt(0));
 			Robot.setDistance(distance);
 			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
-			SmartDashboard.putNumber("Change Angle", aimError);
+			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
 			outlineParticle(binaryFrame, particles.elementAt(0));
 	 	} else {

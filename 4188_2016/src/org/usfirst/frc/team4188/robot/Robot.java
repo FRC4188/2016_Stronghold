@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
 	public static final String CODE_VERSION = "MMS Test 0403";
 	private static double aimError = Double.NaN;
 	private static double optimalDistance = Double.NaN;
-	
+	AimHighGoal aimHighGoal;
 	
     
 	Command autonomousCommand;
@@ -82,6 +82,7 @@ public class Robot extends IterativeRobot {
 		public void robotInit() {
 		RobotMap.init();
 		
+	  
 		RobotMap.driveTrainGyro = new ADXRS450_Gyro();
 		RobotMap.driveTrainGyro.calibrate();
 		
@@ -92,12 +93,13 @@ public class Robot extends IterativeRobot {
 		robotScaler = new Scaler();
         //robotVision = new Vision("10.41.88.11");
 		robotVision = new Vision2("10.41.88.11");
+		
         
         oi = new OI();
      
         
         //chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
+        //chooser.addObject("My Auto", new MyAutoCommand());
 
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Regular Low Bar Autonomous :)", new DriveForwardAutonomous());
@@ -127,17 +129,8 @@ public class Robot extends IterativeRobot {
         
         
         //  Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
-        
-        
-
 		}
         
-          
-        
-        
-        
-
-	
 	/**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
@@ -160,7 +153,7 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
-    public void autonomousInit() {
+	public void autonomousInit() {
         autonomousCommand = (Command) autoChooser.getSelected();
       
        // Robot.drivetrain.resetEncoders();
@@ -210,7 +203,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
         SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
         SmartDashboard.putNumber("Shooter Left Encoder Position: ", Robot.robotShooter.getShooterLeftEncoderReading());
-      
+        SmartDashboard.putData("PIDController", Robot.drivetrain.gyroPIDController);
+        
+        //SmartDashboard.putData("PIDController", RobotMap.gyroPIDController);
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());
        robotVision.periodic();
         measureShooterSpeed();

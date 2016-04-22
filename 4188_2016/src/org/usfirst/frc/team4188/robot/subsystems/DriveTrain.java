@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem {
 	CANTalon middleRight = RobotMap.middleRight;
 	ADXRS450_Gyro gyro = RobotMap.driveTrainGyro;
 	//moved to AimHighGoal class
-	//public PIDController gyroPIDController = RobotMap.gyroPIDController;
+	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	public Vision2 robotVision;
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
@@ -67,7 +67,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
-		//gyroPIDController = new PIDController(KP, KI, KD, KF, gyro, robotDrive);
+		gyroPIDController = new PIDController(0.0, .0, 0.0, gyro, robotDrive);
 		
 		
 		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);

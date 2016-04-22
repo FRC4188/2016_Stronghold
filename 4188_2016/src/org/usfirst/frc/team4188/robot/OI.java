@@ -111,10 +111,12 @@ public class OI {
     private static final int COPILOT_NUM_BUTTONS = 11;
     
     //Keep track of an instantiated AimHighGoal object, so we can cancel it if needed.
-    private static AimHighGoal aimHighGoal = null; 
+    private static AimHighGoal aimHighGoal; 
 	    
     public OI(){
 	
+		aimHighGoal = new AimHighGoal();
+    	
 		pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
 		pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
 		pilotJoystick.yDeadZone(-12.0,12.0).yMult(1).yMaxSpeed(1.0);
@@ -182,7 +184,7 @@ public class OI {
 		pilot3.whileHeld(new ScalerUp());
 		pilot5.whileHeld(new ScalerDown());
 		
-		pilot6.cancelWhenPressed(new AimHighGoal());
+		pilot6.cancelWhenPressed(aimHighGoal);
 		
 		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
 		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());
@@ -196,7 +198,7 @@ public class OI {
 		pilot1.whenPressed(new AutoShoot2());
 		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
-		pilot4.whenPressed(new AimHighGoal());
+		pilot4.whenPressed(aimHighGoal);
 		
 		if	(SHOW_LIFECAM) {
 			camServer = CameraServer.getInstance();
