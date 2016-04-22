@@ -198,7 +198,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void autoDrive(double moveValue, double rotateValue){
-	
+		gradualAccelerate();
 		 robotDrive.arcadeDrive(moveValue, rotateValue);	 
 	}
 	
@@ -207,7 +207,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void gradualAccelerate(){
-		this.setRampRate(0.25);
+		this.setRampRate(10);
 	}
 	public void setRampRate(double rampRate) {
 		frontLeft.setVoltageRampRate(rampRate);

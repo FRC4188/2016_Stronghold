@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = (Command) autoChooser.getSelected();
       
        // Robot.drivetrain.resetEncoders();
-        
+        //Robot.drivetrain.setRampRate(1023);
         
     	
     	// schedule the autonomous command (example)
@@ -184,6 +184,8 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
        // Robot.drivetrain.resetEncoders();
+        
+        Robot.drivetrain.setRampRate(600);
         Robot.robotShooter.resetShooterEncoders();
         SmartDashboard.putData("Aim High Goal", new AimHighGoal());
     }

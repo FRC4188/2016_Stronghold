@@ -79,7 +79,7 @@ public class Vision2 extends Subsystem {
 	Image binaryFrame;
 	int imaqError;
 	AxisCamera camera;
-	private static final int HUE_GREEN = 128;//Changed to 128 from 115
+	private static final int HUE_GREEN = 120;//Changed to 128 from 115
 	private static final int HUE_TOLERANCE = 10;
 	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range((HUE_GREEN-HUE_TOLERANCE), (HUE_GREEN+HUE_TOLERANCE));	//Default hue range for goal tote
 	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote

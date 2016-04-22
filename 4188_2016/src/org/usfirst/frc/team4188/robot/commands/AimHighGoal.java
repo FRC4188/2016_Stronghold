@@ -23,8 +23,10 @@ public class AimHighGoal extends Command {
 	
 	
 	//PID tuned for practice bot
-	private static final double KP = 0.03;
-	private static final double KI = 0.00002;
+	
+	//previous KP .28
+	private static final double KP = 0.011;
+	private static final double KI = 0.0000;
 	private static final double KD = 0.0;
 	 
 	private double angle;
@@ -46,9 +48,9 @@ public class AimHighGoal extends Command {
     	
         gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	//angle = Robot.getAimError();
+    	angle = Robot.getAimError();
     	
-    	angle = 45;
+    	//angle = 5;
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
