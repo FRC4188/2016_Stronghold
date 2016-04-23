@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot;
 
 
 import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
+import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequence;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
 import org.usfirst.frc.team4188.robot.commands.AutoShoot3;
@@ -111,11 +112,11 @@ public class OI {
     private static final int COPILOT_NUM_BUTTONS = 11;
     
     //Keep track of an instantiated AimHighGoal object, so we can cancel it if needed.
-    private static AimHighGoal aimHighGoal; 
+    private static AimHighGoalSequence aimHighGoalSequence; 
 	    
     public OI(){
 	
-		aimHighGoal = new AimHighGoal();
+    	aimHighGoalSequence = new AimHighGoalSequence();
     	
 		pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
 		pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
@@ -184,7 +185,7 @@ public class OI {
 		pilot3.whileHeld(new ScalerUp());
 		pilot5.whileHeld(new ScalerDown());
 		
-		pilot6.cancelWhenPressed(aimHighGoal);
+		pilot6.cancelWhenPressed(aimHighGoalSequence);
 		
 		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
 		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());
@@ -195,10 +196,10 @@ public class OI {
 		
 		
 		copilot1.whenPressed(new AutoShoot3());
-		pilot1.whenPressed(new AutoShoot2());
+		pilot1.whenPressed(new AutoShoot3());
 		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
-		pilot4.whenPressed(aimHighGoal);
+		pilot4.whenPressed(aimHighGoalSequence);
 		
 		if	(SHOW_LIFECAM) {
 			camServer = CameraServer.getInstance();

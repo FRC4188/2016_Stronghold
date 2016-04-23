@@ -5,8 +5,6 @@ import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -23,8 +21,8 @@ public class AimHighGoal extends Command {
 	
 	
 	//PID tuned for practice bot
-	private static final double KP = 0.03;
-	private static final double KI = 0.00002;
+	private static final double KP = 0.011;
+	private static final double KI = 0.0;
 	private static final double KD = 0.0;
 	 
 	private double angle;

@@ -50,6 +50,8 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
  *
  */
 public class Vision2 extends Subsystem {
+	public double aimError;
+	
 	public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
 		
 		double PercentAreaToImageArea;
@@ -79,7 +81,7 @@ public class Vision2 extends Subsystem {
 	Image binaryFrame;
 	int imaqError;
 	AxisCamera camera;
-	private static final int HUE_GREEN = 128;//Changed to 128 from 115
+	private static final int HUE_GREEN = 120;//Changed to 128 from 115
 	private static final int HUE_TOLERANCE = 10;
 	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range((HUE_GREEN-HUE_TOLERANCE), (HUE_GREEN+HUE_TOLERANCE));	//Default hue range for goal tote
 	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote
@@ -168,7 +170,8 @@ public class Vision2 extends Subsystem {
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
 			double distance = computeDistance(binaryFrame, particles.elementAt(0));
 			Robot.setDistance(distance);
-			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
+			aimError = computePanAngle(distance,particles.elementAt(0));
+			SmartDashboard.putNumber("Pixel Error", pixel_Error);
 			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
 			outlineParticle(binaryFrame, particles.elementAt(0));
@@ -243,8 +246,9 @@ public class Vision2 extends Subsystem {
 		return actualDistance;
 	}
 	
+	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
-		//changed to centering on left of goal
+	// angle = (desired change /320) / Field of View (60 degrees for current camera)
 		double x = particle.BoundingRectLeft;
 		double pixelError = x - (this.imageWidthPix/2);
 
@@ -252,7 +256,6 @@ public class Vision2 extends Subsystem {
 		double changeAngle = pixelError * 0.2;
 		return changeAngle;
 	}
-	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

@@ -4,7 +4,7 @@ package org.usfirst.frc.team4188.robot;
 import java.io.IOException;
 import java.util.Comparator;
 
-import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
+import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequence;
 import org.usfirst.frc.team4188.robot.commands.AutoDrive3;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
@@ -50,7 +50,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	
-	private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
+//	private static final String LIFECAM_USB_CAM = "cam0";//CHANGE TO CAM 0 ON OFFICIAL ROBOT
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static Retriever robotRetriever;
@@ -63,7 +63,6 @@ public class Robot extends IterativeRobot {
 	public static final String CODE_VERSION = "MMS Test 0403";
 	private static double aimError = Double.NaN;
 	private static double optimalDistance = Double.NaN;
-	AimHighGoal aimHighGoal;
 	
     
 	Command autonomousCommand;
@@ -84,8 +83,8 @@ public class Robot extends IterativeRobot {
 		
 	  
 		RobotMap.driveTrainGyro = new ADXRS450_Gyro();
-		RobotMap.driveTrainGyro.calibrate();
 		
+	
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
 		cameraLights = new CameraLights();
@@ -93,6 +92,7 @@ public class Robot extends IterativeRobot {
 		robotScaler = new Scaler();
         //robotVision = new Vision("10.41.88.11");
 		robotVision = new Vision2("10.41.88.11");
+		RobotMap.driveTrainGyro.calibrate();
 		
         
         oi = new OI();
@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = (Command) autoChooser.getSelected();
       
        // Robot.drivetrain.resetEncoders();
-        
+        //Robot.drivetrain.setRampRate(1023);
         
     	
     	// schedule the autonomous command (example)
@@ -184,8 +184,10 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
        // Robot.drivetrain.resetEncoders();
+        
+        Robot.drivetrain.setRampRate(600);
         Robot.robotShooter.resetShooterEncoders();
-        SmartDashboard.putData("Aim High Goal", new AimHighGoal());
+        SmartDashboard.putData("Aim High Goal", new AimHighGoalSequence());
     }
 
     /**
@@ -219,7 +221,7 @@ public class Robot extends IterativeRobot {
     
     int measureShooterSpeedState = START_MEASURING;
     private static final int MEASURING = 7;
-    private static final int NOT_MEASURING = 0;
+//    private static final int NOT_MEASURING = 0;
     private static final int START_MEASURING = 3;
     private long measureShooterSpeedTimerStart = 0L;
     private static final long MEASURE_SHOOTER_SPEED_INTERVAL_MS = 500; // milliseconds

@@ -44,6 +44,7 @@ public class DriveTrain extends Subsystem {
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
 	
+	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
 /**
 	 double KP = SmartDashboard.getNumber("Kp value");
@@ -67,6 +68,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
+		
 		gyroPIDController = new PIDController(0.0, .0, 0.0, gyro, robotDrive);
 		
 		
@@ -198,7 +200,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void autoDrive(double moveValue, double rotateValue){
-	
+		gradualAccelerate();
 		 robotDrive.arcadeDrive(moveValue, rotateValue);	 
 	}
 	
@@ -207,7 +209,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void gradualAccelerate(){
-		this.setRampRate(0.25);
+		this.setRampRate(10);
 	}
 	public void setRampRate(double rampRate) {
 		frontLeft.setVoltageRampRate(rampRate);
