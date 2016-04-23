@@ -28,12 +28,12 @@ public class AimHighGoal extends Command {
 	private static final double KD = 0.0;
 	 
 	private double angle;
+	private double tolerance;
 	
-	
-	
-    public AimHighGoal() {
+    public AimHighGoal(double tolerance) {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
+    	this.tolerance = tolerance;
     }
 
     // Called just before this Command runs the first time
@@ -46,21 +46,17 @@ public class AimHighGoal extends Command {
     	
         gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	//angle = Robot.getAimError();
-    	
-    	angle = 45;
+    	angle = Robot.getAimError();
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
-    		gyroPIDController.setAbsoluteTolerance(1.0);
+    		gyroPIDController.setAbsoluteTolerance(tolerance);
     		gyroPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
     	}	
 
     }
-    
-    
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -68,27 +64,14 @@ public class AimHighGoal extends Command {
    }
 
     // Make this return true when this Command no longer needs to run execute()
-    private boolean prevOnTarget = false;
-    
     protected boolean isFinished() {
-    	boolean result = false;
-    	//tells the command when the PID controller is on target
-    	if(Double.isNaN(angle)){
-    		SmartDashboard.putString("Aim Status", "Bad Angle");
-    		result = true;
-    	}
-    	if(gyroPIDController.onTarget() && prevOnTarget){
+    	if(gyroPIDController.onTarget()){
     		SmartDashboard.putString("Aim Status", "On Target");
-    		result = true; 
     	} else {
     		SmartDashboard.putString("Aim Status", "Not On Target");
-    		result = false;  
     	}
-    	prevOnTarget = gyroPIDController.onTarget();
-    	return result;
-    }
-    
-    
+    	return gyroPIDController.onTarget();
+    }        
 
     // Called once after isFinished returns true
     protected void end() {

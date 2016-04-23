@@ -244,33 +244,14 @@ public class Vision2 extends Subsystem {
 	}
 	
 	double computePanAngle(double distance, ParticleReport particle){
-		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
-		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
-		//calculate x as middle of target
-//		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
-		
 		//changed to centering on left of goal
 		double x = particle.BoundingRectLeft;
 		double pixelError = x - (this.imageWidthPix/2);
-		double errorInFt = pixelError * ftPerPixel;
-		double changeAngle = Math.atan(errorInFt/distance);
-		/**
-		if(changeAngle < 0){
-			changeAngle = changeAngle + (8.0/12.0)/distance;
 
-		}
-		if(changeAngle > 0){
-			changeAngle = changeAngle - (8.0/12.0)/distance;
-			
-		}
-		**/
+		// angle = (pixels/320) * 60   320=image width, 60=camera FieldOfView in degrees
+		double changeAngle = pixelError * 0.2;
 		return changeAngle;
-		//Returns angle in radians
 	}
-	
-	
-	
-
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
