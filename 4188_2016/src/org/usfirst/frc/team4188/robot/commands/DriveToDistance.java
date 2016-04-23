@@ -28,7 +28,7 @@ public class DriveToDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
+    	CHSRobotDrive.setPIDType(PIDType.driveToDistance);
     	drivePID.setAbsoluteTolerance(1.0);
     	drivePID.setSetpoint(distance);
     	drivePID.enable();
@@ -36,7 +36,7 @@ public class DriveToDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
+    	CHSRobotDrive.setPIDType(PIDType.driveToDistance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
