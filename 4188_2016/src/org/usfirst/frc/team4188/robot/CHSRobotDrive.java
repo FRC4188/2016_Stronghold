@@ -96,9 +96,9 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
         	break;
     	case driveToDistance:
         	SmartDashboard.putString("PIDType", "driveToDistance");
-        	super.setLeftRightMotorOutputs(-output,-output);
-        	robotDrive2.setLeftRightMotorOutputs(-output,-output);
-        	robotDrive3.setLeftRightMotorOutputs(-output,-output);
+        	super.setLeftRightMotorOutputs(output,output);
+        	robotDrive2.setLeftRightMotorOutputs(output,output);
+        	robotDrive3.setLeftRightMotorOutputs(output,output);
         	break;
     	}
     }
