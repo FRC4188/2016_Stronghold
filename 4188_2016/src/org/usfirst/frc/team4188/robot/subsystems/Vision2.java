@@ -18,23 +18,6 @@ import com.ni.vision.NIVision.MeasurementType;
 import com.ni.vision.NIVision.ParticleFilterCriteria2;
 import com.ni.vision.NIVision.ShapeMode;
 import com.ni.vision.VisionException;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -271,24 +254,24 @@ public class Vision2 extends Subsystem implements PIDSource {
     }
 
 
+	PIDSourceType type;
 	@Override
 	public void setPIDSourceType(PIDSourceType pidSource) {
-		// TODO Auto-generated method stub
-		
+		type = pidSource;
 	}
 
 
 	@Override
 	public PIDSourceType getPIDSourceType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
 	}
 
 
 	@Override
 	public double pidGet() {
 		// TODO Auto-generated method stub
-		return distance;
+		return 50;
+//		return distance;
 	}
     
 }

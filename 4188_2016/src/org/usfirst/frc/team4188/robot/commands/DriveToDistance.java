@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveToDistance extends Command {
 
-	double PID_LOOP_TIME = .05;
+	double PID_LOOP_TIME = 3.0;
 	private static final double KP = 0.03;
 	private static final double KI = 0.0;
 	private static final double KD = 0.0;
