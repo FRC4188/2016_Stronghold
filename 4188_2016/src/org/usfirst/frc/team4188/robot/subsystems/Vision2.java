@@ -33,7 +33,11 @@ import com.ni.vision.VisionException;
 
 
 
+
+
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -49,7 +53,7 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
 /**
  *
  */
-public class Vision2 extends Subsystem {
+public class Vision2 extends Subsystem implements PIDSource {
 	public double aimError;
 	
 	public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
@@ -121,6 +125,7 @@ public class Vision2 extends Subsystem {
 		SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 	}
 	
+	double distance;
 	public void periodic() throws VisionException {
 		try {
 		camera.getImage(frame);
@@ -168,9 +173,10 @@ public class Vision2 extends Subsystem {
 			//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
 			SmartDashboard.putBoolean("IsGoalHot", isGoalHot);
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
-			double distance = computeDistance(binaryFrame, particles.elementAt(0));
+			distance = computeDistance(binaryFrame, particles.elementAt(0));
 			Robot.setDistance(distance);
 			aimError = computePanAngle(distance,particles.elementAt(0));
+			SmartDashboard.putNumber("Pixels Across", pixelsAcross);
 			SmartDashboard.putNumber("Pixel Error", pixel_Error);
 			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
@@ -234,9 +240,12 @@ public class Vision2 extends Subsystem {
 	 * @param isLong Boolean indicating if the target is believed to be the long side of a tote
 	 * @return The estimated distance to the target in feet.
 	 */
+	
+	double pixelsAcross;
 	double computeDistance (Image image, ParticleReport report) {
 		double normalizedWidth;
 		double particleWidth = report.BoundingRectRight - report.BoundingRectLeft;
+		pixelsAcross = particleWidth;
 		NIVision.GetImageSizeResult size = NIVision.imaqGetImageSize(image);
 		normalizedWidth = 2*(particleWidth)/size.width;
 		
@@ -249,7 +258,7 @@ public class Vision2 extends Subsystem {
 	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
 	// angle = (desired change /320) / Field of View (60 degrees for current camera)
-		double x = particle.BoundingRectLeft;
+		double x = particle.BoundingRectLeft + 5.0;
 		double pixelError = x - (this.imageWidthPix/2);
 
 		// angle = (pixels/320) * 60   320=image width, 60=camera FieldOfView in degrees
@@ -260,6 +269,27 @@ public class Vision2 extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public double pidGet() {
+		// TODO Auto-generated method stub
+		return distance;
+	}
     
 }
 

@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot.commands;
 import org.usfirst.frc.team4188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -10,8 +11,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AimHighGoalSequence extends CommandGroup {
     
     public  AimHighGoalSequence() {
-    	double finalTolerance = 1.0;
-    	double angle;
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -29,15 +28,9 @@ public class AimHighGoalSequence extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	addSequential(new AimHighGoal(1.0));
-    	angle = Robot.getAimError();
-    	if (angle >= finalTolerance) {
-        	addSequential(new AimHighGoal(1.0));
-    	}
-    	angle = Robot.getAimError();
-    	if (angle >= finalTolerance) {
-        	addSequential(new AimHighGoal(1.0));
-    	}
+//    	addSequential(new DriveToDistance(8.0));
+    	addSequential(new AimHighGoal(3.0));
+        addSequential(new AimHighGoal(1.0));
+        addSequential(new AimHighGoal(0.5));
     }
 }

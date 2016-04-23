@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
+import org.usfirst.frc.team4188.robot.CHSRobotDrive.PIDType;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -42,7 +43,8 @@ public class AimHighGoal extends Command {
         gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
         */
     	
-        gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
+    	RobotMap.driveBase.setPIDType(PIDType.turnToAngle);
+    	gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
     	angle = Robot.getAimError();
     	

@@ -195,10 +195,12 @@ public class OI {
 		
 		
 		
-		copilot1.whenPressed(new AutoShoot3());
+		copilot1.whenPressed(new AimHighGoalSequence());
 		pilot1.whenPressed(new AutoShoot3());
 		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
+		
+	
 		pilot4.whenPressed(aimHighGoalSequence);
 		
 		if	(SHOW_LIFECAM) {

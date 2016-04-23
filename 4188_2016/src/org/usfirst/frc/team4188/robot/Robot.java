@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = (Command) autoChooser.getSelected();
       
        // Robot.drivetrain.resetEncoders();
-        //Robot.drivetrain.setRampRate(1023);
+        Robot.drivetrain.setRampRate(600);
         
     	
     	// schedule the autonomous command (example)
