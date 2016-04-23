@@ -50,6 +50,8 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
  *
  */
 public class Vision2 extends Subsystem {
+	public double aimError;
+	
 	public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
 		
 		double PercentAreaToImageArea;
@@ -168,7 +170,8 @@ public class Vision2 extends Subsystem {
 			SmartDashboard.putNumber("Distance", computeDistance(binaryFrame, particles.elementAt(0)));
 			double distance = computeDistance(binaryFrame, particles.elementAt(0));
 			Robot.setDistance(distance);
-			double aimError = Math.toDegrees(computePanAngle(distance,particles.elementAt(0)));
+			aimError = computePanAngle(distance,particles.elementAt(0));
+			SmartDashboard.putNumber("Pixel Error", pixel_Error);
 			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
 			outlineParticle(binaryFrame, particles.elementAt(0));
@@ -243,36 +246,15 @@ public class Vision2 extends Subsystem {
 		return actualDistance;
 	}
 	
+	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
-		double halfWidth = Math.tan(Math.toRadians(VIEW_ANGLE)/2) * distance;
-		double ftPerPixel = halfWidth/(this.imageWidthPix/2);
-		//calculate x as middle of target
-//		double x = particle.BoundingRectLeft + ((particle.BoundingRectRight-particle.BoundingRectLeft)/2);
-		
-		//changed to centering on left of goal
+	// angle = (desired change /320) / Field of View (60 degrees for current camera)
 		double x = particle.BoundingRectLeft;
-		double pixelError = x - (this.imageWidthPix/2);
-		double errorInFt = pixelError * ftPerPixel;
-		double changeAngle = Math.atan(errorInFt/distance);
-		/**
-		if(changeAngle < 0){
-			changeAngle = changeAngle + (8.0/12.0)/distance;
-
-		}
-		if(changeAngle > 0){
-			changeAngle = changeAngle - (8.0/12.0)/distance;
-			
-		}
-		**/
-		return changeAngle;
-		//Returns angle in radians
+		pixel_Error = (x - 160) * 0.2; 
+		return pixel_Error;
 	}
-	
-	
-	
 
-	
-    public void initDefaultCommand() {
+	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }

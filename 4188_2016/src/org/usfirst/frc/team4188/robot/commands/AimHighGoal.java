@@ -16,15 +16,6 @@ public class AimHighGoal extends Command {
 
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
-//	PID tuned for competition bot
-//	private static final double KP = 0.03;
-//	private static final double KI = 0.00001;
-//	private static final double KD = 0.0;
-	
-	
-	//PID tuned for practice bot
-	
-	//previous KP .28
 	private static final double KP = 0.011;
 	private static final double KI = 0.0000;
 	private static final double KD = 0.0;
@@ -32,8 +23,7 @@ public class AimHighGoal extends Command {
 	private double angle;
 	
 	
-	
-    public AimHighGoal() {
+	public AimHighGoal() {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
     }
@@ -41,16 +31,42 @@ public class AimHighGoal extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {  
     	SmartDashboard.putString("Aim Status", "Initializing");
-
-        /*
-        gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
-        */
-    	
+//
         gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
-    	new CameraLightsOff();
-    	angle = Robot.getAimError();
+
+    	//angle = Robot.robotVision.aimError;
+    	//angle = 90;
     	
-    	//angle = 5;
+    	//this should cause the PIDController to line up three times
+    	for(int i = 0; i < 3; i++){
+    		
+    		angle = Robot.robotVision.aimError;
+    		//angle = 90;
+    		aim();	
+    	
+    	}
+    
+//    	System.out.println(angle);
+//    	SmartDashboard.putNumber("Angle", angle);
+//    	//angle = 5;
+//    	
+//    	if(!Double.isNaN(angle)){
+//    		Robot.drivetrain.gyroReset();
+//    		gyroPIDController.setAbsoluteTolerance(1.0);
+//    		gyroPIDController.setSetpoint(angle);
+//            //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
+//    		gyroPIDController.enable();
+//    	}	
+
+    }
+    
+    
+    protected void aim(){
+    	
+    	SmartDashboard.putString("Aim Status", "Initializing");
+    	
+    	System.out.println("Aim Angle" + angle);
+    	SmartDashboard.putNumber("Aim Angle", angle);
     	
     	if(!Double.isNaN(angle)){
     		Robot.drivetrain.gyroReset();
@@ -58,14 +74,13 @@ public class AimHighGoal extends Command {
     		gyroPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
-    	}	
-
+    	}
+    	
     }
-    
-    
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	SmartDashboard.putString("Aim Status", "Running");
    }
 

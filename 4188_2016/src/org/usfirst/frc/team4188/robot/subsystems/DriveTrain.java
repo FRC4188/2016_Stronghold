@@ -44,6 +44,7 @@ public class DriveTrain extends Subsystem {
 	//PIDSource source = RobotMap.driveTrainGyro;
 	//PIDOutput output = RobotMap.driveBase;
 	
+	
 	static final double TICK_DISTANCE = RobotMap.TICKS_PER_INCH;
 /**
 	 double KP = SmartDashboard.getNumber("Kp value");
@@ -67,6 +68,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void init(){
 		gyro.reset();
+		
 		gyroPIDController = new PIDController(0.0, .0, 0.0, gyro, robotDrive);
 		
 		

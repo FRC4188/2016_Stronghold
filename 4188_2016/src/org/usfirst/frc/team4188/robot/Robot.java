@@ -84,8 +84,8 @@ public class Robot extends IterativeRobot {
 		
 	  
 		RobotMap.driveTrainGyro = new ADXRS450_Gyro();
-		RobotMap.driveTrainGyro.calibrate();
 		
+	
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
 		cameraLights = new CameraLights();
@@ -93,6 +93,7 @@ public class Robot extends IterativeRobot {
 		robotScaler = new Scaler();
         //robotVision = new Vision("10.41.88.11");
 		robotVision = new Vision2("10.41.88.11");
+		RobotMap.driveTrainGyro.calibrate();
 		
         
         oi = new OI();
