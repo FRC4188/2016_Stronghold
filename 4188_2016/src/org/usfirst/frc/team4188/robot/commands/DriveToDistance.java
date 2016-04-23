@@ -35,6 +35,7 @@ public class DriveToDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	RobotMap.driveBase.setPIDType(PIDType.driveToDistance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
