@@ -12,19 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDriveBearingVisionDistance extends Command {
 	boolean isDistanceSatisfiedYet;
 	double currentDistance;
-	double moveDirection;
-	double rotation;
-	
+	double distance;	
 
-    public AutoDriveBearingVisionDistance(double moveValue, double rotateValue) {
+    public AutoDriveBearingVisionDistance(double distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
-    	
-    	moveDirection = moveValue;
-    	rotation = rotateValue;
-    	
-    	
+    	this.distance = distance;
     }
 
     // Called just before this Command runs the first time
@@ -38,8 +32,8 @@ public class AutoDriveBearingVisionDistance extends Command {
     protected void execute() {
     currentDistance = Robot.getDistance();
     if(!Double.isNaN(currentDistance)){
-    		while(currentDistance > 8.3){
-    			Robot.drivetrain.autoDrive(moveDirection, rotation);
+    		while(currentDistance > distance){
+    			Robot.drivetrain.autoDrive(0.45, 0.0);
     		}
     		Robot.drivetrain.autoDrive(0, 0);
     		isDistanceSatisfiedYet = true;
