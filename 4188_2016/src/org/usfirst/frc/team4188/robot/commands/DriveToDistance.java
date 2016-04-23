@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot.commands;
 
 import edu.wpi.first.wpilibj.*;
 
+import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.CHSRobotDrive.PIDType;
@@ -27,7 +28,7 @@ public class DriveToDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	RobotMap.driveBase.setPIDType(PIDType.driveToDistance);
+    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	drivePID.setAbsoluteTolerance(1.0);
     	drivePID.setSetpoint(distance);
     	drivePID.enable();
@@ -35,7 +36,7 @@ public class DriveToDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.driveBase.setPIDType(PIDType.driveToDistance);
+    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     }
 
     // Make this return true when this Command no longer needs to run execute()

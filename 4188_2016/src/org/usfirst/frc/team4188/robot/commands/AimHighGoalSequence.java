@@ -28,6 +28,7 @@ public class AimHighGoalSequence extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	requires(Robot.drivetrain);
 //    	addSequential(new DriveToDistance(8.0));
     	addSequential(new AimHighGoal(3.0));
         addSequential(new AimHighGoal(1.0));

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4188.robot.commands;
 
+import org.usfirst.frc.team4188.robot.CHSRobotDrive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.CHSRobotDrive.PIDType;
@@ -43,7 +44,7 @@ public class AimHighGoal extends Command {
         gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
         */
     	
-    	RobotMap.driveBase.setPIDType(PIDType.turnToAngle);
+    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
     	angle = Robot.getAimError();
@@ -60,7 +61,7 @@ public class AimHighGoal extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.driveBase.setPIDType(PIDType.turnToAngle);
+    	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	SmartDashboard.putString("Aim Status", "Running");
    }
 

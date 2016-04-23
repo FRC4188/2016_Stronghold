@@ -70,8 +70,8 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	driveToDistance
     }
     
-    private PIDType driveType = PIDType.turnToAngle;
-    public void setPIDType(PIDType type) {    	
+    private static PIDType driveType = PIDType.turnToAngle;
+    public static void setPIDType(PIDType type) {    	
     	driveType = type;
     	switch (driveType) {
     	case turnToAngle:
