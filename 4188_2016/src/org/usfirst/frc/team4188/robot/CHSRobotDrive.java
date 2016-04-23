@@ -39,17 +39,6 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
 
         //this is for the middle motors
         robotDrive3 = new RobotDrive(leftMotor3, rightMotor3);
-
-
-
-
-
-
-      /*  super.setSafetyEnabled(false);
-        robotDrive2.setSafetyEnabled(false);
-        robotDrive3.setSafetyEnabled(false);
-        */
-
     }
 
      public void setSafetyEnabled(boolean enabled){
@@ -93,26 +82,21 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     }
     
     public void pidWrite(double output){
+    	if (Math.abs(output) < OUTPUT_MIN) {
+    		output = OUTPUT_MIN * Math.signum(output);
+    	}
     	switch (driveType) {
     	case turnToAngle:
-        	SmartDashboard.putString("PIDType", "turnToAngle");
-        	if (Math.abs(output) < OUTPUT_MIN) {
-        		output = OUTPUT_MIN * Math.signum(output);
-        	}
-        	
+        	SmartDashboard.putString("PIDType", "turnToAngle");        	
         	super.setLeftRightMotorOutputs(output,-output);
         	robotDrive2.setLeftRightMotorOutputs(output,-output);
         	robotDrive3.setLeftRightMotorOutputs(-output,output);
     	case driveToDistance:
         	SmartDashboard.putString("PIDType", "driveToDistance");
-        	super.setLeftRightMotorOutputs(output,output);
-        	robotDrive2.setLeftRightMotorOutputs(output,output);
-        	robotDrive3.setLeftRightMotorOutputs(output,output);
+        	super.setLeftRightMotorOutputs(-output,-output);
+        	robotDrive2.setLeftRightMotorOutputs(-output,-output);
+        	robotDrive3.setLeftRightMotorOutputs(-output,-output);
     	}
-    
-
-    	//robotDrive3.setInvertedMotor(MotorType.kRearLeft, true);
-    	//robotDrive3.setInvertedMotor(MotorType.kRearRight, true);
     }
 
 /*  private int getInverted(SpeedController motor){
