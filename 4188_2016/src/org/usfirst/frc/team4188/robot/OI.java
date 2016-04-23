@@ -195,7 +195,7 @@ public class OI {
 		
 		
 		
-		copilot1.whenPressed(new AimHighGoalSequence());
+		copilot1.whenPressed(aimHighGoalSequence);
 		pilot1.whenPressed(new AutoShoot3());
 		//copilot1.whenPressed(new AutoShoot3());
 		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
