@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveToDistance extends Command {
 
 	double PID_LOOP_TIME = .05;
-	private static final double KP = 0.011;
+	private static final double KP = 0.03;
 	private static final double KI = 0.0;
 	private static final double KD = 0.0;
-	PIDController drivePID = new PIDController(KP,KI,KD,Robot.robotVision, RobotMap.driveBase,PID_LOOP_TIME);
+	PIDController drivePID = new PIDController(KP,KI,KD,Robot.robotVision, RobotMap.driveBase);
     
     double distance;
 	public DriveToDistance(double distance) {

@@ -87,15 +87,14 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	if (Math.abs(output) < OUTPUT_MIN) {
     		output = OUTPUT_MIN * Math.signum(output);
     	}
+    	SmartDashboard.putNumber("PID", output);
     	switch (driveType) {
     	case turnToAngle:
-        	SmartDashboard.putString("PIDType", "turnToAngle");        	
         	super.setLeftRightMotorOutputs(output,-output);
         	robotDrive2.setLeftRightMotorOutputs(output,-output);
         	robotDrive3.setLeftRightMotorOutputs(-output,output);
         	break;
     	case driveToDistance:
-        	SmartDashboard.putString("PIDType", "driveToDistance");
         	super.setLeftRightMotorOutputs(output,output);
         	robotDrive2.setLeftRightMotorOutputs(output,output);
         	robotDrive3.setLeftRightMotorOutputs(output,output);
