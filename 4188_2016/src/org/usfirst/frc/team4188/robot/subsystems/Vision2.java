@@ -164,7 +164,10 @@ public class Vision2 extends Subsystem implements PIDSource {
 			SmartDashboard.putNumber("Pixel Error", pixel_Error);
 			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
-			outlineParticle(binaryFrame, particles.elementAt(0));
+			
+			for(ParticleReport p: particles){
+			outlineParticle(binaryFrame, p);
+			}
 	 	} else {
 			SmartDashboard.putBoolean("IsGoalHot", false);
 			Robot.setAimError(Double.NaN);
