@@ -49,13 +49,11 @@ public class AimHighGoal extends Command {
     	new CameraLightsOff();
     	angle = Robot.getAimError();
     	
-    	if(!Double.isNaN(angle)){
-    		Robot.drivetrain.gyroReset();
-    		gyroPIDController.setAbsoluteTolerance(tolerance);
-    		gyroPIDController.setSetpoint(angle);
-    		gyroPIDController.enable();
-    	}	
+		Robot.drivetrain.gyroReset();
 
+		gyroPIDController.setAbsoluteTolerance(tolerance);
+		gyroPIDController.setSetpoint(angle);
+		gyroPIDController.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -65,6 +63,7 @@ public class AimHighGoal extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+		gyroPIDController.setAbsoluteTolerance(tolerance);
     	return gyroPIDController.onTarget();
     }        
 

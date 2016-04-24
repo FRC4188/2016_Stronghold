@@ -2,38 +2,7 @@ package org.usfirst.frc.team4188.robot;
 
 
 
-import org.usfirst.frc.team4188.robot.commands.AimHighGoal;
-import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequenceForLowBar;
-import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequenceForSide;
-import org.usfirst.frc.team4188.robot.commands.AutoShoot;
-import org.usfirst.frc.team4188.robot.commands.AutoShoot2;
-import org.usfirst.frc.team4188.robot.commands.AutoShoot3;
-import org.usfirst.frc.team4188.robot.commands.CameraLightsOff;
-import org.usfirst.frc.team4188.robot.commands.CameraLightsOn;
-import org.usfirst.frc.team4188.robot.commands.DoNothingRetrieverSolenoid;
-import org.usfirst.frc.team4188.robot.commands.EjectBallFullSpeed;
-import org.usfirst.frc.team4188.robot.commands.EjectBallLowGoal;
-import org.usfirst.frc.team4188.robot.commands.EndAimHighGoal;
-import org.usfirst.frc.team4188.robot.commands.GearShiftDoNothing;
-import org.usfirst.frc.team4188.robot.commands.LowSpeedTwist;
-import org.usfirst.frc.team4188.robot.commands.ResetSensors;
-import org.usfirst.frc.team4188.robot.commands.RetrieveBall;
-import org.usfirst.frc.team4188.robot.commands.RetrieveBallFullSpeed;
-import org.usfirst.frc.team4188.robot.commands.RetrieverIn;
-import org.usfirst.frc.team4188.robot.commands.RetrieverOut;
-import org.usfirst.frc.team4188.robot.commands.RunShooterMotorBackwards;
-import org.usfirst.frc.team4188.robot.commands.RunShooterMotors;
-import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsBackwardWithThrottle;
-import org.usfirst.frc.team4188.robot.commands.RunShooterMotorsWithThrottle;
-import org.usfirst.frc.team4188.robot.commands.ScalerDown;
-import org.usfirst.frc.team4188.robot.commands.ScalerUp;
-import org.usfirst.frc.team4188.robot.commands.SeizeDriveTrain;
-import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearBackward;
-import org.usfirst.frc.team4188.robot.commands.ShiftDriveGearForward;
-import org.usfirst.frc.team4188.robot.commands.ShooterBackward;
-import org.usfirst.frc.team4188.robot.commands.ShooterDoNothing;
-import org.usfirst.frc.team4188.robot.commands.ShooterForward;
-
+import org.usfirst.frc.team4188.robot.commands.*;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.*;
 
@@ -159,53 +128,54 @@ public class OI {
 	    copilot10 = new JoystickButton(copilotJoystick, 10);
 	    copilot11 = new JoystickButton(copilotJoystick, 11);
 	    
+
 	    
+	    pilot1.whenPressed(new AutoAimAndShoot());	//new AutoShoot3()
 	    
-	    pilot11.whileHeld(new ShiftDriveGearForward());
+		pilot3.whileHeld(new ScalerUp());
+
+		pilot4.whenPressed(aimHighGoalSequenceForLeftSide);
+
+		pilot5.whileHeld(new ScalerDown());
+		
+		pilot6.whenPressed(aimHighGoalSequenceForRightSide);
+		
+		pilot7.whileHeld(new RetrieverIn());
+		pilot7.whenReleased(new DoNothingRetrieverSolenoid());
+	    
+		pilot8.whileHeld(new RetrieverOut());
+		pilot8.whenReleased(new DoNothingRetrieverSolenoid());
+
+		pilot9.whileHeld(new RetrieveBall());
+
+		pilot10.whileHeld(new EjectBallFullSpeed());
+
+		pilot11.whileHeld(new ShiftDriveGearForward());
 	    pilot11.whenReleased(new GearShiftDoNothing());
+
 	    pilot12.whileHeld(new ShiftDriveGearBackward());
 	    pilot12.whenReleased(new GearShiftDoNothing());
 	    
 	    
-	    copilot5.whileHeld(new EjectBallLowGoal());
-	    copilot4.whileHeld(new RetrieveBall());
+		copilot1.whenPressed(aimHighGoalSequenceForLowBar);
 
-	    
+		copilot2.whileHeld(new RetrieverOut());
+	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());
+
+	    copilot3.whileHeld(new RetrieverIn());
+		copilot3.whenReleased(new DoNothingRetrieverSolenoid());
+
+		copilot4.whileHeld(new RetrieveBall());
+	    copilot5.whileHeld(new EjectBallLowGoal());
 	    copilot6.whileHeld(new RetrieveBallFullSpeed());
 	    copilot7.whileHeld(new EjectBallFullSpeed());
-	    
-	    copilot2.whileHeld(new RetrieverOut());
-	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());
-		copilot3.whileHeld(new RetrieverIn());
-		copilot3.whenReleased(new DoNothingRetrieverSolenoid());
-		
-		pilot8.whileHeld(new RetrieverOut());
-		pilot8.whenReleased(new DoNothingRetrieverSolenoid());
-		pilot7.whileHeld(new RetrieverIn());
-		pilot7.whenReleased(new DoNothingRetrieverSolenoid());
 
-		pilot10.whileHeld(new EjectBallFullSpeed());
-		pilot9.whileHeld(new RetrieveBall());
-		
-		pilot3.whileHeld(new ScalerUp());
-		pilot5.whileHeld(new ScalerDown());
-		
-		
 		copilot9.whileHeld(new RunShooterMotorsWithThrottle());
 		copilot8.whileHeld(new RunShooterMotorsBackwardWithThrottle());
 
 		copilot10.whenPressed(new CameraLightsOn());
 		copilot11.whenPressed(new CameraLightsOff());
-		
-		copilot1.whenPressed(aimHighGoalSequenceForLowBar);
-		pilot1.whenPressed(new AutoShoot3());
-		//copilot1.whenPressed(new AutoShoot3());
-		//Not sure if cancelWhenPressed will be happy when aimHighGoal is null :(
-		
-	
-		pilot4.whenPressed(aimHighGoalSequenceForLeftSide);
-		pilot6.whenPressed(aimHighGoalSequenceForRightSide);
-		
+			
 		if	(SHOW_LIFECAM) {
 			camServer = CameraServer.getInstance();
 	        camServer.setQuality(50);

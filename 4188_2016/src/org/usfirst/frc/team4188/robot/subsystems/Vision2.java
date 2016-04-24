@@ -242,7 +242,7 @@ public class Vision2 extends Subsystem implements PIDSource {
 	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
 	// angle = (desired change /320) / Field of View (60 degrees for current camera)
-		double x = particle.BoundingRectLeft + 5.0;
+		double x = particle.BoundingRectLeft + 8.0;
 		double pixelError = x - (this.imageWidthPix/2);
 
 		// angle = (pixels/320) * 60   320=image width, 60=camera FieldOfView in degrees

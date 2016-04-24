@@ -63,7 +63,7 @@ driveTrainPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro,
     		Robot.drivetrain.gyroReset();
 	    	//Robot.drivetrain.goToAngle(90);
     		//RobotMap.driveTrainGyro.reset();
-    		driveTrainPIDController.setAbsoluteTolerance(1);
+    		driveTrainPIDController.setAbsoluteTolerance(1.0);
     		driveTrainPIDController.setSetpoint(angle);
             //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		driveTrainPIDController.enable();
@@ -94,6 +94,7 @@ driveTrainPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro,
     		SmartDashboard.putString("Move Status", "Bad Angle");
     		result = true;
     	}
+		driveTrainPIDController.setAbsoluteTolerance(1.0);
     	if(driveTrainPIDController.onTarget() && prevOnTarget){
     		SmartDashboard.putString("Move Status", "On Target");
     		result = true; 
@@ -102,6 +103,7 @@ driveTrainPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro,
     		result = false;  
     	}
     			//Robot.drivetrain.gyroPIDController.onTarget();
+		driveTrainPIDController.setAbsoluteTolerance(1.0);
     	prevOnTarget = driveTrainPIDController.onTarget();
     	return result;
     }
