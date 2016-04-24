@@ -4,15 +4,7 @@ package org.usfirst.frc.team4188.robot;
 import java.io.IOException;
 import java.util.Comparator;
 
-import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequenceForSide;
-import org.usfirst.frc.team4188.robot.commands.AutoDrive3;
-import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
-import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
-import org.usfirst.frc.team4188.robot.commands.DriveForwardRetrieverUpAutonomous;
-import org.usfirst.frc.team4188.robot.commands.DriveForwardTurnRightAutonomous;
-import org.usfirst.frc.team4188.robot.commands.HighGoalAutonomous;
-import org.usfirst.frc.team4188.robot.commands.LowBarAutonomous;
-import org.usfirst.frc.team4188.robot.commands.RockWallAuto;
+import org.usfirst.frc.team4188.robot.commands.*;
 import org.usfirst.frc.team4188.robot.subsystems.CameraLights;
 import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.Retriever;
@@ -103,7 +95,9 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addObject("Rock Wall Autonomous :)", new RockWallAuto());
         autoChooser.addObject("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
-        autoChooser.addObject("High Goal Auto :|", new HighGoalAutonomous());
+        autoChooser.addObject("High Goal Auto from Low Bar :)", new AimHighGoalSequenceForLowBar());
+        autoChooser.addObject("High Goal Auto for Right Side :)", new AimHighGoalSequenceForSide("Right"));
+        autoChooser.addObject("High Goal Auto for Left Side :)", new AimHighGoalSequenceForSide("Left"));
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
