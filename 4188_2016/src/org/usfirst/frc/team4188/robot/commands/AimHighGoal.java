@@ -23,7 +23,7 @@ public class AimHighGoal extends Command {
 	
 	
 	//PID tuned for practice bot
-	private static final double KP = 0.011;
+	private static final double KP = 0.015;
 	private static final double KI = 0.0;
 	private static final double KD = 0.0;
 	 
@@ -53,7 +53,6 @@ public class AimHighGoal extends Command {
     		Robot.drivetrain.gyroReset();
     		gyroPIDController.setAbsoluteTolerance(tolerance);
     		gyroPIDController.setSetpoint(angle);
-            //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
     		gyroPIDController.enable();
     	}	
 
@@ -66,17 +65,11 @@ public class AimHighGoal extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(gyroPIDController.onTarget()){
-    		SmartDashboard.putString("Aim Status", "On Target");
-    	} else {
-    		SmartDashboard.putString("Aim Status", "Not On Target");
-    	}
     	return gyroPIDController.onTarget();
     }        
 
     // Called once after isFinished returns true
-    protected void end() {
-    	
+    protected void end() {    	
     	gyroPIDController.disable();
         gyroPIDController.free();
       

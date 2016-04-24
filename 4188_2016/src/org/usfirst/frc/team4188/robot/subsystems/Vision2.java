@@ -88,6 +88,7 @@ public class Vision2 extends Subsystem implements PIDSource {
 	private static final double TARGET_BOUNDING_RECTANGLE_AREA = TARGET_WIDTH*TARGET_HEIGHT; // 2016 Bounding rectangle area in square inches.
 	private int imageWidthPix = 0;
 	
+	public Integer numParticles;
 	public Vision2(String ip){
 		this.camera = new AxisCamera(ip); 
     	this.camera.writeResolution(AxisCamera.Resolution.k320x240);
@@ -125,7 +126,7 @@ public class Vision2 extends Subsystem implements PIDSource {
 		GOAL_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal val max", GOAL_VAL_RANGE.maxValue);
 	
 		NIVision.imaqColorThreshold(binaryFrame, frame, 255, NIVision.ColorMode.HSV, GOAL_HUE_RANGE, GOAL_SAT_RANGE, GOAL_VAL_RANGE);
-		int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+		numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
 		SmartDashboard.putNumber("Masked particles", numParticles);
 	
 		float areaMin = (float)SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
@@ -257,34 +258,17 @@ public class Vision2 extends Subsystem implements PIDSource {
 	PIDSourceType type;
 	@Override
 	public void setPIDSourceType(PIDSourceType pidSource) {
-		type = pidSource;
 	}
-
 
 	@Override
 	public PIDSourceType getPIDSourceType() {
-		return type;
+		return PIDSourceType.kDisplacement;
 	}
-
 
 	@Override
 	public double pidGet() {
 		// TODO Auto-generated method stub
-		return 50;
-//		return distance;
+		return distance;
 	}
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

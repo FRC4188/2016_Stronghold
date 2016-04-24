@@ -21,8 +21,10 @@ public class DriveToDistance extends Command {
 	PIDController drivePID = new PIDController(KP,KI,KD,Robot.robotVision, RobotMap.driveBase);
     
     double distance;
-	public DriveToDistance(double distance) {
+    double speed;
+	public DriveToDistance(double distance, double speed) {
     	this.distance = distance;
+    	this.speed = speed;
     	requires(Robot.drivetrain);
     }
 

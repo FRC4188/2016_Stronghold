@@ -7,12 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RetrieveBall extends Command {
+public class CheckForTargetsWhileTurning extends Command {
+	String direction;	
 
-    public RetrieveBall() {
+    public CheckForTargetsWhileTurning(String direction) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.robotRetriever);
+    	requires(Robot.drivetrain);
+    	this.direction = direction;
     }
 
     // Called just before this Command runs the first time
@@ -21,22 +23,23 @@ public class RetrieveBall extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotRetriever.retrieveBall(1.0);
+    	double rotate = direction == "right" ? -0.6 : 0.6;
+		Robot.drivetrain.autoDrive(0.0, rotate);
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+		return (Robot.robotVision.numParticles > 0);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.robotRetriever.doNothing();
+    	Robot.drivetrain.autoDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
-    }
+	}
 }

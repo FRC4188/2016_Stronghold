@@ -26,7 +26,7 @@ public class HighGoalAutonomous extends CommandGroup {
         // arm.
     	addSequential(new AutoDrive(-0.9,0,2.79));
     	addSequential(new MoveToAngle());
-    	addSequential(new AutoDriveBearingVisionDistance(0.4,0));
+//    	addSequential(new AutoDriveBearingVisionDistance(0.4,0));
     	addSequential(new AutoShoot3());
     }
 }

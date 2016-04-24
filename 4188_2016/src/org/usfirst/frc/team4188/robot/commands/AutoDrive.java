@@ -50,7 +50,7 @@ public class AutoDrive extends Command {
     	
     	else{
     		if(timer.get() < this.timerValue) {
-    		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes up
+    		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes right
     		
     		}
     		else{
@@ -80,3 +80,58 @@ public class AutoDrive extends Command {
     	end();
 	}
 }
+
+/*
+package org.usfirst.frc.team4188.robot.commands;
+
+import org.usfirst.frc.team4188.robot.CHSLog;
+import org.usfirst.frc.team4188.robot.Robot;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
+
+public class AutoDrive extends Command {
+	Timer timer;
+	double moveDirection;
+	double rotation;
+	double time;
+
+    public AutoDrive(double moveValue, double rotateValue, double time) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.drivetrain);
+    	
+    	moveDirection = moveValue;
+    	rotation = rotateValue;
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	timer = new Timer();
+    	timer.start();    	
+		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes left    		
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes left    		
+	}
+    
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+		return (timer.hasPeriodPassed(time));
+    }
+
+    // Called once after isFinished returns true
+    protected void end() {
+		Robot.drivetrain.autoDrive(0, 0);
+		timer.stop();
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    	end();
+	}
+}
+*/

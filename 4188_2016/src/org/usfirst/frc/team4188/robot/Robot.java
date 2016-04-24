@@ -4,7 +4,7 @@ package org.usfirst.frc.team4188.robot;
 import java.io.IOException;
 import java.util.Comparator;
 
-import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequence;
+import org.usfirst.frc.team4188.robot.commands.AimHighGoalSequenceForSide;
 import org.usfirst.frc.team4188.robot.commands.AutoDrive3;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomous;
 import org.usfirst.frc.team4188.robot.commands.DriveForwardAutonomousMoat;
@@ -74,16 +74,11 @@ public class Robot extends IterativeRobot {
      */
     
     	NetworkTable table;
-    
-       
-    
     	
 		public void robotInit() {
 		RobotMap.init();
-		
 	  
 		RobotMap.driveTrainGyro = new ADXRS450_Gyro();
-		
 	
 		drivetrain = new DriveTrain();
 		robotRetriever = new Retriever();
@@ -92,8 +87,7 @@ public class Robot extends IterativeRobot {
 		robotScaler = new Scaler();
         //robotVision = new Vision("10.41.88.11");
 		robotVision = new Vision2("10.41.88.11");
-		RobotMap.driveTrainGyro.calibrate();
-		
+		RobotMap.driveTrainGyro.calibrate();		
         
         oi = new OI();
      
@@ -185,9 +179,9 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
        // Robot.drivetrain.resetEncoders();
         
-        Robot.drivetrain.setRampRate(600);
+        Robot.drivetrain.setRampRate(1023);
         Robot.robotShooter.resetShooterEncoders();
-        SmartDashboard.putData("Aim High Goal", new AimHighGoalSequence());
+//        SmartDashboard.putData("Aim High Goal", new AimHighGoalSequenceForSide("left"));
     }
 
     /**

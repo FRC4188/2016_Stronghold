@@ -69,8 +69,7 @@ public class DriveTrain extends Subsystem {
 	public void init(){
 		gyro.reset();
 		
-		gyroPIDController = new PIDController(0.0, .0, 0.0, gyro, robotDrive);
-		
+		gyroPIDController = new PIDController(0.0, 0.0, 0.0, gyro, robotDrive);		
 		
 		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
 		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
@@ -137,14 +136,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveWithJoystick(double y, double x, double throttle){
-  /*      robotDrive.robotDrive1.arcadeDrive(y*throttle, x*throttle);
-        robotDrive.robotDrive2.arcadeDrive(y*throttle, x*throttle);
-        robotDrive.robotDrive3.arcadeDrive(-y*throttle, -x*throttle);
-        
-        */
-		
-		robotDrive.arcadeDrive(y*throttle, x*throttle);
-        
+		robotDrive.arcadeDrive(y*throttle, x*throttle);        
     }
 	
 	
@@ -200,7 +192,6 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void autoDrive(double moveValue, double rotateValue){
-		gradualAccelerate();
 		 robotDrive.arcadeDrive(moveValue, rotateValue);	 
 	}
 	
@@ -208,9 +199,6 @@ public class DriveTrain extends Subsystem {
 		robotDrive.drive(outputMagnitude, curve);
 	}
 	
-	public void gradualAccelerate(){
-		this.setRampRate(10);
-	}
 	public void setRampRate(double rampRate) {
 		frontLeft.setVoltageRampRate(rampRate);
 		frontRight.setVoltageRampRate(rampRate);
