@@ -30,9 +30,9 @@ public class AutoAimAndShoot extends CommandGroup {
     	
     	addSequential(new CameraLightsOn());
     	addSequential(new DelayWhileCheckingForTargets());
-    	addSequential(new AutoDriveBearingVisionDistance(9, 0.5));
+    	addSequential(new AutoDriveBearingVisionDistance(10, 0.5));
     	addSequential(new AimHighGoal(3.0));
-    	addSequential(new AutoDriveBearingVisionDistance(8.5, 0.5));
+    	addSequential(new AutoDriveBearingVisionDistance(9, 0.5));
         addSequential(new AimHighGoal(1.0));
         addSequential(new AimHighGoal(0.5));
         addSequential(new AutoShoot3());

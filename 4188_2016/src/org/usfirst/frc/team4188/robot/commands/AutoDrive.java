@@ -92,40 +92,45 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoDrive extends Command {
 	Timer timer;
+	boolean isTimerStartedYet;
+	boolean doneYet;
+	
+	double timerValue;
 	double moveDirection;
 	double rotation;
-	double time;
+	
 
-    public AutoDrive(double moveValue, double rotateValue, double time) {
+    public AutoDrive(double moveValue, double rotateValue, double timerValue) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	
     	moveDirection = moveValue;
     	rotation = rotateValue;
+    	this.timerValue = timerValue;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drivetrain.resetEncoders();
     	timer = new Timer();
-    	timer.start();    	
-		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes left    		
+		timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes left    		
-	}
+		Robot.drivetrain.autoDrive(moveDirection, rotation); //negative means it goes right
+    }
+    	
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-		return (timer.hasPeriodPassed(time));
+        return (timer.get() < this.timerValue);
     }
 
     // Called once after isFinished returns true
     protected void end() {
 		Robot.drivetrain.autoDrive(0, 0);
-		timer.stop();
     }
 
     // Called when another command which requires one or more of the same

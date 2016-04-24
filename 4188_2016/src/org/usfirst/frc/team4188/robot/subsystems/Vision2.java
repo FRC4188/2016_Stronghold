@@ -110,6 +110,7 @@ public class Vision2 extends Subsystem implements PIDSource {
 	}
 	
 	double distance;
+	double ratio;
 	public void periodic() throws VisionException {
 		try {
 		camera.getImage(frame);
@@ -160,20 +161,24 @@ public class Vision2 extends Subsystem implements PIDSource {
 			distance = computeDistance(binaryFrame, particles.elementAt(0));
 			Robot.setDistance(distance);
 			aimError = computePanAngle(distance,particles.elementAt(0));
-			SmartDashboard.putNumber("Pixels Across", pixelsAcross);
 			SmartDashboard.putNumber("Pixel Error", pixel_Error);
 			SmartDashboard.putNumber("Change Angle", aimError); 
 			Robot.setAimError(aimError);
 			
-			for(ParticleReport p: particles){
-			outlineParticle(binaryFrame, p);
+			double height = particles.firstElement().BoundingRectBottom - particles.firstElement().BoundingRectTop; 
+			double width = particles.firstElement().BoundingRectRight - particles.firstElement().BoundingRectLeft;
+			ratio = height/width;
+			SmartDashboard.putNumber("Target Ratio", ratio);
+			
+			for(ParticleReport particle: particles){
+				outlineParticle(frame, particle);
 			}
+			
 	 	} else {
 			SmartDashboard.putBoolean("IsGoalHot", false);
 			Robot.setAimError(Double.NaN);
 		}
-	 	CameraServer.getInstance().setImage(binaryFrame);
-//		Timer.delay(0.005);	
+	 	CameraServer.getInstance().setImage(frame);
 	 }
 	
 	
@@ -228,18 +233,21 @@ public class Vision2 extends Subsystem implements PIDSource {
 	 * @return The estimated distance to the target in feet.
 	 */
 	
-	double pixelsAcross;
 	double computeDistance (Image image, ParticleReport report) {
-		double normalizedWidth;
+		double normalizedWidth, normalizedHeight;
 		double particleWidth = report.BoundingRectRight - report.BoundingRectLeft;
-		pixelsAcross = particleWidth;
+		double particleHeight = report.BoundingRectBottom - report.BoundingRectTop;
 		NIVision.GetImageSizeResult size = NIVision.imaqGetImageSize(image);
 		normalizedWidth = 2*(particleWidth)/size.width;
+		normalizedHeight = 2*(particleHeight)/size.height;
 		
-		double computerDistance = TARGET_WIDTH/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		double heightDistance = TARGET_HEIGHT/(normalizedHeight*12*Math.tan(VIEW_ANGLE*Math.PI/(120*2)));
+		double widthDistance = TARGET_WIDTH/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		SmartDashboard.putNumber("heightDistance", heightDistance); 
+		SmartDashboard.putNumber("widthDistance", widthDistance); 
 		
-		double actualDistance = 1.2706*computerDistance - 1.1203;
-		return actualDistance;
+		return Math.sqrt(Math.pow(heightDistance, 2) + Math.pow(widthDistance, 2));
+//		return 1.2706 * widthDistance - 1.1203;
 	}
 	
 	double pixel_Error;

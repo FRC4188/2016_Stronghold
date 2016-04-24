@@ -33,12 +33,13 @@ public class AimHighGoalSequenceForSide extends CommandGroup {
     	requires(Robot.drivetrain);
     	
     	addSequential(new CameraLightsOn());
-    	addSequential(new AutoDriveWithinTargetRange(0.95), 3.0);
+    	addSequential(new AutoDriveWithGyro(0.85, 2.9));
+    	addSequential(new AutoDriveWithinTargetRange(0.65), 2.0);
     	addSequential(new CheckForTargetsWhileTurning(direction));
     	addSequential(new AimHighGoal(3.0));
     	addSequential(new AutoDriveBearingVisionDistance(15.0, 0.5));
     	addSequential(new AimHighGoal(3.0));
-    	addSequential(new AutoDriveBearingVisionDistance(10.0, 0.5));
+    	addSequential(new AutoDriveBearingVisionDistance(9.0, 0.5));
         addSequential(new AimHighGoal(1.0));
         addSequential(new AimHighGoal(0.5));
         addSequential(new AimHighGoal(0.5));
