@@ -29,11 +29,11 @@ public class AimHighGoalSequenceForSide extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-    	String direction = side == "right" ? "left" : "right";     	
+    	String direction = "right".equalsIgnoreCase(side) ? "right" : "left";     	
     	requires(Robot.drivetrain);
     	
     	addSequential(new CameraLightsOn());
-    	addSequential(new AutoDriveWithGyro(0.85, 2.9));
+    	addSequential(new AutoDriveWithGyro(0.97, 2.9));
     	addSequential(new AutoDriveWithinTargetRange(0.65), 2.0);
     	addSequential(new CheckForTargetsWhileTurning(direction));
     	addSequential(new AimHighGoal(3.0));

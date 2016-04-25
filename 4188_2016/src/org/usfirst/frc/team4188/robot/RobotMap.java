@@ -23,7 +23,8 @@ public class RobotMap {
     // public static int leftMotor = 1;
     // public static int rightMotor = 2;
     public static final double TICKS_PER_INCH = 45;
-    
+    public static String RIGHT = "right";
+    public static String LEFT = "left";
     public static double startTime;
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:

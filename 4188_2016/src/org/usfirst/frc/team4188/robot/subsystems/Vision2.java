@@ -109,8 +109,9 @@ public class Vision2 extends Subsystem implements PIDSource {
 		SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
 	}
 	
-	double distance;
+	public double distance;
 	double ratio;
+	public double constantVariation;
 	public void periodic() throws VisionException {
 		try {
 		camera.getImage(frame);
@@ -168,8 +169,10 @@ public class Vision2 extends Subsystem implements PIDSource {
 			double height = particles.firstElement().BoundingRectBottom - particles.firstElement().BoundingRectTop; 
 			double width = particles.firstElement().BoundingRectRight - particles.firstElement().BoundingRectLeft;
 			ratio = height/width;
+			this.constantVariation = 1;
 			SmartDashboard.putNumber("Target Ratio", ratio);
-			
+			SmartDashboard.putNumber("Constant Variation", this.constantVariation );
+			SmartDashboard.putNumber("Distance/Speed Calculation", SmartDashboard.getNumber("Constant Variation", this.constantVariation)*-0.00862*Robot.robotVision.distance+0.560);
 			for(ParticleReport particle: particles){
 				outlineParticle(frame, particle);
 			}

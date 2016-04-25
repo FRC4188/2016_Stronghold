@@ -96,8 +96,11 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Rock Wall Autonomous :)", new RockWallAuto());
         autoChooser.addObject("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
         autoChooser.addObject("High Goal Auto from Low Bar :)", new AimHighGoalSequenceForLowBar());
-        autoChooser.addObject("High Goal Auto for Right Side :)", new AimHighGoalSequenceForSide("Right"));
-        autoChooser.addObject("High Goal Auto for Left Side :)", new AimHighGoalSequenceForSide("Left"));
+        autoChooser.addObject("High Goal Auto for Right Side :)", new AimHighGoalSequenceForSide(RobotMap.RIGHT));
+        autoChooser.addObject("High Goal Auto for Left Side :)", new AimHighGoalSequenceForSide(RobotMap.LEFT));
+        autoChooser.addObject("High Goal Auto for Rock Wall Right :|", new AimHighGoalSequenceForRockWall(RobotMap.LEFT));
+        autoChooser.addObject("High Goal Auto for Rock Wall Left :|", new AimHighGoalSequenceForRockWall(RobotMap.RIGHT));
+
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);
         
@@ -158,7 +161,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        
+        robotVision.periodic();
         
         for (double area : grip.getNumberArray("targets/area", new double[0])) {
             System.out.println("Got contour with area=" + area);
@@ -172,7 +175,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
        // Robot.drivetrain.resetEncoders();
-        
+        Robot.cameraLights.cameraRelayOn();
         Robot.drivetrain.setRampRate(1023);
         Robot.robotShooter.resetShooterEncoders();
 //        SmartDashboard.putData("Aim High Goal", new AimHighGoalSequenceForSide("left"));

@@ -27,19 +27,18 @@ public class AimHighGoalSequenceForRockWall extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	String direction = side == "right" ? "left" : "right";     	
+    	String direction = "right".equalsIgnoreCase(side) ? "right" : "left";     	
     	requires(Robot.drivetrain);
     	
     	addSequential(new CameraLightsOn());
-    	addSequential(new AutoDriveWithGyro(-0.9, 3.4));
-    	addSequential(new CheckForTargetsWhileTurning(direction));
-    	//addSequential(new MoveToAngle(3.0),2);
-    	addSequential(new AutoDriveWithinTargetRange(0.65), 2.0);
-    	addSequential(new CheckForTargetsWhileTurning(direction));
+    	addSequential(new AutoDriveWithGyro(-0.9, 2.9));
+    	addSequential(new MoveToAngle(3.0,90),2);
+    	addSequential(new AutoDrive(0.6, 0.0,2));
+    	addSequential(new MoveToAngle(3.0,90),1.4);
+    	//addSequential(new CheckForTargetsWhileTurning(direction),2);
     	addSequential(new AimHighGoal(3.0));
-    	addSequential(new AutoDriveBearingVisionDistance(15.0, 0.5));
+    	addSequential(new AutoDriveBearingVisionDistance(8.5, 0.5));
     	addSequential(new AimHighGoal(3.0));
-    	addSequential(new AutoDriveBearingVisionDistance(10.0, 0.5));
         addSequential(new AimHighGoal(1.0));
         addSequential(new AimHighGoal(0.5));
         addSequential(new AimHighGoal(0.5));

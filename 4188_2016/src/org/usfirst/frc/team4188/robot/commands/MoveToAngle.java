@@ -31,10 +31,11 @@ public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	private double angle;
 	private double tolerance;
 	
-    public MoveToAngle(double tolerance) {
+    public MoveToAngle(double tolerance, double angle) {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
     	this.tolerance = tolerance;
+    	this.angle = angle;
     }
 
     // Called just before this Command runs the first time
@@ -47,7 +48,6 @@ public PIDController gyroPIDController = RobotMap.gyroPIDController;
     	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	angle = 180;
     	
 		Robot.drivetrain.gyroReset();
 
