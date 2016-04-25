@@ -85,12 +85,16 @@ public class OI {
     private static AimHighGoalSequenceForSide aimHighGoalSequenceForLeftSide; 
     private static AimHighGoalSequenceForSide aimHighGoalSequenceForRightSide; 
     private static AimHighGoalSequenceForLowBar aimHighGoalSequenceForLowBar; 
+    private static AimHighGoalSequenceForRockWall aimHighGoalSequenceForRockWallRight;
+    private static AimHighGoalSequenceForRockWall aimHighGoalSequenceForRockWallLeft;
 	    
     public OI(){
 	
     	aimHighGoalSequenceForLeftSide = new AimHighGoalSequenceForSide("left");
     	aimHighGoalSequenceForRightSide = new AimHighGoalSequenceForSide("right");
     	aimHighGoalSequenceForLowBar = new AimHighGoalSequenceForLowBar();
+    	aimHighGoalSequenceForRockWallRight = new AimHighGoalSequenceForRockWall("right");
+    	aimHighGoalSequenceForRockWallLeft = new AimHighGoalSequenceForRockWall("left");
     	
 		pilotJoystick = new CHSJoystick(PILOT_PORT, PILOT_NUM_AXES, PILOT_NUM_BUTTONS);
 		pilotJoystick.xDeadZone(-12.0,12.0).xMult(1).xMaxSpeed(1.0);
@@ -134,11 +138,11 @@ public class OI {
 	    
 		pilot3.whileHeld(new ScalerUp());
 
-		pilot4.whenPressed(aimHighGoalSequenceForLeftSide);
+		pilot4.whenPressed(new AimHighGoalSequence());
 
 		pilot5.whileHeld(new ScalerDown());
 		
-		pilot6.whenPressed(aimHighGoalSequenceForRightSide);
+		pilot6.whenPressed(new SeizeDriveTrain());
 		
 		pilot7.whileHeld(new RetrieverIn());
 		pilot7.whenReleased(new DoNothingRetrieverSolenoid());
@@ -157,7 +161,7 @@ public class OI {
 	    pilot12.whenReleased(new GearShiftDoNothing());
 	    
 	    
-		copilot1.whenPressed(aimHighGoalSequenceForLowBar);
+		copilot1.whenPressed(new AutoShoot3());
 
 		copilot2.whileHeld(new RetrieverOut());
 	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());

@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class HighGoalAutonomous extends CommandGroup {
+public class AimHighGoalSequence extends CommandGroup {
     
-    public  HighGoalAutonomous() {
+    public  AimHighGoalSequence() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,9 +24,12 @@ public class HighGoalAutonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new AutoDrive(-0.9,0,2.79));
-    	addSequential(new MoveToAngle());
-//    	addSequential(new AutoDriveBearingVisionDistance(0.4,0));
-    	addSequential(new AutoShoot3());
+    
+    addSequential(new AimHighGoal(3.0));
+    addSequential(new AimHighGoal(1.0));
+    addSequential(new AimHighGoal(0.5));
+    addSequential(new AimHighGoal(0.5));
+    
+    
     }
 }

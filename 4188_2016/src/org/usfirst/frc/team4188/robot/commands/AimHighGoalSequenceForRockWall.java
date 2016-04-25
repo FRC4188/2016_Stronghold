@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoAimAndShoot extends CommandGroup {
+public class AimHighGoalSequenceForRockWall extends CommandGroup {
     
-    public  AutoAimAndShoot() {
+    public  AimHighGoalSequenceForRockWall(String side) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,14 +26,22 @@ public class AutoAimAndShoot extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
+    	String direction = side == "right" ? "left" : "right";     	
     	requires(Robot.drivetrain);
     	
     	addSequential(new CameraLightsOn());
-    	addSequential(new DelayWhileCheckingForTargets());
-    	addSequential(new AutoDriveBearingVisionDistance(12, 0.5));
+    	addSequential(new AutoDriveWithGyro(-0.9, 3.4));
+    	addSequential(new CheckForTargetsWhileTurning(direction));
+    	//addSequential(new MoveToAngle(3.0),2);
+    	addSequential(new AutoDriveWithinTargetRange(0.65), 2.0);
+    	addSequential(new CheckForTargetsWhileTurning(direction));
     	addSequential(new AimHighGoal(3.0));
-    	addSequential(new AutoDriveBearingVisionDistance(10, 0.5));
+    	addSequential(new AutoDriveBearingVisionDistance(15.0, 0.5));
+    	addSequential(new AimHighGoal(3.0));
+    	addSequential(new AutoDriveBearingVisionDistance(10.0, 0.5));
         addSequential(new AimHighGoal(1.0));
+        addSequential(new AimHighGoal(0.5));
         addSequential(new AimHighGoal(0.5));
         addSequential(new AutoShoot3());
     	addSequential(new CameraLightsOff());

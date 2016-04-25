@@ -31,7 +31,7 @@ public class AimHighGoalSequenceForLowBar extends CommandGroup {
     	requires(Robot.drivetrain);
     	
     	addParallel(new RetrieverOut());
-    	addSequential(new AutoDrive(0.85, -0.3, 2.8));				// Drive for time with slight right curve
+    	addSequential(new AutoDrive(0.85, -0.3, 3.0));				// Drive for time with slight right curve
     	addSequential(new CameraLightsOn());
     	addSequential(new RetrieverIn());
     	addSequential(new CheckForTargetsWhileTurning("right"));
