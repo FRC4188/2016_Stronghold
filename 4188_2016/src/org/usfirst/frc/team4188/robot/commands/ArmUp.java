@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ScalerDownFullSpeed extends Command {
+public class ArmUp extends Command {
 
-    public ScalerDownFullSpeed() {
+    public ArmUp() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis)
-    
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +20,7 @@ public class ScalerDownFullSpeed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotScaler.scalerTalonDown(1);
+    	Robot.robotScaler.armUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,5 +36,6 @@ public class ScalerDownFullSpeed extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

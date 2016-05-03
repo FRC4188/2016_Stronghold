@@ -136,11 +136,11 @@ public class OI {
 	    
 	    pilot1.whenPressed(new AutoShoot3());	//new AutoShoot3()
 	    
-		pilot3.whileHeld(new ScalerUp());
+		pilot3.whileHeld(new ArmUp());
 
 		pilot4.whenPressed(new AimHighGoalSequence());
 
-		pilot5.whileHeld(new ScalerDown());
+		pilot5.whileHeld(new ArmDown());
 		
 		pilot6.whenPressed(new SeizeDriveTrain());
 		
@@ -161,7 +161,7 @@ public class OI {
 	    pilot12.whenReleased(new GearShiftDoNothing());
 	    
 	    
-		copilot1.whenPressed(new AutoShoot2());
+		copilot1.whenPressed(new AutoShoot3());
 
 		copilot2.whileHeld(new RetrieverOut());
 	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());
@@ -169,8 +169,8 @@ public class OI {
 	    copilot3.whileHeld(new RetrieverIn());
 		copilot3.whenReleased(new DoNothingRetrieverSolenoid());
 
-		copilot4.whileHeld(new RetrieveBall());
-	    copilot5.whileHeld(new EjectBallLowGoal());
+		copilot4.whileHeld(new ScalerDown());
+	    copilot5.whileHeld(new ScalerUp());
 	    copilot6.whileHeld(new RetrieveBallFullSpeed());
 	    copilot7.whileHeld(new EjectBallFullSpeed());
 

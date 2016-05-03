@@ -94,12 +94,11 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Rugged Terrain Autonomous :)", new DriveForwardRetrieverUpAutonomous());
         autoChooser.addObject("Drive Forward Low Bar Repeat Autonomous :(", new LowBarAutonomous());
         autoChooser.addObject("Rock Wall Autonomous :)", new RockWallAuto());
-        autoChooser.addObject("Drive Straight Forward With Gyro :(", new AutoDrive3(0.6,4.65));
         autoChooser.addObject("High Goal Auto from Low Bar :)", new AimHighGoalSequenceForLowBar());
         autoChooser.addObject("High Goal Auto for Right Side :)", new AimHighGoalSequenceForSide(RobotMap.RIGHT));
         autoChooser.addObject("High Goal Auto for Left Side :)", new AimHighGoalSequenceForSide(RobotMap.LEFT));
-        autoChooser.addObject("High Goal Auto for Rock Wall Right :|", new AimHighGoalSequenceForRockWall(RobotMap.LEFT));
-        autoChooser.addObject("High Goal Auto for Rock Wall Left :|", new AimHighGoalSequenceForRockWall(RobotMap.RIGHT));
+        autoChooser.addObject("High Goal Auto for Rock Wall Far Left :)", new AimHighGoalSequenceForRockWall(RobotMap.RIGHT));
+        autoChooser.addObject("High Goal Auto for Rock Wall Any Other Position :|", new AimHighGoalSequenceRockWallOtherPositions("right"));
 
         SmartDashboard.putData("AUTONOMOUS CHOOSER", autoChooser);
         SmartDashboard.putString("Code Version: ", CODE_VERSION);

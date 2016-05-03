@@ -32,6 +32,7 @@ public class AimHighGoalSequenceForSide extends CommandGroup {
     	String direction = "right".equalsIgnoreCase(side) ? "right" : "left";     	
     	requires(Robot.drivetrain);
     	
+    	addSequential(new ShiftDriveGearForward());
     	addSequential(new CameraLightsOn());
     	addSequential(new AutoDriveWithGyro(0.97, 2.9));
     	addSequential(new AutoDriveWithinTargetRange(0.65), 2.0);

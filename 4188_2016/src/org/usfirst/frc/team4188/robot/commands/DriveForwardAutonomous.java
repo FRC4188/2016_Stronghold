@@ -28,7 +28,7 @@ public class DriveForwardAutonomous extends CommandGroup {
     	addSequential(new ShiftDriveGearForward());
     	//addSequential(new ScalerUpFullSpeed(),0.5);
     	addSequential(new RetrieverOut(),2);
-    	addSequential(new AutoDrive(0.65,0,4.65));
+    	addSequential(new AutoDrive(-0.65,0,4.65));
     	addSequential(new AutoDrive(0,0,1));
     	
     }

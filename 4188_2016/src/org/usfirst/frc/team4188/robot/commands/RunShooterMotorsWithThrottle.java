@@ -21,8 +21,7 @@ public class RunShooterMotorsWithThrottle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.robotShooter.runShooterMotors(SmartDashboard.getNumber("Constant Variation",
-    			Robot.robotVision.constantVariation)*-0.00862*Robot.robotVision.distance+0.560);
+    	Robot.robotShooter.runShooterMotors(0.612511);
     }
 
     // Make this return true when this Command no longer needs to run execute()

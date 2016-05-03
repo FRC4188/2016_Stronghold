@@ -71,12 +71,12 @@ public static void init(){
 //	driveTrainGyro = new ADXRS450_Gyro();
 	gearShift = new DoubleSolenoid(4,5);//CHANGE TO 1,2 TO ACTUAL ROBOT
 	
-	frontLeft = new CANTalon(10);
-	frontRight = new CANTalon(13);
-	rearLeft = new CANTalon(12);
-	rearRight = new CANTalon(15);
-	middleLeft = new CANTalon(11);
-	middleRight = new CANTalon(14);
+	frontLeft = new CANTalon(13);//Was 10
+	frontRight = new CANTalon(10);//Was 13
+	rearLeft = new CANTalon(15);//Was 12
+	rearRight = new CANTalon(12);//Was 15
+	middleLeft = new CANTalon(11);//Was 11
+	middleRight = new CANTalon(14);//Was 14
 	
 	
 	frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);

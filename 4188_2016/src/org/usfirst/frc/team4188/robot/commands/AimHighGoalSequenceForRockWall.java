@@ -30,8 +30,9 @@ public class AimHighGoalSequenceForRockWall extends CommandGroup {
     	String direction = "right".equalsIgnoreCase(side) ? "right" : "left";     	
     	requires(Robot.drivetrain);
     	
+    	addSequential(new ShiftDriveGearForward());
     	addSequential(new CameraLightsOn());
-    	addSequential(new AutoDriveWithGyro(-0.9, 2.9));
+    	addSequential(new AutoDriveWithGyro(-0.97, 2.9));
     	addSequential(new MoveToAngle(3.0,90),2);
     	addSequential(new AutoDrive(0.6, 0.0,2));
     	addSequential(new MoveToAngle(3.0,90),1.4);

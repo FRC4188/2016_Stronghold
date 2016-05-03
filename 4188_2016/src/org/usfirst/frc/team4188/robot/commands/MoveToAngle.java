@@ -24,7 +24,7 @@ public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
 	
 	//PID tuned for practice bot
-	private static final double KP = 0.015;
+	private static final double KP = 0.04;
 	private static final double KI = 0.0;
 	private static final double KD = 0.0;
 	 

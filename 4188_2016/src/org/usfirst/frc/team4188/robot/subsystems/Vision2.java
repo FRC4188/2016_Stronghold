@@ -68,11 +68,18 @@ public class Vision2 extends Subsystem implements PIDSource {
 	Image binaryFrame;
 	int imaqError;
 	AxisCamera camera;
-	private static final int HUE_GREEN = 120;//Changed to 128 from 115
-	private static final int HUE_TOLERANCE = 10;
-	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range((HUE_GREEN-HUE_TOLERANCE), (HUE_GREEN+HUE_TOLERANCE));	//Default hue range for goal tote
-	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);	//Default saturation range for yellow tote
-	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(92, 255);	//Default value range for yellow tote
+	private static final int HUE_GREEN = 102;//Changed to 128 from 115 changed to 102 Championship from 120
+	private static final int HUE_TOLERANCE = 18; //Changed to 18 Championship from 10
+	/*
+	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range(50, 140);	//Default hue range for goal tote
+	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(40, 255);// Changed From (53,255) to (40, 255) for Championship //Default saturation range for High Goal
+	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(55, 255);//Changed From (92,255) to (140, 255) for Championship	//Default value range for High Goal
+	*/
+	
+	NIVision.Range GOAL_HUE_RANGE = new NIVision.Range(110, 130);	//Default hue range for goal tote
+	NIVision.Range GOAL_SAT_RANGE = new NIVision.Range(53, 255);// Changed From (53,255) to (40, 255) for Championship //Default saturation range for High Goal
+	NIVision.Range GOAL_VAL_RANGE = new NIVision.Range(92, 255);//Changed From (92,255) to (140, 255) for Championship	//Default value range for High Goal
+	
 	double AREA_MINIMUM = 0.3311; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 	double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
@@ -120,12 +127,16 @@ public class Vision2 extends Subsystem implements PIDSource {
 			ex.printStackTrace();
 		}
 //		CameraServer.getInstance().setImage(frame);
+		
 		GOAL_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Goal hue min", GOAL_HUE_RANGE.minValue);
 		GOAL_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal hue max", GOAL_HUE_RANGE.maxValue);
 		GOAL_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Goal sat min", GOAL_SAT_RANGE.minValue);
 		GOAL_SAT_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal sat max", GOAL_SAT_RANGE.maxValue);
 		GOAL_VAL_RANGE.minValue = (int)SmartDashboard.getNumber("Goal val min", GOAL_VAL_RANGE.minValue);
 		GOAL_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Goal val max", GOAL_VAL_RANGE.maxValue);
+		
+		
+		
 	
 		NIVision.imaqColorThreshold(binaryFrame, frame, 255, NIVision.ColorMode.HSV, GOAL_HUE_RANGE, GOAL_SAT_RANGE, GOAL_VAL_RANGE);
 		numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
@@ -256,10 +267,10 @@ public class Vision2 extends Subsystem implements PIDSource {
 	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
 	// angle = (desired change /320) / Field of View (60 degrees for current camera)
-		double x = particle.BoundingRectLeft + 8.0;
+		double x = particle.BoundingRectLeft + 30.0;
 		double pixelError = x - (this.imageWidthPix/2);
 
-		// angle = (pixels/320) * 60   320=image width, 60=camera FieldOfView in degrees
+		// angle = (pixels/320) * 60   320=image width, 60 = camera FieldOfView in degrees
 		double changeAngle = pixelError * 0.2;
 		return changeAngle;
 	}

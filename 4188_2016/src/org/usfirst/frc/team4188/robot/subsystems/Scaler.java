@@ -28,17 +28,13 @@ public class Scaler extends Subsystem {
 		
 	}
 	
-	public void scalerTalonsUp(double throttle)
+	public void scalerTalonUp(double throttle)
 	{
-		double newThrottle = (throttle + 1)/2;
-		scalerTalonRight.set(-throttle);
 		scalerTalonLeft.set(throttle);
 	}
 
-	public void scalerTalonsDown(double throttle)
+	public void scalerTalonDown(double throttle)
 	{
-		double newThrottle = (throttle+1)/2;
-		scalerTalonRight.set(throttle);
 		scalerTalonLeft.set(-throttle);
 	}
 	
@@ -46,6 +42,14 @@ public class Scaler extends Subsystem {
 	{
 		scalerTalonRight.set(0);
 		scalerTalonLeft.set(0);
+	}
+	
+	public void armUp(){
+		scalerTalonRight.set(-1);
+	}
+	
+	public void armDown(){
+		scalerTalonRight.set(1);
 	}
 }
 
