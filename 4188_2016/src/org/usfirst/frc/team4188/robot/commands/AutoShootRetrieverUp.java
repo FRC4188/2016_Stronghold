@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AimHighGoalSequence extends CommandGroup {
+public class AutoShootRetrieverUp extends CommandGroup {
     
-    public  AimHighGoalSequence() {
+    public  AutoShootRetrieverUp() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,14 +24,10 @@ public class AimHighGoalSequence extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    
-    addSequential(new AimHighGoal(3.0));
-    addSequential(new AimHighGoal(2.0));
-    addSequential(new AimHighGoal(1.0));
-    addSequential(new AimHighGoal(1.0));
-    addSequential(new AimHighGoal(0.5));
-    addSequential(new AimHighGoal(0.5));
-    
-    
+    	
+    	addSequential(new EjectBallFullSpeed(),0.1);
+    	addParallel(new RunShooterMotors(),4);
+    	addSequential(new DoNothingRetriever(), 1.2511);
+    	addParallel(new RetrieveBall(),2);
     }
 }

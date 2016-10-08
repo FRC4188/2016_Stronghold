@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AimHighGoalSequenceForSide extends CommandGroup {
     
+    /**
+     * @param side
+     */
     public  AimHighGoalSequenceForSide(String side) {
     	
         // Add Commands here:
@@ -46,6 +49,6 @@ public class AimHighGoalSequenceForSide extends CommandGroup {
         addSequential(new AimHighGoal(0.5));
         addSequential(new AutoShoot3());
     	addSequential(new CameraLightsOff());
-        Robot.drivetrain.setRampRate(1023);
+        Robot.drivetrain.setRampRate(1023); 
     }
 }

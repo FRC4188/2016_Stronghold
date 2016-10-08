@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class AimHighGoal extends Command {
+	private int a = 0;
+	double finalAngle;
 
 	public PIDController gyroPIDController = RobotMap.gyroPIDController;
 	
@@ -34,6 +36,7 @@ public class AimHighGoal extends Command {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
     	this.tolerance = tolerance;
+    	int a;
     }
 
     // Called just before this Command runs the first time
@@ -47,9 +50,14 @@ public class AimHighGoal extends Command {
     	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
     	new CameraLightsOff();
-    	angle = Robot.getAimError();
     	
-		Robot.drivetrain.gyroReset();
+    	angle = Robot.getAimError();
+    	/*angle = createFinalAngle(Robot.getAimError());*/
+    	SmartDashboard.putNumber("Final Angle", createFinalAngle(Robot.getAimError()));
+    	SmartDashboard.putNumber("Dynamic Change Angle",Robot.getAimError());
+    	//angle = 90.0;
+    	
+        Robot.drivetrain.gyroReset();
 
 		gyroPIDController.setAbsoluteTolerance(tolerance);
 		gyroPIDController.setSetpoint(angle);
@@ -60,6 +68,16 @@ public class AimHighGoal extends Command {
     protected void execute() {
     	SmartDashboard.putString("Aim Status", "Running");
    }
+    
+       public double createFinalAngle(double dynamicChangeAngle){
+    	if(a == 0){
+    		finalAngle = dynamicChangeAngle;
+    		a++;
+        	return finalAngle;
+    	}
+    	return 0;
+    	}
+
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

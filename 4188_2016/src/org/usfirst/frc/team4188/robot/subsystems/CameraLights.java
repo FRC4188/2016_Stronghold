@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * 
  */
 public class CameraLights extends Subsystem {
     
@@ -15,21 +15,12 @@ public class CameraLights extends Subsystem {
 	
 	Relay cameraRelay = RobotMap.cameraLightRelay;
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
- 
-	
-	
-	
-
-	public void init(){
+	public void init() {
+		// TODO Auto-generated method stub
 		
 	}
-    
-    public void cameraRelayForward(){
+	
+	public void cameraRelayForward(){
     	cameraRelay.set(Relay.Value.kForward);
     }
     
@@ -46,5 +37,14 @@ public class CameraLights extends Subsystem {
     public void cameraRelayOff(){
     	cameraRelay.set(Relay.Value.kOff);
     }
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 }
 

@@ -17,19 +17,6 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
 
     protected RobotDrive robotDrive2, robotDrive3;
 
-    /*public CHSRobotDrive(final int leftMotorChannel, final int rightMotorChannel) {
-        super(leftMotorChannel, rightMotorChannel);
-    }
-
-    public CHSRobotDrive(final int frontLeftMotor, final int rearLeftMotor,
-            final int frontRightMotor, final int rearRightMotor) {
-        super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-    }
-
-    public CHSRobotDrive(SpeedController leftMotor, SpeedController rightMotor) {
-        super(leftMotor, rightMotor);
-    } */
-
     public CHSRobotDrive(SpeedController leftMotor1, SpeedController rightMotor1,
             SpeedController leftMotor2, SpeedController rightMotor2,
             SpeedController leftMotor3, SpeedController rightMotor3) {
@@ -52,7 +39,7 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
 
     	super.arcadeDrive(moveValue, rotateValue);
         robotDrive2.arcadeDrive(moveValue, rotateValue);
-        robotDrive3.arcadeDrive(-moveValue, -rotateValue);
+        robotDrive3.arcadeDrive(moveValue, rotateValue);
       }
   /**
     public void drive(double outputMagnitude, double curve){
@@ -61,6 +48,7 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     	robotDrive3.drive(-outputMagnitude, -curve);
     }
     **/
+    
     private static final double OUTPUT_MIN = 0.35;
     // at 0.05, even the motors with no gears could barely run.
     // same at 0.1
@@ -109,6 +97,5 @@ public class CHSRobotDrive extends RobotDrive implements PIDOutput {
     		return 1;
 
     } */
-    //comment to test GIT
 }
 

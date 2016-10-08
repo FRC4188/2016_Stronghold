@@ -138,7 +138,7 @@ public class OI {
 	    
 		pilot3.whileHeld(new ArmUp());
 
-		pilot4.whenPressed(new AimHighGoalSequence());
+		pilot4.whenPressed(new AimHighGoal(1.0));
 
 		pilot5.whileHeld(new ArmDown());
 		
@@ -161,7 +161,7 @@ public class OI {
 	    pilot12.whenReleased(new GearShiftDoNothing());
 	    
 	    
-		copilot1.whenPressed(new AutoShoot3());
+		copilot1.whenPressed(new AutoShoot2());
 
 		copilot2.whileHeld(new RetrieverOut());
 	    copilot2.whenReleased(new DoNothingRetrieverSolenoid());

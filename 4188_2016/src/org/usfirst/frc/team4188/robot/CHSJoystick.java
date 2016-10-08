@@ -11,7 +11,11 @@ public class CHSJoystick extends Joystick {
     private double XNegDeadZone, XPosDeadZone, XMaxSpeedPercent;
     private double YNegDeadZone, YPosDeadZone, YMaxSpeedPercent;
     private double twistNegDeadZone, twistPosDeadZone, twistMaxSpeedPercent;
-    private int XScale, YScale, twistScale;
+    private double XScale, YScale, twistScale;
+    private static final double TWIST_FRACTION = 0.5;
+	//when the x and y values are greater than the MinPoint, the twist value will be multiplied
+    //by the TWIST_FRACTION
+    private static final double MinPoint = 0.2;
 
     /**
      * Construct an instance of CHSJoystick.
@@ -147,7 +151,7 @@ public class CHSJoystick extends Joystick {
      * @return
      */
     public CHSJoystick yMult(int yMult) {
-        YScale = yMult;
+    	YScale = yMult;
         return this;
     }
     
@@ -240,14 +244,15 @@ public class CHSJoystick extends Joystick {
         else
         {
             // Multiply inputs.
-            for(int i = 0; i<YScale; i++) {
+            for(int i = 0; i< YScale; i++) {
                 Y *= Math.abs(Y);
             }
             // Multiply by max output, and invert because Y axis is inverted.
             Y*=YMaxSpeedPercent*-1;
         }
         
-        return Y;
+        	return Y;
+        
     }
 
     /**
@@ -257,7 +262,7 @@ public class CHSJoystick extends Joystick {
      * @override getTwist() method in parent Joystick class.
      * @return The twist/Z value of the joystick.
      */
-    public double getTwist()
+    public double getTwist(GenericHID.Hand hand)
     {
         double twist = super.getTwist();
         
@@ -274,7 +279,14 @@ public class CHSJoystick extends Joystick {
             twist *= twistMaxSpeedPercent;
         }
        
-        return twist;
+        if (this.getY(hand) > MinPoint && this.getX(hand) > MinPoint){
+        	twist*=TWIST_FRACTION;	
+        	return twist; 
+        
+        } else{
+        	
+        	return twist;
+        }
     }
 
     /**
@@ -487,7 +499,7 @@ public class CHSJoystick extends Joystick {
      */
     public int getXScale()
     {
-        return XScale;
+        return (int) XScale;
     }
 
     /**
@@ -496,7 +508,7 @@ public class CHSJoystick extends Joystick {
      */
     public int getYScale()
     {
-        return YScale;
+        return (int) YScale;
     }
 
     /**
@@ -505,6 +517,6 @@ public class CHSJoystick extends Joystick {
      */
     public int getTwistScale()
     {
-        return twistScale;
+        return (int) twistScale;
     }
 }
