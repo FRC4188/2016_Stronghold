@@ -38,10 +38,11 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
  */
 public class Vision2 extends Subsystem implements PIDSource {
 	public double aimError;
-	
+	double y = SmartDashboard.getNumber("EnterPixelError", 0);
 	//
 	public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
 		
+
 		double PercentAreaToImageArea;
 		double Area;
 		double BoundingRectLeft;
@@ -267,8 +268,8 @@ public class Vision2 extends Subsystem implements PIDSource {
 	
 	double pixel_Error;
 	double computePanAngle(double distance, ParticleReport particle){
-	// angle = (desired change /320) / Field of View (60 degrees for current camera)
-		double x = particle.BoundingRectLeft -10;
+		// angle = (desired change /320) / Field of View (60 degrees for current camera)
+		double x = particle.BoundingRectLeft - y;
 		double pixelError = x - (this.imageWidthPix/2);
 
 		// angle = (pixels/320) * 60   320=image width, 60 = camera FieldOfView in degrees

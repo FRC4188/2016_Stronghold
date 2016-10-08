@@ -42,19 +42,15 @@ public class AimHighGoal extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {  
     	SmartDashboard.putString("Aim Status", "Initializing");
-
-        /*
-        gyroPIDController = new PIDController(KP, KI, KD, KF, RobotMap.driveTrainGyro, RobotMap.driveBase);
-        */
     	
     	CHSRobotDrive.setPIDType(PIDType.turnToAngle);
     	gyroPIDController = new PIDController(KP, KI, KD, RobotMap.driveTrainGyro, RobotMap.driveBase);
-    	new CameraLightsOff();
+    	//new CameraLightsOff();
     	
     	angle = Robot.getAimError();
     	/*angle = createFinalAngle(Robot.getAimError());*/
-    	SmartDashboard.putNumber("Final Angle", createFinalAngle(Robot.getAimError()));
-    	SmartDashboard.putNumber("Dynamic Change Angle",Robot.getAimError());
+    	//SmartDashboard.putNumber("Final Angle", createFinalAngle(Robot.getAimError()));
+    	//SmartDashboard.putNumber("Dynamic Change Angle",Robot.getAimError());
     	//angle = 90.0;
     	
         Robot.drivetrain.gyroReset();

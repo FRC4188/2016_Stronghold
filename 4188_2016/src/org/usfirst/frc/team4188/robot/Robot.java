@@ -177,6 +177,7 @@ public class Robot extends IterativeRobot {
         Robot.cameraLights.cameraRelayOn();
         Robot.drivetrain.setRampRate(1023);
         Robot.robotShooter.resetShooterEncoders();
+        SmartDashboard.putData("Turn Light Off", new CameraLightsOff());
 //        SmartDashboard.putData("Aim High Goal", new AimHighGoalSequenceForSide("left"));
     }
 
@@ -195,7 +196,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Gyro Center Value: ", RobotMap.driveTrainGyro.getAngle());
         SmartDashboard.putNumber("Shooter Right Encoder Position: ", Robot.robotShooter.getShooterRightEncoderReading());
         SmartDashboard.putNumber("Shooter Left Encoder Position: ", Robot.robotShooter.getShooterLeftEncoderReading());
-        SmartDashboard.putData("PIDController", Robot.drivetrain.gyroPIDController);
+       // SmartDashboard.putData("PIDController", Robot.drivetrain.gyroPIDController);
         
         //SmartDashboard.putData("PIDController", RobotMap.gyroPIDController);
        // Robot.robotShooter.runShooterMotors(oi.copilotJoystick.getZ());

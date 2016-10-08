@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RunShooterMotorsWithThrottle extends Command {
 
+    //double throttle;
+	
     public RunShooterMotorsWithThrottle() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -17,18 +19,17 @@ public class RunShooterMotorsWithThrottle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	Robot.robotShooter.runShooterMotors(0.612511);
 //    	Robot.robotShooter.runShooterMotors(Robot.oi.copilotJoystick.getThrottle());
     	Robot.robotShooter.runShooterMotors(0.482);
-    
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+     protected boolean isFinished() {
         return false;
     }
 

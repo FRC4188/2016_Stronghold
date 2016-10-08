@@ -67,67 +67,13 @@ public class DriveTrain extends Subsystem {
 	//increase in i can correct for steady-state error
 	
 	public void init(){
-		gyro.reset();
-		
-		gyroPIDController = new PIDController(0.0, 0.0, 0.0, gyro, robotDrive);		
-		
-		//SmartDashboard.putData("Newest PID Controller", Robot.drivetrain.gyroPIDController);
-		//gyroPIDController1 = new PIDController( KD, KD, KD, frontLeft, frontLeft, KD);
-	
-/*		robotDrive.robotDrive1.setSafetyEnabled(false);
-		robotDrive.robotDrive2.setSafetyEnabled(false);
-		robotDrive.robotDrive3.setSafetyEnabled(false);
-		
-		*/
+		gyro.reset();		
 	}
 	
 	public void gyroReset(){
 		gyro.reset();
 	}
-	
-/*
-	public void goToAngle(double angle){
-	
-	    gyro.reset();
-		gyroPIDController.setAbsoluteTolerance(1.0);
-		gyroPIDController.setSetpoint(angle);
-        //if(!gyroPIDController.isEnabled()); gyroPIDController.enable();
-		gyroPIDController.enable();
-	}	
-	*/	
 
-		
-	
-    
-	//if(thereYet(angle)) //|| Robot.robotVision.isGoalHot()){
-	//gyroPIDController.disable();
-    //System.out.println("PID is Disabled");
-    //return true; 
-    
-    
-	//return false;
-	
-/*   //test
-	 public boolean thereYet(double angle) 
-	   {
-	        if(Robot.robotVision.process().isGoalHot()) 
-	        {
-	            timer.start();
-	            timerRunning = true;
-	        }
-	 /*       else if (!onTarget(angle) && timerRunning)
-	        {
-	            timer.stop();
-	            timer.reset();
-	            timerRunning = false;
-	        } 
-	        return timer.get() >= SETTLED_TIME;
-	    } */
-	
-	//private boolean onTarget(double angle) {
-		
-		//return false;
-		//}
 
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
