@@ -25,9 +25,9 @@ public class AimHighGoal extends Command {
 	
 	
 	//PID tuned for practice bot
-	private static final double KP = 0.04;//0.015
-	private static final double KI = 0.0;//0.0
-	private static final double KD = 0.0;//0.0
+	private static final double KP = 0.03;//0.015
+	private static final double KI = 0.0001;//0.0
+	private static final double KD = 0.00001;//0.0
 	 
 	private double angle;
 	private double tolerance;
@@ -36,7 +36,7 @@ public class AimHighGoal extends Command {
         // Use requires() here to declare subsystem dependencies 
     	requires(Robot.drivetrain);
     	this.tolerance = tolerance;
-    	int a;
+    	int a = 0;
     }
 
     // Called just before this Command runs the first time
@@ -48,7 +48,7 @@ public class AimHighGoal extends Command {
     	//new CameraLightsOff();
     	
     	angle = Robot.getAimError();
-    	/*angle = createFinalAngle(Robot.getAimError());*/
+    	//angle = createFinalAngle(90);
     	//SmartDashboard.putNumber("Final Angle", createFinalAngle(Robot.getAimError()));
     	//SmartDashboard.putNumber("Dynamic Change Angle",Robot.getAimError());
     	//angle = 90.0;

@@ -16,7 +16,9 @@ import org.usfirst.frc.team4188.robot.subsystems.Vision2;
 import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -66,6 +68,7 @@ public class Robot extends IterativeRobot {
      */
     
     	NetworkTable table;
+    	Preferences prefs;
     	
 		public void robotInit() {
 		RobotMap.init();
@@ -232,7 +235,7 @@ public class Robot extends IterativeRobot {
     	 		measureShooterSpeedState = START_MEASURING; //Start over
     	 	}
     	}
-    	
+    	 double voltage = DriverStation.getInstance().getBatteryVoltage();
     }
     
     private void reportShooterSpeeds(double left, double right){

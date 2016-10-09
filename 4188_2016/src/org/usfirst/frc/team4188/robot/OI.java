@@ -138,7 +138,7 @@ public class OI {
 	    
 		pilot3.whileHeld(new ArmUp());
 
-		pilot4.whenPressed(new AimHighGoal(0.5));
+		pilot4.whenPressed(new AimHighGoalSequence());
 
 		pilot5.whileHeld(new ArmDown());
 		
